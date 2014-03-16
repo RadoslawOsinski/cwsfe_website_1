@@ -98,7 +98,7 @@ def minimizeCssFile(File file) {
     javaexec {
         main = "-jar";
         args = [
-                '/home/radek/IdeaProjects/cwsfe/tools/yuicompressor-2.4.8.jar',
+                '../tools/yuicompressor-2.4.8.jar',
                 file.getAbsolutePath(),
                 '-o',
                 minimizedFileName,
