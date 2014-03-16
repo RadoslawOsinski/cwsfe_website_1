@@ -109,5 +109,5 @@ def minimizeCssFile(File file) {
 }
 
 war {
-//    it.dependsOn yuiMinimizeCssFiles
+    it.dependsOn yuiMinimizeCssFiles
 }
