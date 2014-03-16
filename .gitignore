@@ -5,7 +5,8 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#disabled because gradle wrapper!
+#*.jar
 *.war
 *.ear
 
