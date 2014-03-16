@@ -1,0 +1,4 @@
+User-agent: *
+Sitemap: http://cwsfe.pl/sitemap.xml
+Sitemap: http://cwsfe.eu/sitemap.xml
+Disallow: /palio/

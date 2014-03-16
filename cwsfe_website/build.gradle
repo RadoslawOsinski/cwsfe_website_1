@@ -1,0 +1,73 @@
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'base'
+
+version = '1.0'
+group = "eu.com.cwsfe"
+archivesBaseName = 'cwsfe_website'
+compileJava.options.encoding = 'UTF-8'
+
+idea {
+    module {
+        sourceDirs += file('src/main/java')
+        sourceDirs += file('src/main/resources')
+        testSourceDirs += file('src/main/test/java')
+        testSourceDirs += file('src/main/test/resources')
+        excludeDirs += file('target')
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-release" }
+    maven { url "http://repo.springsource.org/plugins-release" }
+    maven { url "http://repo.spring.io/milestone" }  // for AspectJ 1.8.0.M1
+    maven { url "https://repository.apache.org/content/repositories/releases" }  // tomcat 8
+    maven { url "https://maven.java.net/content/repositories/releases" }  // javax.websocket, tyrus
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }  // javax.cache
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs = ['-Xlint', '-Xlint:-serial', '-Xlint:-path']
+}
+
+dependencies {
+    providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2.1-b03'
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile project(':cwsfe_cms_website')
+//    compile group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.6'
+//    compile group: 'net.sf.ehcache', name: 'ehcache-web', version: '2.0.4'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.0.0.RELEASE'
+    testCompile group: 'junit', name: 'junit', version: '4.9'
+    testCompile group: 'org.testng', name: 'testng', version: '6.3.1'
+}
+
+task yuiMinimizeCssFiles {
+    FileTree tree = fileTree(dir: 'src')
+    tree.include '**/*.css'
+    tree.exclude '**/*min.css'
+    tree.each { File file -> minimizeCssFile(file); }
+}
+
+//java -jar yuicompressor-x.y.z.jar myfile.js -o myfile-min.js --charset utf-8
+def minimizeCssFile(File file) {
+    String minimizedFileName = (file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4) + '-min.css').toString();
+    javaexec {
+        main = "-jar";
+        args = [
+                '/home/radek/IdeaProjects/cwsfe/tools/yuicompressor-2.4.8.jar',
+                file.getAbsolutePath(),
+                '-o',
+                minimizedFileName,
+                '--charset',
+                'utf-8'
+        ].toList()
+    };
+}
+
+war {
+    it.dependsOn yuiMinimizeCssFiles
+    from (project(':cwsfe_cms_website').file('src/main/webapp/'))
+}
