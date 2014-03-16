@@ -68,6 +68,6 @@ def minimizeCssFile(File file) {
 }
 
 war {
-    it.dependsOn yuiMinimizeCssFiles
+//    it.dependsOn yuiMinimizeCssFiles
     from (project(':cwsfe_cms_website').file('src/main/webapp/'))
 }
