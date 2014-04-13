@@ -22,7 +22,7 @@
 
     <link href="${pageContext.request.contextPath}/resources-cwsfe-cms/favicon.png" rel="shortcut icon" type="image/x-icon"/>
 
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-min.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources-cwsfe-cms/css/font_awesome/font-awesome-min.css" type="text/css" media="screen"/>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources-cwsfe-cms/css/ui-lightness/jquery-ui-1.10.3.custom-min.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources-cwsfe-cms/css/icons-min.css" type="text/css"/>
