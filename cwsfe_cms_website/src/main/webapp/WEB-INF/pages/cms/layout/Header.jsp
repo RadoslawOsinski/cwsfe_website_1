@@ -7,17 +7,16 @@
     <meta charset="UTF-8">
     <%--<meta name="google-site-verification" content="9-hlbv4ssuz-8sGFbM5L_7z7jnoLM02FEAw9PXaluCo" />  site ownership verification for google on cwsfe.pl--%>
     <%--<meta name="google-site-verification" content="PZozirK9YZvyx-DvstXsD_PdA2mH2tVBDTD1icnaEzw" />  site ownership verification for google on cwsfe.eu--%>
-    <meta charset="UTF-8">
     <meta name="description" content="CWSFE - Complete Working Solution For Everyone"/>
     <meta name="author" content="Radosław Osiński">
     <meta name="robots" content="all"/>
     <title>CWSFE CMS</title>
 
     <c:if test="${pageContext.response.locale != null && pageContext.response.locale == 'pl'}">
-        <link rel="canonical" href="http://eu.com.cwsfem.cwsfe.pl"/>
+        <link rel="canonical" href="http://cwsfe.pl"/>
     </c:if>
     <c:if test="${pageContext.response.locale != null && pageContext.response.locale == 'en'}">
-        <link rel="canonical" href="http://eu.com.cwsfem.cwsfe.eu"/>
+        <link rel="canonical" href="http://cwsfe.eu"/>
     </c:if>
 
     <link href="${pageContext.request.contextPath}/resources-cwsfe-cms/favicon.png" rel="shortcut icon" type="image/x-icon"/>
