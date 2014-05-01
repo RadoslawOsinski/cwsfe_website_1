@@ -4,7 +4,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="UTF-8">
     <%--<meta name="google-site-verification" content="9-hlbv4ssuz-8sGFbM5L_7z7jnoLM02FEAw9PXaluCo" />  site ownership verification for google on cwsfe.pl--%>
     <%--<meta name="google-site-verification" content="PZozirK9YZvyx-DvstXsD_PdA2mH2tVBDTD1icnaEzw" />  site ownership verification for google on cwsfe.eu--%>
     <meta charset="UTF-8">
