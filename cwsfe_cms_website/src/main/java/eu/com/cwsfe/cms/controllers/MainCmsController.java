@@ -47,7 +47,7 @@ class MainCmsController {
         return cssUrl;
     }
 
-    private Object setAdditionalJS(String contextPath) {
+    private List<String> setAdditionalJS(String contextPath) {
         List<String> jsUrl = new ArrayList<>(3);
         jsUrl.add(contextPath + "/resources-cwsfe-cms/js/tipsy/tipsy.js");
 //        jsUrl.add(contextPath + "/resources-cwsfe-cms/js/jqplot/jquery.jqplot.min.js");

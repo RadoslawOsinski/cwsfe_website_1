@@ -1,3 +1,5 @@
+<%--@elvariable id="headerPageTitle" type="java.lang.String"--%>
+<%--@elvariable id="keywords" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE HTML>
@@ -33,6 +35,7 @@
     <link href="${pageContext.request.contextPath}/resources-cwsfe/img/layout/css/style-min.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="${pageContext.request.contextPath}/resources-cwsfe/img/layout/css/style-print-min.css" rel="stylesheet" type="text/css" media="print"/>
 
+    <%--@elvariable id="additionalCssCode" type="java.util.List"--%>
     <c:forEach var="cssUrl" items="${additionalCssCode}">
         <link href="${cssUrl}" rel="stylesheet" type="text/css" media="all"/>
     </c:forEach>
@@ -73,6 +76,7 @@
     </script>
     <script src="${pageContext.request.contextPath}/resources-cwsfe/js/jquery/shared_scripts.js" type="text/javascript"></script>
 
+    <%--@elvariable id="additionalJavaScriptCode" type="java.util.List"--%>
     <c:forEach var="jsUrl" items="${additionalJavaScriptCode}">
         <script type="text/javascript" src="${jsUrl}"></script>
     </c:forEach>
