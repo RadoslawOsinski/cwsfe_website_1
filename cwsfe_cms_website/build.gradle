@@ -36,6 +36,7 @@ compileJava {
 dependencies {
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version: '2.2.1-b03'
     providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    //providedCompile group: 'org.jboss.spec.javax.jms', name: 'jboss-jms-api_2.0_spec', version: '1.0.0.Final'
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '3.2.3.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-core', version: '3.2.3.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '3.2.3.RELEASE'
