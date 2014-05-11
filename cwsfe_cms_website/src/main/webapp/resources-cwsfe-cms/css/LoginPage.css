@@ -1,0 +1,283 @@
+@font-face {
+    font-family: 'bonvenocflight';
+    src: url('fonts/bonvenocf-light-webfont.eot');
+    src: url('fonts/bonvenocf-light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/bonvenocf-light-webfont.woff') format('woff'), url('fonts/bonvenocf-light-webfont.ttf') format('truetype'), url('fonts/bonvenocf-light-webfont.svg#bonvenocflight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    min-height: 100%
+}
+
+body {
+    background: url(../img/bg.jpg) repeat;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #a7a7a7;
+    padding: 0;
+    margin: 0;
+    text-shadow: 1px 1px 1px #000000;
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+    min-height: 100%;
+}
+
+a {
+    color: #b0b0b0;
+}
+
+a:hover {
+    color: #e9e9e9;
+}
+
+#loading-block {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000000 url(../img/loading.gif) no-repeat center center;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    z-index: 1000;
+}
+
+/**************
+   COLUMNS
+ **************/
+.one-half {
+    display: block;
+    float: left;
+    position: relative;
+    overflow: visible;
+}
+
+.one-half {
+    width: 50%;
+}
+
+.clear {
+    width: 100%;
+    clear: both;
+    display: block;
+}
+
+.box {
+    margin: 0 30px 30px 0;
+    background: url(../img/diagonal.png) repeat;
+    overflow: visible;
+    position: relative;
+    padding: 1px;
+}
+
+.box .inner {
+    background: url(../img/box-bg.jpg) repeat;
+    margin: 10px;
+    border: solid #121212 1px;
+    -webkit-box-shadow: 0 6px 24px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 24px 12px rgba(0, 0, 0, 0.15);
+    overflow: visible;
+    position: relative;
+}
+
+.box .inner .contents {
+    -webkit-box-shadow: inset 0 6px 24px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 6px 24px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    position: relative;
+}
+
+/**************
+   LOGIN
+ **************/
+#login-container {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    background: url(../img/login-shine.png) no-repeat center 50%;
+}
+
+#login_header {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 125px;
+    background: url(../img/sh-lvl-1.png) repeat;
+}
+
+#login_footer {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 125px;
+    background: url(../img/sh-lvl-1.png) repeat;
+}
+
+#login_wrapper {
+    display: block;
+    position: absolute;
+    bottom: 125px;
+    left: 0;
+    right: 0;
+    top: 125px;
+    width: 500px;
+    margin: auto auto;
+
+}
+
+#login_wrapper .login_wrapper_container {
+    height: 100%;
+    position: relative;
+}
+
+#login_wrapper .login_wrapper_container .float_center_box {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    right: 0;
+}
+
+#login_wrapper .login_wrapper_container .float_center_box .username-half {
+}
+
+#login_wrapper .login_wrapper_container .float_center_box .password-half {
+}
+
+#login_wrapper .login_wrapper_container .float_center_box .logo-box {
+    margin-top: -70px;
+}
+
+#login_wrapper .login_wrapper_container .float_center_box .box {
+    width: 100%;
+}
+
+#login_wrapper .login_wrapper_container .float_center_box .box input[type=text], #login_wrapper .login_wrapper_container .float_center_box .box input[type=password] {
+    width: 170px;
+}
+
+.line-separator {
+    width: 100%;
+    background: url(../img/sep.png) repeat-x left top;
+    height: 2px;
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    float: left;
+    width: 120px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+input[type=text], input[type=password], textarea, select[multiple], select[size] {
+    float: left;
+    background: #141414 url(../img/input.jpg) repeat-x top left;
+    height: 31px;
+    border: solid #2b2b2b 1px;
+    padding: 0 8px;;
+    margin: 0 10px 0 0;
+    outline: none;
+    color: #bbbbbb;
+    -webkit-box-shadow: 0 0 19px 7px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 19px 7px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+    border: solid #434343 1px;
+}
+
+input[type=text].w-icon, input[type=password].w-icon {
+    padding-left: 32px;
+}
+
+input[type=submit] {
+    padding: 16px 23px 12px;
+    float: right;
+    background: none;
+    margin: 1px 0 0;
+    border: none;
+    border-left: solid #181616 1px;
+    font-size: 14px;
+    text-transform: uppercase;
+    display: block;
+    height: 53px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type=submit] {
+    background: url(../img/btn-accept-bg-0.png) repeat;
+    font-weight: normal;
+    color: #A7A7A7;
+    text-shadow: 1px 1px 1px black;
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+
+input[type=submit]:hover {
+    background-image: url(../img/btn-accept-bg.png);
+}
+
+input[type=submit]:active {
+    background-image: url(../img/sh-lvl-1.png);
+    color: #0e0e0e;
+    text-shadow: 1px 1px 1px #333333;
+    filter: dropshadow(color=#333333, offx=1, offy=1);
+}
+
+input[type=submit].button {
+    height: auto !important;
+}
+
+.button {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#282828', endColorstr='#202020', GradientType=0);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    padding: 10px;
+    border: solid #181818 1px;
+    text-decoration: none;
+    -webkit-box-shadow: 0 1px 3px 4px rgba(0, 0, 0, 0.05), inset 0 0 1px 1px rgba(105, 105, 105, 0.1);
+    box-shadow: 0 1px 3px 4px rgba(0, 0, 0, 0.05), inset 0 0 1px 1px rgba(105, 105, 105, 0.1);
+    display: inline-block;
+}
+
+.button:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2e2e2e', endColorstr='#262626', GradientType=0);
+}
+
+.button.tiny {
+    padding: 5px 8px;
+    font-size: 10px;
+}
+
+.button.blue {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3c5368', endColorstr='#294055', GradientType=0);
+    border: solid #0f1114 1px;
+    color: #c7d5e2;
+    -webkit-box-shadow: 0 1px 3px 4px rgba(0, 0, 0, 0.05), inset 0 0 1px 1px rgba(218, 226, 233, 0.1);
+    box-shadow: 0 1px 3px 4px rgba(0, 0, 0, 0.05), inset 0 0 1px 1px rgba(218, 226, 233, 0.1);
+}
+
+.button.blue:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#445f78', endColorstr='#304c65', GradientType=0);
+    color: #ffffff;
+}
+
+.button.blue:active {
+    background: #1e252c;
+    color: #626170;
+    -webkit-box-shadow: inset 0 1px 13px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 13px 1px rgba(0, 0, 0, 0.3);
+    border: solid #2c2a2a 1px;
+}
