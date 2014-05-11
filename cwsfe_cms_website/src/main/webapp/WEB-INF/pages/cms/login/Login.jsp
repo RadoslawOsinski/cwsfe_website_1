@@ -88,7 +88,6 @@
         </div>
     </form>
 
-    LOGIN page TEST!
     <div id="login_footer">
     </div>
 </section>
