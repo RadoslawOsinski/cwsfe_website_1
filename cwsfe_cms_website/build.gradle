@@ -12,8 +12,8 @@ idea {
     module {
         sourceDirs += file('src/main/java')
         sourceDirs += file('src/main/resources')
-        testSourceDirs += file('src/main/test/java')
-        testSourceDirs += file('src/main/test/resources')
+        testSourceDirs += file('src/test/java')
+        testSourceDirs += file('src/test/resources')
         excludeDirs += file('target')
     }
 }
