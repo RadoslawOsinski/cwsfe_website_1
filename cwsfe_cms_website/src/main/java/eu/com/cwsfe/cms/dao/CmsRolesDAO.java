@@ -93,4 +93,16 @@ public class CmsRolesDAO {
                 mapCmsRole(resultSet));
     }
 
+    public CmsRole getByCode(String roleCode) {
+        String query =
+                "SELECT " +
+                        " ID, ROLE_CODE, ROLE_NAME" +
+                        " FROM CMS_ROLES " +
+                        "WHERE ROLE_CODE = ?";
+        Object[] dbParams = new Object[1];
+        dbParams[0] = roleCode;
+        return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) ->
+                mapCmsRole(resultSet));
+    }
+
 }
