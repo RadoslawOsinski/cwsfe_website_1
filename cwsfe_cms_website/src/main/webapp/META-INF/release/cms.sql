@@ -85,17 +85,17 @@ create table CMS_FOLDERS (
 );
 create sequence CMS_FOLDERS_S start 1 cache 1;
 
-create table NEWS_TYPES (
-  id numeric(6, 0) primary key,
-  type varchar(100) not null unique,
-  status char(1) not null
+CREATE TABLE CMS_NEWS_TYPES (
+  ID NUMERIC(6) PRIMARY KEY NOT NULL,
+  TYPE VARCHAR(100) NOT NULL UNIQUE,
+  STATUS CHAR(1) NOT NULL
 );
-create sequence NEWS_TYPES_S start 1 cache 1;
+create sequence CMS_NEWS_TYPES_S start 1 cache 1;
 
 create table CMS_NEWS (
   id numeric(6, 0) primary key,
   author_id numeric(6, 0) not null references CMS_AUTHORS(id),
-  news_type_id numeric(6,0) not null references NEWS_TYPES(id),
+  news_type_id numeric(6,0) not null references CMS_NEWS_TYPES(id),
   folder_id numeric(6,0) not null references CMS_FOLDERS(id),
   creation_date timestamp not null,
   news_code varchar(300) not null unique,
@@ -167,13 +167,6 @@ CREATE TABLE CMS_USER_ROLES (
   ROLE_ID NUMERIC (4,0) NOT NULL REFERENCES CMS_ROLES(ID),
   PRIMARY KEY (CMS_USER_ID, ROLE_ID)
 );
-
-CREATE TABLE CMS_NEWS_TYPES (
-  ID NUMERIC(6) PRIMARY KEY NOT NULL,
-  TYPE VARCHAR(100) NOT NULL UNIQUE,
-  STATUS CHAR(1) NOT NULL
-);
-create sequence CMS_NEWS_TYPES_S start 1 cache 1;
 
 CREATE TABLE CMS_GLOBAL_PARAMS (
   ID NUMERIC(4, 0) NOT NULL PRIMARY KEY,
