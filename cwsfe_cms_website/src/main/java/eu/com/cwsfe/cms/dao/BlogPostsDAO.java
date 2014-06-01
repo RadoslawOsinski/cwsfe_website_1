@@ -315,6 +315,17 @@ public class BlogPostsDAO {
         return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapBlogPost(resultSet));
     }
 
+    public BlogPost getByCode(String code) {
+        String query =
+                "SELECT " +
+                        " id, post_author_id, post_text_code, post_creation_date, status" +
+                        " FROM BLOG_POSTS " +
+                        "WHERE post_text_code = ?";
+        Object[] dbParams = new Object[1];
+        dbParams[0] = code;
+        return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapBlogPost(resultSet));
+    }
+
     private BlogPost mapBlogPost(ResultSet resultSet) throws SQLException {
         BlogPost blogPost = new BlogPost();
         blogPost.setId(resultSet.getLong("ID"));

@@ -90,6 +90,15 @@ public class CmsLanguagesDAO {
                 mapLang(resultSet));
     }
 
+    public Lang getByCodeIgnoreCase(String code) {
+        String query =
+                "SELECT " + COLUMNS + "FROM CMS_LANGUAGES WHERE lower(code) = lower(?)";
+        Object[] dbParams = new Object[1];
+        dbParams[0] = code;
+        return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) ->
+                mapLang(resultSet));
+    }
+
     public Long add(Lang lang) {
         Object[] dbParams = new Object[3];
         Long id = jdbcTemplate.queryForObject("select nextval('CMS_LANGUAGES_S')", Long.class);
