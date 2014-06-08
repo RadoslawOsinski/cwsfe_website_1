@@ -123,6 +123,7 @@
         <spring:url value="/CWSFE_CMS/authors" var="authorsUrl" htmlEscape="true"/>
         <spring:url value="/CWSFE_CMS/users" var="usersUrl" htmlEscape="true"/>
         <spring:url value="/CWSFE_CMS/roles" var="rolesUrl" htmlEscape="true"/>
+        <spring:url value="/CWSFE_CMS/monitoring/generalInformation" var="monitoringGeneralInformationUrl" htmlEscape="true"/>
 
         <ul class="nav">
             <li<c:if test="${pageContext.request.requestURI.contains('cms/main/Main')}"> class="active"</c:if>><a href="${mainUrl}" tabindex="-1"><spring:message code="MainWall"/></a></li>
@@ -156,6 +157,7 @@
             <li<c:if test="${pageContext.request.requestURI.contains('cms/authors/Authors')}"> class="active"</c:if>><a href="${authorsUrl}" tabindex="-1"><spring:message code="Authors"/></a></li>
             <li<c:if test="${pageContext.request.requestURI.contains('cms/users/Users')}"> class="active"</c:if>><a href="${usersUrl}" tabindex="-1"><spring:message code="Users"/></a></li>
             <li<c:if test="${pageContext.request.requestURI.contains('cms/roles/Roles')}"> class="active"</c:if>><a href="${rolesUrl}" tabindex="-1"><spring:message code="Roles"/></a></li>
+            <li<c:if test="${pageContext.request.requestURI.contains('cms/monitoring/GeneralInformation')}"> class="active"</c:if>><a href="${monitoringGeneralInformationUrl}" tabindex="-1"><spring:message code="Monitoring"/></a></li>
         </ul>
         <div class="blocks-separator"></div>
     </nav>
