@@ -1,8 +1,11 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BlogPostI18nContent {
+public class BlogPostI18nContent implements Serializable {
+
+    private static final long serialVersionUID = 5476213492537968681L;
 
     private Long id;
     private Long postId;

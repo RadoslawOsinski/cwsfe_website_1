@@ -1,9 +1,13 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
+
 /**
  * @author radek
  */
-public class NewsletterMail {
+public class NewsletterMail implements Serializable {
+
+    private static final long serialVersionUID = -7128940958271962040L;
 
     private Long id;
     private Long recipientGroupId;

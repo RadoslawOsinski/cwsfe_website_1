@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class BlogPostCode {
+import java.io.Serializable;
+
+public class BlogPostCode implements Serializable {
+
+    private static final long serialVersionUID = 8208367212489388702L;
 
     private String codeId;
     private Long blogPostId;

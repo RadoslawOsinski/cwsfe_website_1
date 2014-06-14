@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class CmsRole {
+import java.io.Serializable;
+
+public class CmsRole implements Serializable {
+
+    private static final long serialVersionUID = -7252497588396359557L;
 
     private Long id;
     private String roleName;

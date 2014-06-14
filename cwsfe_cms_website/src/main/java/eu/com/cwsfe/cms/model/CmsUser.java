@@ -1,11 +1,14 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Radoslaw Osinski.
  */
-public class CmsUser {
+public class CmsUser implements Serializable {
+
+    private static final long serialVersionUID = 2768898072697297284L;
 
     private Long id;
     private String username;

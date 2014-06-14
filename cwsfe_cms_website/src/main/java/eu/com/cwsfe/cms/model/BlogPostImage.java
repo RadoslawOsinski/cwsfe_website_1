@@ -2,9 +2,12 @@ package eu.com.cwsfe.cms.model;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BlogPostImage {
+public class BlogPostImage implements Serializable {
+
+    private static final long serialVersionUID = 1768348843889507009L;
 
     private Long id;
     private Long blogPostId;

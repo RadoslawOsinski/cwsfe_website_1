@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class CmsNewsI18nContent {
+import java.io.Serializable;
+
+public class CmsNewsI18nContent implements Serializable {
+
+    private static final long serialVersionUID = -204179112645839853L;
 
     private Long id;
     private Long newsId;
