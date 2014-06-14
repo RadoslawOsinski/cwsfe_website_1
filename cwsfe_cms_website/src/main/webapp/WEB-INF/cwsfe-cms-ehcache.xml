@@ -1,0 +1,24 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../META-INF/ehcache.xsd"
+        updateCheck="false"
+        monitoring="autodetect"
+        dynamicConfig="false">
+    <diskStore path="java.io.tmpdir"/>
+
+    <!--<cache name="cmsLanguagesById"-->
+           <!--eternal="true"-->
+           <!--timeToIdleSeconds="0"-->
+           <!--timeToLiveSeconds="0"-->
+           <!--overflowToDisk="false"-->
+           <!--maxEntriesLocalHeap="100"-->
+           <!--memoryStoreEvictionPolicy="LRU"/>-->
+
+    <!--<cache name="cmsLanguagesByCode"-->
+           <!--eternal="true"-->
+           <!--timeToIdleSeconds="0"-->
+           <!--timeToLiveSeconds="0"-->
+           <!--overflowToDisk="false"-->
+           <!--maxEntriesLocalHeap="100"-->
+           <!--memoryStoreEvictionPolicy="LRU"/>-->
+
+</ehcache>
