@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsFolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -71,6 +73,7 @@ public class CmsFoldersDAO {
                 mapCmsFolder(resultSet));
     }
 
+    @Cacheable(value="cmsFolderById")
     public CmsFolder get(Long id) {
         String query =
                 "SELECT " +
@@ -83,6 +86,7 @@ public class CmsFoldersDAO {
                 mapCmsFolder(resultSet));
     }
 
+    @Cacheable(value="cmsFolderByName")
     public CmsFolder getByFolderName(String folderName) {
         String query =
                 "SELECT " +
@@ -125,6 +129,7 @@ public class CmsFoldersDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsFolderById", "cmsFolderByName"})
     public void update(CmsFolder cmsFolder) {
         Object[] dbParams = new Object[4];
         dbParams[0] = cmsFolder.getParentId();
@@ -135,12 +140,14 @@ public class CmsFoldersDAO {
                 , dbParams);
     }
 
+    @CacheEvict(value = {"cmsFolderById", "cmsFolderByName"})
     public void delete(CmsFolder cmsFolder) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsFolder.getId();
         jdbcTemplate.update("UPDATE CMS_FOLDERS SET status = 'D' WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsFolderById", "cmsFolderByName"})
     public void undelete(CmsFolder cmsFolder) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsFolder.getId();

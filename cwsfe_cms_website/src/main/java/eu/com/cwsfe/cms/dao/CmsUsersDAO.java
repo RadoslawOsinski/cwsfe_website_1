@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +33,6 @@ public class CmsUsersDAO {
         dbParams[0] = username;
         String query = "SELECT ID, USERNAME, PASSWORD_HASH, STATUS FROM CMS_USERS WHERE USERNAME = ?";
         return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapCmsUser(resultSet));
-
     }
 
     private CmsUser mapCmsUser(ResultSet resultSet) throws SQLException {
@@ -42,7 +43,6 @@ public class CmsUsersDAO {
         cmsUser.setStatus(resultSet.getString("STATUS"));
         return cmsUser;
     }
-
 
     public int countForAjax() {
         String query = "SELECT count(id) FROM CMS_USERS WHERE status <> 'D'";
@@ -90,6 +90,7 @@ public class CmsUsersDAO {
                 mapCmsUser(resultSet));
     }
 
+    @Cacheable(value="cmsUserById")
     public CmsUser get(Long id) {
         String query =
                 "SELECT " +
@@ -115,6 +116,7 @@ public class CmsUsersDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void update(CmsUser cmsUser) {
         Object[] dbParams = new Object[3];
         dbParams[0] = cmsUser.getUsername();
@@ -126,6 +128,7 @@ public class CmsUsersDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void updatePostBasicInfo(CmsUser cmsUser) {
         Object[] dbParams = new Object[3];
         dbParams[0] = cmsUser.getUsername();
@@ -137,6 +140,7 @@ public class CmsUsersDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void updateWithoutPassword(CmsUser cmsUser) {
         Object[] dbParams = new Object[2];
         dbParams[0] = cmsUser.getUsername();
@@ -147,6 +151,7 @@ public class CmsUsersDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void delete(CmsUser cmsUser) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsUser.getId();
@@ -156,6 +161,7 @@ public class CmsUsersDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void undelete(CmsUser cmsUser) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsUser.getId();
@@ -165,6 +171,7 @@ public class CmsUsersDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void lock(CmsUser cmsUser) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsUser.getId();
@@ -174,6 +181,7 @@ public class CmsUsersDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsUserById"})
     public void unlock(CmsUser cmsUser) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsUser.getId();

@@ -2,6 +2,7 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -81,6 +82,7 @@ public class CmsRolesDAO {
                 mapCmsRole(resultSet));
     }
 
+    @Cacheable(value="cmsRoleById")
     public CmsRole get(Long id) {
         String query =
                 "SELECT " +
@@ -93,6 +95,7 @@ public class CmsRolesDAO {
                 mapCmsRole(resultSet));
     }
 
+    @Cacheable(value="cmsRoleByCode")
     public CmsRole getByCode(String roleCode) {
         String query =
                 "SELECT " +

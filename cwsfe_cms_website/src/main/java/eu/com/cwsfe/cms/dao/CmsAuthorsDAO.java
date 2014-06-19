@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsAuthor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -72,6 +74,7 @@ public class CmsAuthorsDAO {
                 mapCmsAuthor(resultSet));
     }
 
+    @Cacheable(value="cmsAuthorById")
     public CmsAuthor get(Long id) {
         String query =
                 "SELECT " +
@@ -98,6 +101,7 @@ public class CmsAuthorsDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsAuthorById"})
     public void update(CmsAuthor cmsAuthor) {
         Object[] dbParams = new Object[4];
         dbParams[0] = cmsAuthor.getFirstName();
@@ -110,6 +114,7 @@ public class CmsAuthorsDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsAuthorById"})
     public void delete(CmsAuthor cmsAuthor) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsAuthor.getId();
@@ -119,6 +124,7 @@ public class CmsAuthorsDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsAuthorById"})
     public void undelete(CmsAuthor cmsAuthor) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsAuthor.getId();
