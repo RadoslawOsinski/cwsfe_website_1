@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.BlogPostCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -64,6 +66,7 @@ public class BlogPostCodesDAO {
         return jdbcTemplate.queryForObject(query, dbParams, Integer.class);
     }
 
+    @Cacheable(value="blogPostCodeByPostIdAndCodeId")
     public BlogPostCode getCodeForPost(Long postId, String codeId) {
         Object[] dbParams = new Object[2];
         dbParams[0] = postId;
@@ -76,6 +79,7 @@ public class BlogPostCodesDAO {
         return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapBlogPostCode(resultSet));
     }
 
+    @Cacheable(value="blogPostCodeByPostIdAndCodeId")
     public BlogPostCode getCodeForPostByCodeId(Long postId, String codeId) {
         Object[] dbParams = new Object[2];
         dbParams[0] = postId;
@@ -102,6 +106,7 @@ public class BlogPostCodesDAO {
         return blogPostCode.getCodeId();
     }
 
+    @CacheEvict(value = {"blogPostCodeByPostIdAndCodeId"})
     public void update(BlogPostCode blogPostCode) {
         Object[] dbParams = new Object[3];
         dbParams[0] = blogPostCode.getBlogPostId();
@@ -110,6 +115,7 @@ public class BlogPostCodesDAO {
         jdbcTemplate.update("UPDATE BLOG_POST_CODE SET blog_post_id = ?, code = ? WHERE code_id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"blogPostCodeByPostIdAndCodeId"})
     public void delete(BlogPostCode blogPostCode) {
         Object[] dbParams = new Object[2];
         dbParams[0] = blogPostCode.getBlogPostId();

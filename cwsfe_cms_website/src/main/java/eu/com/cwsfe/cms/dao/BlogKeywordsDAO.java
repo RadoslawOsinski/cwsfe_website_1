@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.BlogKeyword;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -54,6 +56,7 @@ public class BlogKeywordsDAO {
         return jdbcTemplate.query(query, dbParams, (resultSet, rowNum) -> mapBlogKeyword(resultSet));
     }
 
+    @Cacheable(value="blogKeywordById")
     public BlogKeyword get(Long id) {
         String query =
                 "SELECT " +
@@ -74,6 +77,7 @@ public class BlogKeywordsDAO {
         return id;
     }
 
+    @CacheEvict(value = {"blogKeywordById"})
     public void update(BlogKeyword blogKeyword) {
         Object[] dbParams = new Object[2];
         dbParams[0] = blogKeyword.getKeywordName();
@@ -81,12 +85,14 @@ public class BlogKeywordsDAO {
         jdbcTemplate.update("UPDATE BLOG_KEYWORDS SET keyword_name = ? WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"blogKeywordById"})
     public void delete(BlogKeyword blogKeyword) {
         Object[] dbParams = new Object[1];
         dbParams[0] = blogKeyword.getId();
         jdbcTemplate.update("UPDATE BLOG_KEYWORDS SET status = 'D' WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"blogKeywordById"})
     public void undelete(BlogKeyword blogKeyword) {
         Object[] dbParams = new Object[1];
         dbParams[0] = blogKeyword.getId();
