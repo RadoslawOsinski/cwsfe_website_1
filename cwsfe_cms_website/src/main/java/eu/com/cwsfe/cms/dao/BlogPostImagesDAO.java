@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.BlogPostImage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -136,6 +138,7 @@ public class BlogPostImagesDAO {
         return blogPostImages;
     }
 
+    @Cacheable(value="blogPostImageWithContentById")
     public BlogPostImage getWithContent(Long id) {
         Object[] dbParams = new Object[1];
         dbParams[0] = id;
@@ -168,6 +171,7 @@ public class BlogPostImagesDAO {
         return id;
     }
 
+    @CacheEvict(value = {"blogPostImageWithContentById"})
     public void update(BlogPostImage blogPostImage) {
         Object[] dbParams = new Object[10];
         dbParams[0] = blogPostImage.getBlogPostId();
@@ -186,12 +190,14 @@ public class BlogPostImagesDAO {
                 " WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"blogPostImageWithContentById"})
     public void delete(BlogPostImage blogPostImage) {
         Object[] dbParams = new Object[1];
         dbParams[0] = blogPostImage.getId();
         jdbcTemplate.update("UPDATE BLOG_POST_IMAGES SET status = 'D' WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"blogPostImageWithContentById"})
     public void undelete(BlogPostImage blogPostImage) {
         Object[] dbParams = new Object[1];
         dbParams[0] = blogPostImage.getId();

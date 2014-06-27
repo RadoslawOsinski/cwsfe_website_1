@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -64,6 +66,7 @@ public class CmsNewsI18nContentsDAO {
         return cmsNewsI18nContent;
     }
 
+    @Cacheable(value="cmsNewsI18nContentById")
     public CmsNewsI18nContent get(Long id) {
         String query =
                 "SELECT " +
@@ -76,6 +79,7 @@ public class CmsNewsI18nContentsDAO {
                 mapCmsNewsI18nContent(resultSet));
     }
 
+    @Cacheable(value="cmsNewsI18nContentByLanguageForNews")
     public CmsNewsI18nContent getByLanguageForNews(Long newsId, Long languageId) {
         String query =
                 "SELECT " +
@@ -104,6 +108,7 @@ public class CmsNewsI18nContentsDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsNewsI18nContentById", "cmsNewsI18nContentByLanguageForNews"}, allEntries = true)
     public void updateContentWithStatus(CmsNewsI18nContent cmsNewsI18nContent) {
         Object[] dbParams = new Object[5];
         dbParams[0] = cmsNewsI18nContent.getNewsTitle();
@@ -114,18 +119,21 @@ public class CmsNewsI18nContentsDAO {
         jdbcTemplate.update("UPDATE CMS_NEWS_I18N_CONTENTS SET news_title = ?, news_shortcut = ?, news_description = ?, status = ? WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsI18nContentById", "cmsNewsI18nContentByLanguageForNews"}, allEntries = true)
     public void delete(CmsNewsI18nContent cmsNewsI18nContent) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsNewsI18nContent.getId();
         jdbcTemplate.update("UPDATE CMS_NEWS_I18N_CONTENTS SET status = 'D' WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsI18nContentById", "cmsNewsI18nContentByLanguageForNews"}, allEntries = true)
     public void undelete(CmsNewsI18nContent cmsNewsI18nContent) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsNewsI18nContent.getId();
         jdbcTemplate.update("UPDATE CMS_NEWS_I18N_CONTENTS SET status = 'H' WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsI18nContentById", "cmsNewsI18nContentByLanguageForNews"}, allEntries = true)
     public void publish(CmsNewsI18nContent cmsNewsI18nContent) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsNewsI18nContent.getId();

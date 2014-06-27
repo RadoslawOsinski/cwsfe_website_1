@@ -1,10 +1,13 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class CmsNews {
+public class CmsNews implements Serializable {
+
+    private static final long serialVersionUID = -2843397946242434202L;
 
     private Long id;
     private Long authorId;

@@ -62,6 +62,7 @@
     <mvc:resources mapping="/resources-cwsfe-cms/**" location="/resources-cwsfe-cms/" cache-period="31556926"/>
 
     <import resource="cwsfe-cms-dao.xml"/>
+    <import resource="cwsfe-cms-cache.xml"/>
 
     <bean id="cwsfe_cms_blogPostImageServlet" class="eu.com.cwsfe.cms.images.BlogPostImageServlet"/>
     <bean id="cwsfe_cms_newsImageServlet" class="eu.com.cwsfe.cms.images.NewsImageServlet"/>

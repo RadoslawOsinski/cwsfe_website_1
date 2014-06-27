@@ -1,75 +1,58 @@
 package eu.com.cwsfe.cms.images;
 
 import eu.com.cwsfe.cms.dao.BlogPostImagesDAO;
-import eu.com.cwsfe.cms.model.BlogPostImage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.HttpRequestHandler;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.concurrent.ConcurrentHashMap;
+import java.io.*;
 
 /**
  * @author Radoslaw Osinski
  */
-//@Component("blogPostImageServlet")
-public class BlogPostImageServlet implements HttpRequestHandler {
+public class BlogPostImageServlet extends CachingImageServlet {
+
+    private static final long serialVersionUID = -7746211225693172326L;
 
     @Autowired
     private BlogPostImagesDAO blogPostImagesDAO;
 
-    private final ConcurrentHashMap<Long, BlogPostImage> cachedBlogPostImages = new ConcurrentHashMap<>(100);
-
     @Override
-    public void handleRequest(HttpServletRequest request,
-                              HttpServletResponse response) throws ServletException, IOException {
+    protected Long validateRequestedImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String imageIdString = request.getParameter("imageId");
-        Long imageId = null;
+        Long imageId;
         try {
             imageId = Long.parseLong(imageIdString);
         } catch (NumberFormatException ignored) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return null;
         }
-
-        BlogPostImage blogPostImage = cachedBlogPostImages.get(imageId);
-        if (blogPostImage == null) {
-            blogPostImage = blogPostImagesDAO.getWithContent(imageId);
-            cachedBlogPostImages.put(imageId, blogPostImage);
-        }
-
-        response.setContentType(blogPostImage.getMimeType());
-        final int fileSize = Integer.parseInt(blogPostImage.getFileSize().toString());
-        response.setContentLength(fileSize);
-        response.setHeader("Content-Disposition", "inline; filename=\"" + blogPostImage.getFileName() + "\"");
-
-        BufferedInputStream input = null;
-        BufferedOutputStream output = null;
-        try {
-            input = new BufferedInputStream(new ByteArrayInputStream(blogPostImage.getContent()));
-            output = new BufferedOutputStream(response.getOutputStream());
-            byte[] buffer = new byte[8192];
-            int length;
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-        } catch (IOException e) {
-            System.out.println("There are errors in reading/writing image stream " + e.getMessage());
-        } finally {
-            if (output != null)
-                try {
-                    output.close();
-                } catch (IOException ignore) {
-                }
-            if (input != null)
-                try {
-                    input.close();
-                } catch (IOException ignore) {
-                }
-        }
-
+        return imageId;
     }
+
+    @Override
+    protected String getImageFileName(Long imageId) {
+        return blogPostImagesDAO.getWithContent(imageId).getFileName();
+    }
+
+    @Override
+    protected Long getFileSize(Long imageId) {
+        return blogPostImagesDAO.getWithContent(imageId).getFileSize();
+    }
+
+    @Override
+    protected Long getLastModified(Long imageId) {
+        return blogPostImagesDAO.getWithContent(imageId).getCreated().getTime();   //todo should be last modified!;
+    }
+
+    @Override
+    protected String getMimeType(Long imageId) {
+        return blogPostImagesDAO.getWithContent(imageId).getMimeType();
+    }
+
+    @Override
+    protected byte[] getContent(Long imageId) {
+        return blogPostImagesDAO.getWithContent(imageId).getContent();
+    }
+
 }

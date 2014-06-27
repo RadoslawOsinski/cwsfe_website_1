@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsTextI18nCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -67,6 +69,7 @@ public class CmsTextI18nCategoryDAO {
                 mapCmsTextI18nCategory(resultSet));
     }
 
+    @Cacheable(value="cmsTextI18nCategoryById")
     public CmsTextI18nCategory get(Long id) {
         String query =
                 "SELECT " +
@@ -92,6 +95,7 @@ public class CmsTextI18nCategoryDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsTextI18nCategoryById"})
     public void update(CmsTextI18nCategory cmsTextI18nCategory) {
         Object[] dbParams = new Object[3];
         dbParams[0] = cmsTextI18nCategory.getCategory();
@@ -103,6 +107,7 @@ public class CmsTextI18nCategoryDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsTextI18nCategoryById"})
     public void delete(CmsTextI18nCategory cmsTextI18nCategory) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsTextI18nCategory.getId();
@@ -111,6 +116,7 @@ public class CmsTextI18nCategoryDAO {
         );
     }
 
+    @CacheEvict(value = {"cmsTextI18nCategoryById"})
     public void undelete(CmsTextI18nCategory cmsTextI18nCategory) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsTextI18nCategory.getId();

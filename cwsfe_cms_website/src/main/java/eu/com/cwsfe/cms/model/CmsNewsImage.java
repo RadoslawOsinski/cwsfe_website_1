@@ -2,9 +2,12 @@ package eu.com.cwsfe.cms.model;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CmsNewsImage {
+public class CmsNewsImage implements Serializable {
+
+    private static final long serialVersionUID = -5002853521202380817L;
 
     private Long id;
     private Long newsId;

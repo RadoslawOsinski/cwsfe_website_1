@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class CmsAuthor {
+import java.io.Serializable;
+
+public class CmsAuthor implements Serializable {
+
+    private static final long serialVersionUID = 9134829946664389430L;
 
     private Long id;
     private String firstName;

@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class Lang {
+import java.io.Serializable;
+
+public class Lang implements Serializable {
+
+    private static final long serialVersionUID = -5722775896833359784L;
 
     private Long id;
     private String code;

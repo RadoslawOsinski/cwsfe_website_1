@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsNews;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -121,6 +123,7 @@ public class CmsNewsDAO {
         return cmsNews;
     }
 
+    @Cacheable(value="cmsNewsById")
     public CmsNews get(Long id) {
         String query =
                 "SELECT " +
@@ -143,6 +146,7 @@ public class CmsNewsDAO {
         return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapCmsNews(resultSet));
     }
 
+    @Cacheable(value="cmsNewsByNewsTypeIdNewsFolderIdNewsCode")
     public CmsNews getByNewsTypeFolderAndNewsCode(Long newsTypeId, Long newsFolderId, String newsCode) {
         String query =
                 "SELECT " +
@@ -173,6 +177,7 @@ public class CmsNewsDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsNewsById", "cmsNewsByNewsTypeIdNewsFolderIdNewsCode"})
     public void update(CmsNews newsPost) {
         Object[] dbParams = new Object[3];
         dbParams[0] = newsPost.getNewsCode();
@@ -181,6 +186,7 @@ public class CmsNewsDAO {
         jdbcTemplate.update("UPDATE CMS_NEWS SET news_code = ?, status = ? WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsById", "cmsNewsByNewsTypeIdNewsFolderIdNewsCode"})
     public void updatePostBasicInfo(CmsNews newsPost) {
         Object[] dbParams = new Object[5];
         dbParams[0] = newsPost.getNewsTypeId();
@@ -191,18 +197,21 @@ public class CmsNewsDAO {
         jdbcTemplate.update("UPDATE CMS_NEWS SET news_type_id = ?, folder_id = ?, news_code = ?, status = ? WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsById", "cmsNewsByNewsTypeIdNewsFolderIdNewsCode"}, allEntries = true)
     public void delete(CmsNews newsPost) {
         Object[] dbParams = new Object[1];
         dbParams[0] = newsPost.getId();
         jdbcTemplate.update("update CMS_NEWS set status = 'D' where id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsById", "cmsNewsByNewsTypeIdNewsFolderIdNewsCode"}, allEntries = true)
     public void undelete(CmsNews newsPost) {
         Object[] dbParams = new Object[1];
         dbParams[0] = newsPost.getId();
         jdbcTemplate.update("update CMS_NEWS set status = 'H' where id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsById", "cmsNewsByNewsTypeIdNewsFolderIdNewsCode"}, allEntries = true)
     public void publish(CmsNews newsPost) {
         Object[] dbParams = new Object[1];
         dbParams[0] = newsPost.getId();

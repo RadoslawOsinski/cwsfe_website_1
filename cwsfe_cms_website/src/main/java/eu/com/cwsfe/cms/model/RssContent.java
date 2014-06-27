@@ -1,8 +1,11 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RssContent {
+public class RssContent implements Serializable {
+
+    private static final long serialVersionUID = 8253000915815226470L;
 
     private String title;
     private String url;

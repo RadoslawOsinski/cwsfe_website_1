@@ -1,9 +1,13 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
+
 /**
  * @author radek
  */
-public class CmsTextI18n {
+public class CmsTextI18n implements Serializable {
+
+    private static final long serialVersionUID = 9073293230244227369L;
 
     private Long id;
     private Long langId;

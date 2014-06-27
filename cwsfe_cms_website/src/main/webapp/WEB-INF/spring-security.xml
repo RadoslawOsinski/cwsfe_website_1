@@ -9,6 +9,7 @@
 
     <http pattern="/CWSFE_CMS_loginPage" security="none"/>
     <http pattern="/CWSFE_CMS_loginFailed" security="none"/>
+    <http pattern="/CWSFE_CMS/configuration/initialConfiguration" security="none"/>
     <http auto-config="false" authentication-manager-ref="customAuthorization">
         <intercept-url pattern="/WEB-INF"/>
         <intercept-url pattern="/CWSFE_CMS/*" access="ROLE_CWSFE_CMS_ADMIN"/>

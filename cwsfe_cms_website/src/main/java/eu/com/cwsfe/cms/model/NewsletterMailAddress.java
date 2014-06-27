@@ -1,9 +1,13 @@
 package eu.com.cwsfe.cms.model;
 
+import java.io.Serializable;
+
 /**
  * @author radek
  */
-public class NewsletterMailAddress {
+public class NewsletterMailAddress implements Serializable {
+
+    private static final long serialVersionUID = 7652725822161692802L;
 
     public static final String STATUS_ACTIVE = "A";
     public static final String STATUS_INACTIVE = "I";

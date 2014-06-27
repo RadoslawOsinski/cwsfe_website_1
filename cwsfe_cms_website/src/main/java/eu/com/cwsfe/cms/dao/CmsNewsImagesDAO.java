@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsNewsImage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -137,6 +139,7 @@ public class CmsNewsImagesDAO {
         return blogPostImages;
     }
 
+    @Cacheable(value="cmsNewsImageWithContentById")
     public CmsNewsImage getWithContent(Long id) {
         Object[] dbParams = new Object[1];
         dbParams[0] = id;
@@ -169,6 +172,7 @@ public class CmsNewsImagesDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsNewsImageWithContentById", "cmsNewsImageById"})
     public void update(CmsNewsImage cmsNewsImage) {
         Object[] dbParams = new Object[10];
         dbParams[0] = cmsNewsImage.getNewsId();
@@ -187,12 +191,14 @@ public class CmsNewsImagesDAO {
                 " WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsImageWithContentById", "cmsNewsImageById"})
     public void delete(CmsNewsImage cmsNewsImage) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsNewsImage.getId();
         jdbcTemplate.update("UPDATE CMS_NEWS_IMAGES SET status = 'D' WHERE id = ?", dbParams);
     }
 
+    @CacheEvict(value = {"cmsNewsImageWithContentById", "cmsNewsImageById"})
     public void undelete(CmsNewsImage cmsNewsImage) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsNewsImage.getId();
@@ -238,6 +244,7 @@ public class CmsNewsImagesDAO {
         return cmsNewsImage;
     }
 
+    @Cacheable(value="cmsNewsImageById")
     public CmsNewsImage get(Long id) {
         String query =
                 "SELECT " +

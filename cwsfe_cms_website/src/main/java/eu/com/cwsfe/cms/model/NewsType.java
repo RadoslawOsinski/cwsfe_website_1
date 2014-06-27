@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class NewsType {
+import java.io.Serializable;
+
+public class NewsType implements Serializable {
+
+    private static final long serialVersionUID = -583912697638536576L;
 
     private Long id;
     private String type;

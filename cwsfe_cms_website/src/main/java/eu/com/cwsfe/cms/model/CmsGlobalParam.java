@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class CmsGlobalParam {
+import java.io.Serializable;
+
+public class CmsGlobalParam implements Serializable {
+
+    private static final long serialVersionUID = -5195859849561065721L;
 
     private Long id;
     private String code;

@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsGlobalParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -69,6 +71,7 @@ public class CmsGlobalParamsDAO {
                 mapCmsGlobalParam(resultSet));
     }
 
+    @Cacheable(value="cmsGlobalParamById")
     public CmsGlobalParam get(Long id) {
         String query =
                 "SELECT " +
@@ -81,6 +84,7 @@ public class CmsGlobalParamsDAO {
                 mapCmsGlobalParam(resultSet));
     }
 
+    @Cacheable(value="cmsGlobalParamByCode")
     public CmsGlobalParam getByCode(String code) {
         String query =
                 "SELECT " +
@@ -124,6 +128,7 @@ public class CmsGlobalParamsDAO {
         return id;
     }
 
+    @CacheEvict(value = {"cmsGlobalParamById", "cmsGlobalParamByCode"})
     public void update(CmsGlobalParam cmsFolder) {
         Object[] dbParams = new Object[5];
         dbParams[0] = cmsFolder.getCode();
@@ -135,6 +140,7 @@ public class CmsGlobalParamsDAO {
                 , dbParams);
     }
 
+    @CacheEvict(value = {"cmsGlobalParamById", "cmsGlobalParamByCode"})
     public void delete(CmsGlobalParam cmsFolder) {
         Object[] dbParams = new Object[1];
         dbParams[0] = cmsFolder.getId();

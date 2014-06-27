@@ -1,6 +1,10 @@
 package eu.com.cwsfe.cms.model;
 
-public class CmsFolder {
+import java.io.Serializable;
+
+public class CmsFolder implements Serializable {
+
+    private static final long serialVersionUID = 2963591362503975898L;
 
     private Long id;
     private Long parentId;

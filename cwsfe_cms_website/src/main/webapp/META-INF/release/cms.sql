@@ -7,6 +7,15 @@ create table CMS_AUTHORS (
 );
 create sequence CMS_AUTHORS_S start 1 cache 1;
 
+CREATE TABLE CMS_LANGUAGES (
+  id     NUMERIC(6) PRIMARY KEY NOT NULL,
+  code   CHAR(2)                NOT NULL,
+  status CHAR(1)                NOT NULL,
+  name   VARCHAR(75)            NOT NULL
+);
+create sequence CMS_LANGUAGES_S start 1 cache 1;
+CREATE UNIQUE INDEX CMS_LANGUAGES_IDX ON CMS_LANGUAGES(code);
+
 create table BLOG_POSTS (
   id numeric(6, 0) primary key,
   post_author_id numeric(6, 0) not null references CMS_AUTHORS(id),
@@ -76,17 +85,17 @@ create table CMS_FOLDERS (
 );
 create sequence CMS_FOLDERS_S start 1 cache 1;
 
-create table NEWS_TYPES (
-  id numeric(6, 0) primary key,
-  type varchar(100) not null unique,
-  status char(1) not null
+CREATE TABLE CMS_NEWS_TYPES (
+  ID NUMERIC(6) PRIMARY KEY NOT NULL,
+  TYPE VARCHAR(100) NOT NULL UNIQUE,
+  STATUS CHAR(1) NOT NULL
 );
-create sequence NEWS_TYPES_S start 1 cache 1;
+create sequence CMS_NEWS_TYPES_S start 1 cache 1;
 
 create table CMS_NEWS (
   id numeric(6, 0) primary key,
   author_id numeric(6, 0) not null references CMS_AUTHORS(id),
-  news_type_id numeric(6,0) not null references NEWS_TYPES(id),
+  news_type_id numeric(6,0) not null references CMS_NEWS_TYPES(id),
   folder_id numeric(6,0) not null references CMS_FOLDERS(id),
   creation_date timestamp not null,
   news_code varchar(300) not null unique,
@@ -144,8 +153,6 @@ CREATE TABLE CMS_USERS (
 );
 create sequence CMS_USERS_S start 1 cache 1;
 
-INSERT INTO CMS_USERS(ID, USERNAME, PASSWORD_HASH, STATUS) VALUES (NEXTVAL('CMS_USERS_S'), 'rosinski', 'x', 'N');
-
 CREATE TABLE CMS_ROLES (
   ID NUMERIC(4, 0) NOT NULL PRIMARY KEY,
   ROLE_CODE VARCHAR(100) NOT NULL,
@@ -161,11 +168,9 @@ CREATE TABLE CMS_USER_ROLES (
   PRIMARY KEY (CMS_USER_ID, ROLE_ID)
 );
 
-INSERT INTO CMS_USER_ROLES(CMS_USER_ID, ROLE_ID) VALUES (1, 1);
-
 CREATE TABLE CMS_GLOBAL_PARAMS (
   ID NUMERIC(4, 0) NOT NULL PRIMARY KEY,
-  CODE VARCHAR(200) NOT NULL,
+  CODE VARCHAR(200) NOT NULL UNIQUE,
   DEFAULT_VALUE VARCHAR(400) NOT NULL,
   VALUE VARCHAR(400) NOT NULL,
   DESCRIPTION VARCHAR(1000) NOT NULL
@@ -177,6 +182,10 @@ INSERT INTO CMS_GLOBAL_PARAMS(ID, CODE, DEFAULT_VALUE, VALUE, DESCRIPTION) VALUE
 INSERT INTO CMS_GLOBAL_PARAMS(ID, CODE, DEFAULT_VALUE, VALUE, DESCRIPTION) VALUES (
   nextval('CMS_GLOBAL_PARAMS_S'), 'MAIN_SITE', 'http://cwsfe.eu', 'http://cwsfe.eu', 'MAIN WEBSITE OUTSIDE OF CWSFE CMS WEBSITE'
 );
+INSERT INTO CMS_GLOBAL_PARAMS(ID, CODE, DEFAULT_VALUE, VALUE, DESCRIPTION) VALUES (
+  nextval('CMS_GLOBAL_PARAMS_S'), 'CWSFE_CMS_IS_CONFIGURED', 'N', 'N', 'IS CWSFE CMS CONFIGURED: "Y"es or "N"o'
+);
+-- INSERT INTO CMS_USERS(ID, USERNAME, PASSWORD_HASH, STATUS) VALUES (NEXTVAL('CMS_USERS_S'), 'rosinski', 'x', 'N');
 
 CREATE TABLE CMS_TEXT_I18N_CATEGORIES (
   ID NUMERIC(3,0) NOT NULL PRIMARY KEY,
