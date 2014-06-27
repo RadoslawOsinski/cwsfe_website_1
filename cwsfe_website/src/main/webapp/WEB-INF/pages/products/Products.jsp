@@ -97,20 +97,20 @@
                     <li <c:if test="${(j.count % 3) == 0}">class="last"</c:if>>
                         <div class="products-item-preview">
                             <c:if test="${cmsNews.getThumbnailImage() != null}">
-                                <img src="${pageContext.request.contextPath}/getImage/${cmsNews.getThumbnailImage().id}"
+                                <img src="${pageContext.request.contextPath}/newsImages/?imageId=${cmsNews.getThumbnailImage().id}"
                                      height="${cmsNews.getThumbnailImage().height}"
                                      width="${cmsNews.getThumbnailImage().width}"
                                      alt="${cmsNews.getThumbnailImage().title} image"/>
                                 <c:if test="${cmsNews.cmsNewsImages != null}">
                                     <div class="preview-options">
-                                        <a href="${pageContext.request.contextPath}/getImage/${cmsNews.getThumbnailImage().id}"
+                                        <a href="${pageContext.request.contextPath}/newsImages/?imageId=${cmsNews.getThumbnailImage().id}"
                                            class="lightbox tip2" title=""
                                            data-gal="prettyPhoto[gallery_${cmsNews.getId()}]"><spring:message
                                                 code="ViewLargeVersion"/></a>
 
                                         <div style="display: none;">
                                             <c:forEach var="largeImageInfo" items="${cmsNews.cmsNewsImages}">
-                                                <a href="${pageContext.request.contextPath}/getImage/${largeImageInfo.id}"
+                                                <a href="${pageContext.request.contextPath}/newsImages/?imageId=${largeImageInfo.id}"
                                                    class="lightbox tip2" title=""
                                                    data-gal="prettyPhoto[gallery_${cmsNews.getId()}]"><spring:message
                                                         code="ViewLargeVersion"/></a>

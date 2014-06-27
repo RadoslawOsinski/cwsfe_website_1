@@ -95,22 +95,22 @@
 
     <servlet>
         <servlet-name>blogPostImageServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+        <servlet-class>eu.com.cwsfe.cms.images.BlogPostImageServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>newsImageServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+        <servlet-class>eu.com.cwsfe.cms.images.NewsImageServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>cwsfe_cms_blogPostImageServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+        <servlet-class>eu.com.cwsfe.cms.images.BlogPostImageServlet</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>cwsfe_cms_newsImageServlet</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+        <servlet-class>eu.com.cwsfe.cms.images.NewsImageServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
