@@ -1,6 +1,6 @@
 <div id="slideshow-index">
     <ul>
-        <li><img src="${pageContext.request.contextPath}/resources-cwsfe/img/main/photodune-3037317-image-of-light-blue-planet-earth-s_880x360.JPG" width="880" height="360" alt="blue planet image"/>
+        <li><img src="${pageContext.request.contextPath}/resources-cwsfe/img/main/photodune-3037317-image-of-light-blue-planet-earth-s_880x360.jpg" width="880" height="360" alt="blue planet image"/>
             <div class="calltoaction"><h4><a href="#">&#8212; <spring:message code="Abilities"/></a></h4></div>
             <div class="slidetext"><p><spring:message code="allowUsToQuicklyCarryOutTheProject"/></p></div>
         </li>
