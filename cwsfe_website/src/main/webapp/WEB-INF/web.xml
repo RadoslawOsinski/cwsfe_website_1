@@ -68,15 +68,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>gzipFilter</filter-name>
-        <url-pattern>*.PNG</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>gzipFilter</filter-name>
         <url-pattern>*.jpg</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>gzipFilter</filter-name>
-        <url-pattern>*.JPG</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
