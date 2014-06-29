@@ -73,6 +73,29 @@ public class BlogPostCommentsController {
         return responseDetailsJson.toString();
     }
 
+    @RequestMapping(value = "/CWSFE_CMS/markAsSpamBlogPostComment", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
+    public @ResponseBody String blogPostCommentMarkAsSpam(
+            @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
+            BindingResult result, Locale locale
+    ) {
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
+        JSONObject responseDetailsJson = new JSONObject();
+        if (!result.hasErrors()) {
+            blogPostCommentsDAO.markAsSpam(blogPostComment);
+            responseDetailsJson.put("status", "SUCCESS");
+            responseDetailsJson.put("result", "");
+        } else {
+            responseDetailsJson.put("status", "FAIL");
+            JSONArray jsonArray = new JSONArray();
+            for (int i = 0; i < result.getAllErrors().size(); i++) {
+                JSONObject formDetailsJson = new JSONObject();
+                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
+                jsonArray.add(formDetailsJson);
+            }
+            responseDetailsJson.put("result", jsonArray);
+        }
+        return responseDetailsJson.toString();
+    }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteBlogPostComment", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
     public @ResponseBody String blogPostCommentDelete(
