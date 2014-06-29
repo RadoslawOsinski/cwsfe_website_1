@@ -230,4 +230,10 @@ public class BlogPostCommentsDAO {
         jdbcTemplate.update("update CMS_BLOG_POST_COMMENTS set status = 'B' where id = ?", dbParams);
     }
 
+    public void markAsSpam(BlogPostComment blogPostComment) {
+        Object[] dbParams = new Object[1];
+        dbParams[0] = blogPostComment.getId();
+        jdbcTemplate.update("update CMS_BLOG_POST_COMMENTS set status = 'S' where id = ?", dbParams);
+    }
+
 }

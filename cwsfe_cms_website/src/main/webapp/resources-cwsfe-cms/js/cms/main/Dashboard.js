@@ -106,6 +106,8 @@ jQuery(window).load(function() {
                         return '<span class="highlight green">Published</span>';
                     } else if (o.aData['status'] === 'B') {
                         return '<span class="highlight red">Blocked</span>';
+                    } else if (o.aData['status'] === 'S') {
+                        return '<span class="highlight red">Spam</span>';
                     } else if (o.aData['status'] === 'D') {
                         return '<span class="highlight red">Deleted</span>';
                     }
@@ -118,6 +120,7 @@ jQuery(window).load(function() {
                         '<form method="GET">' +
                             '<a class="icon awesome thumbs-up tipsy-trigger" title="Publish" tabindex="-1" onclick="publishBlogComment(' + o.aData['id'] + ');"></a>' +
                             '<a class="icon awesome thumbs-down tipsy-trigger" title="Reject" tabindex="-1" onclick="blockBlogComment(' + o.aData['id'] + ');"></a>' +
+                            '<a class="icon awesome icon-bug tipsy-trigger" title="Spam" tabindex="-1" onclick="markAsSpamBlogPostComment(' + o.aData['id'] + ');"></a>' +
                             '<a class="icon awesome icon-remove-sign tipsy-trigger" title="Delete" tabindex="-1" onclick="deleteBlogComment(' + o.aData['id'] + ');"></a>' +
                         '</form>'
                         ;
@@ -156,6 +159,29 @@ function blockBlogComment(idValue) {
         type: 'POST',
         dataType: 'json',
         url: 'blockBlogPostComment',
+        data: "id=" + idValue,
+        success: function (response) {
+            if (response.status == 'SUCCESS') {
+                $("#blogPostCommentsList").dataTable().fnDraw();
+            } else {
+                errorInfo = "";
+                for (i = 0; i < response.result.length; i++) {
+                    errorInfo += "<br>" + (i + 1) + ". " + response.result[i].error;
+                }
+                $('#tableValidation').html("<p>Please correct following errors: " + errorInfo + "</p>").show('slow');
+            }
+        },
+        error: function (response) {
+            console.log('BUG: ' + response);
+        }
+    });
+}
+
+function markAsSpamBlogPostComment(idValue) {
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: 'markAsSpamBlogPostComment',
         data: "id=" + idValue,
         success: function (response) {
             if (response.status == 'SUCCESS') {
