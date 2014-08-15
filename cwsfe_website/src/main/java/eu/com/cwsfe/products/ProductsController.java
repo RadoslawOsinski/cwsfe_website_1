@@ -41,7 +41,7 @@ public class ProductsController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Products") + " " + productTitle);
         model.addAttribute("keywords", setPageKeywords(locale, productTitle));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Products.js");
     }
 
     public List<Keyword> setPageKeywords(Locale locale, String productsTitle) {
@@ -58,15 +58,6 @@ public class ProductsController {
         cssUrl.add("/resources-cwsfe/img/layout/css/pages-min.css");
         cssUrl.add("/resources-cwsfe/css/Products-min.css");
         return cssUrl;
-    }
-
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/tipsy/tipsy.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/cycle.all.min.js");
-        jsUrl.add("/resources-cwsfe/js/prettyPhoto/prettyPhoto.js");
-        jsUrl.add("/resources-cwsfe/js/Products.js");
-        return jsUrl;
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)

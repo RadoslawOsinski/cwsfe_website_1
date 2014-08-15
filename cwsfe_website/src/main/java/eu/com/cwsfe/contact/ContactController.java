@@ -41,8 +41,7 @@ public class ContactController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Contact"));
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
-        model.addAttribute("additionalAsyncJavaScriptCode", setAdditionalAsyncJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Contact.js");
     }
 
     @RequestMapping(value = "/contact/sendEmail", method = RequestMethod.POST)
@@ -88,20 +87,6 @@ public class ContactController {
         List<String> cssUrl = new ArrayList<>(3);
         cssUrl.add("/resources-cwsfe/css/Contact-min.css");
         return cssUrl;
-    }
-
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/tipsy/tipsy.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/cycle.all.min.js");
-        jsUrl.add("/resources-cwsfe/js/Main.js");
-        jsUrl.add("http://maps.google.com/maps/api/js?sensor=false");
-        jsUrl.add("/resources-cwsfe/js/Contact.js");
-        return jsUrl;
-    }
-
-    private Object setAdditionalAsyncJS() {
-        return new ArrayList<String>(3);
     }
 
 }

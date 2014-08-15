@@ -80,7 +80,7 @@ class ServicesController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Services"));
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Services.js");
     }
 
     public List<Keyword> setPageKeywords(Locale locale) {
@@ -99,12 +99,4 @@ class ServicesController {
         return cssUrl;
     }
 
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/tipsy/tipsy.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/jquery.accordion.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/cycle.all.min.js");
-        jsUrl.add("/resources-cwsfe/js/Services.js");
-        return jsUrl;
-    }
 }

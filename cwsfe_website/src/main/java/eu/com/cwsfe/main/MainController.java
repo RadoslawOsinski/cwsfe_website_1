@@ -33,7 +33,7 @@ public class MainController {
         model.addAttribute("headerPageTitle", "CWSFE");
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Main.js");
     }
 
     public List<Keyword> setPageKeywords(Locale locale) {
@@ -50,14 +50,6 @@ public class MainController {
         List<String> cssUrl = new ArrayList<>(3);
         cssUrl.add("/resources-cwsfe/css/tipsy/tipsy-min.css");
         return cssUrl;
-    }
-
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/tipsy/tipsy.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/cycle.all.min.js");
-        jsUrl.add("/resources-cwsfe/js/Main.js");
-        return jsUrl;
     }
 
 }

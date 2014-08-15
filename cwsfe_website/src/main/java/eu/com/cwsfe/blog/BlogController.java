@@ -7,7 +7,6 @@ import eu.com.cwsfe.model.Keyword;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -71,7 +70,7 @@ public class BlogController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Blog") + " " + additionalTitle);
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Blog.js");
     }
 
     List<Keyword> setPageKeywords(Locale locale) {
@@ -89,12 +88,6 @@ public class BlogController {
         cssUrl.add("/resources-cwsfe/img/layout/css/pages-min.css");
         cssUrl.add("/resources-cwsfe/css/Blog-min.css");
         return cssUrl;
-    }
-
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/AjaxCodeFetcher.js");
-        return jsUrl;
     }
 
     @RequestMapping(value = "/blog/category/{categoryId}", method = RequestMethod.GET)
@@ -355,7 +348,7 @@ public class BlogController {
         return singlePostView(modelMap, locale, blogPostId, blogPostComment.getBlogPostI18nContentId());
     }
 
-    @RequestMapping(value = "/blogPostCode/{postId}/{codeId}", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
+    @RequestMapping(value = "/blogPostCode/{postId}/{codeId}", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
     public
     @ResponseBody
     String getBlogPostCode(

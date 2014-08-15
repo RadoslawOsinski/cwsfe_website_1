@@ -73,7 +73,6 @@
                             <div class="fixed">
                                 <div class="blog-post-readmore">
                                     <a href="${blogPostUrl}">— <spring:message code="ReadMore"/></a>&nbsp;&nbsp;&nbsp;
-                                    <div class="g-plusone" data-size="medium" data-href="${blogPostUrl}"></div>
                                 </div>
                             </div>
                             <div class="hr"></div>

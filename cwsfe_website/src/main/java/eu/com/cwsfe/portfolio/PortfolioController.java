@@ -41,7 +41,7 @@ class PortfolioController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Portfolio") + " " + portfolioTitle);
         model.addAttribute("keywords", setPageKeywords(locale, portfolioTitle));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Portfolio.js");
     }
 
     public List<Keyword> setPageKeywords(Locale locale, String portfolioTitle) {
@@ -59,15 +59,6 @@ class PortfolioController {
         cssUrl.add("/resources-cwsfe/img/layout/css/pages-min.css");
         cssUrl.add("/resources-cwsfe/css/Portfolio-min.css");
         return cssUrl;
-    }
-
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/tipsy/tipsy.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/cycle.all.min.js");
-        jsUrl.add("/resources-cwsfe/js/prettyPhoto/prettyPhoto.js");
-        jsUrl.add("/resources-cwsfe/js/Portfolio.js");
-        return jsUrl;
     }
 
     @RequestMapping(value = "/portfolio", method = RequestMethod.GET)

@@ -136,9 +136,7 @@
                             </c:if>
                         </div>
                         <h5>
-                            <a href="${singleNewsUrl}">
-                                    ${cmsNewsI18nContents.get(j.count - 1).getNewsTitle()}
-                            </a>
+                            <a href="${singleNewsUrl}">${cmsNewsI18nContents.get(j.count - 1).getNewsTitle()}</a>
                         </h5>
 
                         <p class="portfolio_paragraph">${cmsNewsI18nContents.get(j.count - 1).getNewsShortcut()}</p>

@@ -88,12 +88,11 @@
             </form>
         </div>
         <div class="col280 last">
-            <p>
-                <strong><spring:message code="OfficeLocalistation"/></strong>:
-            </p>
-
-            <div id="contactMap" style="width: 280px; height: 280px; border: 1px solid black; background: gray;"></div>
-            <div class="hr"></div>
+            <%--<p>--%>
+                <%--<strong><spring:message code="OfficeLocalistation"/></strong>:--%>
+            <%--</p>--%>
+            <%--<div id="contactMap" style="width: 280px; height: 280px; border: 1px solid black; background: gray;"></div>--%>
+            <%--<div class="hr"></div>--%>
             <p>
                 <strong><spring:message code="ScanQRContactByPhone"/></strong>
             </p>

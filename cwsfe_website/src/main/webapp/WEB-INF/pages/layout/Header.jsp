@@ -1,3 +1,4 @@
+<%--@elvariable id="additionalJavaScriptCode" type="java.lang.String"--%>
 <%--@elvariable id="headerPageTitle" type="java.lang.String"--%>
 <%--@elvariable id="keywords" type="java.util.List"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -43,43 +44,21 @@
     <link href="${pageContext.request.contextPath}/resources-cwsfe/img/layout/Fonts1/Fonts1-min.css" rel="stylesheet" type="text/css"/>
     <%--$//	<link href="$page.url("cwsfe.layout.Fonts2")" rel="stylesheet" type="text/css"/>--%>
 
-    <script src="${pageContext.request.contextPath}/resources-cwsfe/js/jquery/jquery-2.0.3.min.js" type="text/javascript"></script>
-    <script src="${pageContext.request.contextPath}/resources-cwsfe/js/jquery/jquery.tabify.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        var lang = $('html').attr('lang');
-
-        $.ajaxSetup({	// Zapobieganie dołączania parametru callback do urla
-            jsonp: false,
-            type: "post"
+    <script data-main="${pageContext.request.contextPath}${additionalJavaScriptCode}" src="${pageContext.request.contextPath}/resources-cwsfe/js/requirejs/require.js" type="application/javascript"></script>
+    <script type="application/javascript">
+        require.config({
+            paths: {
+                shared_scripts: '/resources-cwsfe/js/shared_scripts',
+                jquery: '/resources-cwsfe/js/jquery/jquery-2.1.1.min',
+                jqueryAccordion: '/resources-cwsfe/js/jquery/jquery.accordion',
+                tabify: '/resources-cwsfe/js/jquery/jquery.tabify',
+                tipsy: '/resources-cwsfe/js/tipsy/tipsy',
+                cycle_all: '/resources-cwsfe/js/jquery/cycle.all.min',
+                prettyPhoto: '/resources-cwsfe/js/prettyPhoto/prettyPhoto',
+                ajaxCodeFetcher: '/resources-cwsfe/js/AjaxCodeFetcher'
+            }
         });
-
-        //GOOGLE PLUS INTEGRATION BELOW
-        if (lang === "pl") {
-            window.___gcfg = {
-                lang: 'pl'
-            };
-        } else {
-            window.___gcfg = {
-                lang: 'en-US'
-            };
-        }
-        (function () {
-            var po = document.createElement('script');
-            po.type = 'text/javascript';
-            po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(po, s);
-        })();
-
     </script>
-    <script src="${pageContext.request.contextPath}/resources-cwsfe/js/jquery/shared_scripts.js" type="text/javascript"></script>
-
-    <%--@elvariable id="additionalJavaScriptCode" type="java.util.List"--%>
-    <c:forEach var="jsUrl" items="${additionalJavaScriptCode}">
-        <script type="text/javascript" src="${jsUrl}"></script>
-    </c:forEach>
 
 </head>
 <body>

@@ -66,8 +66,6 @@
         <div class="blog-navigation fixed">
             <spring:url value="/blog" var="blogUrl" htmlEscape="true"/>
             <a href="${blogUrl}"><spring:message code="OtherPosts"/></a>&nbsp;
-            <spring:url value="/blog/singlePost/${blogPost.getId()}/${blogPostI18nContent.getId()}" var="blogPostUrl" htmlEscape="true"/>
-            <div class="g-plusone" data-size="medium" data-href="${blogPostUrl}"></div>
         </div>
         &nbsp;
 

@@ -1,6 +1,6 @@
-$(function(){
-    $(window).load(function(){
+define(['ajaxCodeFetcher', 'jquery'], function () {
 
+    var fetchCode = function () {
         $("code.palio_code_for_replace").each(function () {
             var codeTag = $(this);
             var codeContentForReplace = codeTag.attr('id');
@@ -15,9 +15,13 @@ $(function(){
                     codeToReplace = data.code.trim();
                 }
             }).done(function () {
-                    codeTag.replaceWith("<code>" + codeToReplace + "</code>");
-                });
+                codeTag.replaceWith("<code>" + codeToReplace + "</code>");
+            });
         });
-    });
+    };
+
+    return {
+        fetchCode: fetchCode
+    };
 
 });

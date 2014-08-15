@@ -23,7 +23,7 @@ public class AboutController {
     private void setPageMetadata(ModelMap model, Locale locale) {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("AboutCompany"));
         model.addAttribute("keywords", setPageKeywords(locale));
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/About.js");
     }
 
     List<Keyword> setPageKeywords(Locale locale) {
@@ -31,14 +31,6 @@ public class AboutController {
         keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("AboutCWSFECompany")));
         keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CompleteWorkingSolutionForEveryone")));
         return keywords;
-    }
-
-    private Object setAdditionalJS() {
-        List<String> jsUrl = new ArrayList<>(3);
-        jsUrl.add("/resources-cwsfe/js/prettyPhoto/prettyPhoto.js");
-        jsUrl.add("/resources-cwsfe/js/jquery/cycle.all.min.js");
-        jsUrl.add("/resources-cwsfe/js/About.js");
-        return jsUrl;
     }
 
 }
