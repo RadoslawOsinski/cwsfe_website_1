@@ -337,13 +337,13 @@ public class BlogController {
         if (!result.hasErrors()) {
             blogPostComment.setCreated(new Date());
             blogPostCommentsDAO.add(blogPostComment);
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo("Radoslaw.Osinski@cwsfe.pl");
-            message.setSubject("New comment on cwsfe website by " +
-                    blogPostComment.getUsername() + "[" + blogPostComment.getEmail() + "]"
-            );
-            message.setText("Comment: " + blogPostComment.getComment());
-            mailSender.send(message);
+//            SimpleMailMessage message = new SimpleMailMessage();
+//            message.setTo("Radoslaw.Osinski@cwsfe.pl");
+//            message.setSubject("New comment on cwsfe website by " +
+//                    blogPostComment.getUsername() + "[" + blogPostComment.getEmail() + "]"
+//            );
+//            message.setText("Comment: " + blogPostComment.getComment());
+//            mailSender.send(message);
             modelMap.addAttribute("addCommentInfoMessage", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("AddedSuccessfullyWaitForModeratorPublication"));
         } else {
             String addCommentErrorMessage = "";
