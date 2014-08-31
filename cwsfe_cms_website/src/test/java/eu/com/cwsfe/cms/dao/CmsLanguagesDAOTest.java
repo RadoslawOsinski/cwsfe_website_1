@@ -121,10 +121,10 @@ public class CmsLanguagesDAOTest extends AbstractTransactionalJUnit4SpringContex
 
     @Test
     public void testDeleteWithCache() throws Exception {
-        String code = "xx";
+        String code = "yy";
         Lang lang = new Lang();
         lang.setCode(code);
-        lang.setName("XXXX");
+        lang.setName("YYYY");
         lang.setId(cmsLanguagesDAO.add(lang));
 
         cmsLanguagesDAO.delete(lang);
