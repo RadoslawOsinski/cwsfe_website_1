@@ -1,5 +1,6 @@
 package eu.com.cwsfe.services;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.*;
 import eu.com.cwsfe.model.Keyword;
@@ -18,7 +19,9 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class ServicesController {
+class ServicesController implements GenericController {
+
+    public static final String SERVICES_FOLDER = "Services";
 
     @Autowired
     private CmsFoldersDAO cmsFoldersDAO;
@@ -34,8 +37,8 @@ class ServicesController {
     @RequestMapping(value = "/services", method = RequestMethod.GET)
     public String showServicesPage(ModelMap model, Locale locale) {
         setPageMetadata(model, locale);
-        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName("Services");
-        NewsType newsType = newsTypesDAO.getByFolderName("Services");
+        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
+        NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
         CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), "Services");
         Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
@@ -49,8 +52,8 @@ class ServicesController {
     @RequestMapping(value = "/services/serviceDetails", method = RequestMethod.GET)
     public String showMixedServicesPage(ModelMap model, Locale locale) {
         setPageMetadata(model, locale);
-        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName("Services");
-        NewsType newsType = newsTypesDAO.getByFolderName("Services");
+        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
+        NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
         CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), "ServiceDetails");
         Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
@@ -64,8 +67,8 @@ class ServicesController {
     @RequestMapping(value = "/services/serviceStages", method = RequestMethod.GET)
     public String showServiceStagesPage(ModelMap model, Locale locale) {
         setPageMetadata(model, locale);
-        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName("Services");
-        NewsType newsType = newsTypesDAO.getByFolderName("Services");
+        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
+        NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
         CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), "ServiceStages");
         Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
@@ -77,7 +80,7 @@ class ServicesController {
     }
 
     private void setPageMetadata(ModelMap model, Locale locale) {
-        model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Services"));
+        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Services"));
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
         model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Services.js");
@@ -85,10 +88,10 @@ class ServicesController {
 
     public List<Keyword> setPageKeywords(Locale locale) {
         List<Keyword> keywords = new ArrayList<>(5);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFEServices")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("UniqueSkills")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("jPalioProgramming")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("MasovianDeveloper")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEServices")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("UniqueSkills")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("jPalioProgramming")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MasovianDeveloper")));
         return keywords;
     }
 

@@ -1,5 +1,6 @@
 package eu.com.cwsfe.contact;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.model.Keyword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class ContactController {
+public class ContactController implements GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(ContactController.class);
 
@@ -42,7 +43,7 @@ public class ContactController {
     }
 
     private void setPageMetadata(ModelMap model, Locale locale) {
-        model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Contact"));
+        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Contact"));
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
         model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Contact.js");
@@ -53,11 +54,11 @@ public class ContactController {
             @ModelAttribute(value = "contactMail") ContactMail contactMail,
             BindingResult result, ModelMap model, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("NameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "message", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("MessageIsRequired"));
+        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("NameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "message", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MessageIsRequired"));
         if (!EmailValidator.isValidEmailAddress(contactMail.getEmail())) {
-            result.rejectValue("email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailIsInvalid"));
+            result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));
             LOGGER.warn("Email " + contactMail.getEmail() + " is invalid");
         }
         if (!result.hasErrors()) {
@@ -67,7 +68,7 @@ public class ContactController {
             message.setText(contactMail.getMessage());
             message.setReplyTo(contactMail.getEmail());
             mailSender.send(message);
-            model.addAttribute("mailSended", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("MessageHasBeenSent"));
+            model.addAttribute("mailSended", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MessageHasBeenSent"));
         } else {
             String errors = "";
             for (int i = 0; i < result.getAllErrors().size(); i++) {
@@ -80,11 +81,11 @@ public class ContactController {
 
     List<Keyword> setPageKeywords(Locale locale) {
         List<Keyword> keywords = new ArrayList<>(5);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFEContact")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("MasovianDeveloper")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("SonskProgramming")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CiechanowProgramming")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("DevelopingJPalioApplications")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEContact")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MasovianDeveloper")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("SonskProgramming")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CiechanowProgramming")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("DevelopingJPalioApplications")));
         return keywords;
     }
 

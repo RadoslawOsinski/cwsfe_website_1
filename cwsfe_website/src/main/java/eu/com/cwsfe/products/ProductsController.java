@@ -1,5 +1,6 @@
 package eu.com.cwsfe.products;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.CmsFolder;
 import eu.com.cwsfe.cms.model.CmsNews;
@@ -20,7 +21,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class ProductsController {
+public class ProductsController implements GenericController {
 
     @Autowired
     private CmsFoldersDAO cmsFoldersDAO;
@@ -38,7 +39,7 @@ public class ProductsController {
     private static final int DEFAULT_NEWS_PER_PAGE = 6;
 
     private void setPageMetadata(ModelMap model, Locale locale, String productTitle) {
-        model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Products") + " " + productTitle);
+        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Products") + " " + productTitle);
         model.addAttribute("keywords", setPageKeywords(locale, productTitle));
         model.addAttribute("additionalCssCode", setAdditionalCss());
         model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Products.js");
@@ -46,7 +47,7 @@ public class ProductsController {
 
     public List<Keyword> setPageKeywords(Locale locale, String productsTitle) {
         List<Keyword> keywords = new ArrayList<>(5);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFEProducts")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEProducts")));
         keywords.add(new Keyword(productsTitle));
         return keywords;
     }

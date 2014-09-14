@@ -1,5 +1,6 @@
 package eu.com.cwsfe.portfolio;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.CmsFolder;
 import eu.com.cwsfe.cms.model.CmsNews;
@@ -20,7 +21,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-class PortfolioController {
+class PortfolioController implements GenericController {
 
     @Autowired
     private CmsFoldersDAO cmsFoldersDAO;
@@ -38,7 +39,7 @@ class PortfolioController {
     private static final int DEFAULT_NEWS_PER_PAGE = 6;
 
     private void setPageMetadata(ModelMap model, Locale locale, String portfolioTitle) {
-        model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Portfolio") + " " + portfolioTitle);
+        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Portfolio") + " " + portfolioTitle);
         model.addAttribute("keywords", setPageKeywords(locale, portfolioTitle));
         model.addAttribute("additionalCssCode", setAdditionalCss());
         model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Portfolio.js");
@@ -46,8 +47,8 @@ class PortfolioController {
 
     public List<Keyword> setPageKeywords(Locale locale, String portfolioTitle) {
         List<Keyword> keywords = new ArrayList<>(5);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFEPortfolio")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFEProjects")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEPortfolio")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEProjects")));
         keywords.add(new Keyword(portfolioTitle));
         return keywords;
     }

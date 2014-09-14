@@ -1,5 +1,6 @@
 package eu.com.cwsfe.newsletter;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.cms.EmailValidator;
 import eu.com.cwsfe.cms.UUIDGenerator;
 import eu.com.cwsfe.cms.dao.CmsLanguagesDAO;
@@ -31,7 +32,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class NewsletterController {
+class NewsletterController implements GenericController {
 
     @Autowired
     private NewsletterMailGroupDAO newsletterMailGroupDAO;
@@ -73,7 +74,7 @@ class NewsletterController {
 
     public List<Keyword> setPageKeywords(Locale locale) {
         List<Keyword> keywords = new ArrayList<>(1);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFENewsletter")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFENewsletter")));
         return keywords;
     }
 
@@ -90,9 +91,9 @@ class NewsletterController {
             @ModelAttribute("newsletterSubscription") NewsletterSubscription newsletterSubscription,
             BindingResult result, ModelMap model, Locale locale
     ) {
-        ValidationUtils.rejectIfEmptyOrWhitespace(result, "email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailMustBeSet"));
+        ValidationUtils.rejectIfEmptyOrWhitespace(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
         if (!EmailValidator.isValidEmailAddress(newsletterSubscription.getEmail())) {
-            result.rejectValue("email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailIsInvalid"));
+            result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));
         }
         if (!result.hasErrors()) {
             Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());

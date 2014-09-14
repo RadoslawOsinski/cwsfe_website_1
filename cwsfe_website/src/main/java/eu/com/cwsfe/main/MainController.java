@@ -1,5 +1,6 @@
 package eu.com.cwsfe.main;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.model.Keyword;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class MainController {
+public class MainController implements GenericController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showMainPage(ModelMap model, Locale locale) {
@@ -38,11 +39,11 @@ public class MainController {
 
     public List<Keyword> setPageKeywords(Locale locale) {
         List<Keyword> keywords = new ArrayList<>(5);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CompleteWorkingSolutionForEveryone")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("RadoslawOsinskiCompany")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("JPalioDeveloper")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("UniqueSkills")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("MasovianDeveloper")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CompleteWorkingSolutionForEveryone")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("RadoslawOsinskiCompany")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("JPalioDeveloper")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("UniqueSkills")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MasovianDeveloper")));
         return keywords;
     }
 

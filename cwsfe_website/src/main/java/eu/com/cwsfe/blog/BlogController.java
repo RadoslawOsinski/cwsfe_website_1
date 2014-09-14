@@ -1,5 +1,6 @@
 package eu.com.cwsfe.blog;
 
+import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.*;
 import eu.com.cwsfe.contact.EmailValidator;
@@ -24,7 +25,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogController {
+public class BlogController implements GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(BlogController.class);
 
@@ -73,7 +74,7 @@ public class BlogController {
     }
 
     private void setPageMetadata(ModelMap model, Locale locale, String additionalTitle) {
-        model.addAttribute("headerPageTitle", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("Blog") + " " + additionalTitle);
+        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Blog") + " " + additionalTitle);
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
         model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Blog.js");
@@ -81,11 +82,11 @@ public class BlogController {
 
     List<Keyword> setPageKeywords(Locale locale) {
         List<Keyword> keywords = new ArrayList<>(5);
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("CWSFEBlog")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("jPalioTipsAndTrix")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("GroovyTips")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("GroovyScripts")));
-        keywords.add(new Keyword(ResourceBundle.getBundle("cwsfe_i18n", locale).getString("SQLAdvices")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEBlog")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("jPalioTipsAndTrix")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("GroovyTips")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("GroovyScripts")));
+        keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("SQLAdvices")));
         return keywords;
     }
 
@@ -329,9 +330,9 @@ public class BlogController {
     ) {
         ValidationUtils.rejectIfEmpty(result, "blogPostI18nContentId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
         ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UsernameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
         if (blogPostComment.getEmail() != null && !EmailValidator.isValidEmailAddress(blogPostComment.getEmail())) {
-            result.rejectValue("email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailIsInvalid"));
+            result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));
         }
         ValidationUtils.rejectIfEmpty(result, "comment", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
         if (!result.hasErrors()) {
@@ -344,7 +345,7 @@ public class BlogController {
 //            );
 //            message.setText("Comment: " + blogPostComment.getComment());
 //            mailSender.send(message);
-            modelMap.addAttribute("addCommentInfoMessage", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("AddedSuccessfullyWaitForModeratorPublication"));
+            modelMap.addAttribute("addCommentInfoMessage", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("AddedSuccessfullyWaitForModeratorPublication"));
         } else {
             String addCommentErrorMessage = "";
             for (int i = 0; i < result.getAllErrors().size(); i++) {
