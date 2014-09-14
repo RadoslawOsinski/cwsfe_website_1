@@ -70,12 +70,12 @@ public class BlogPostCodeController implements JsonController {
             @ModelAttribute(value = "blogPostCode") BlogPostCode blogPostCode,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "codeId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CodeIdMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "code", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CodeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "codeId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CodeIdMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "code", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CodeMustBeSet"));
         final BlogPostCode existingCode = blogPostCodesDAO.getCodeForPostByCodeId(blogPostCode.getBlogPostId(), blogPostCode.getCodeId());
         if (existingCode != null) {
-            result.rejectValue("code", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CodeIdMustBeUnique"));
+            result.rejectValue("code", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CodeIdMustBeUnique"));
         }
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
@@ -100,8 +100,8 @@ public class BlogPostCodeController implements JsonController {
             @ModelAttribute(value = "blogPostCode") BlogPostCode blogPostCode,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "codeId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CodeIdMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "codeId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CodeIdMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCodesDAO.delete(blogPostCode);

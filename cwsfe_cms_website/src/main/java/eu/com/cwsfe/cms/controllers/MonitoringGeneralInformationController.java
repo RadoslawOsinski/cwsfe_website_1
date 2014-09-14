@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class MonitoringGeneralInformationController {
+public class MonitoringGeneralInformationController implements JsonController {
 
     @Autowired
     private ServerWatch serverWatch;
@@ -48,7 +48,7 @@ public class MonitoringGeneralInformationController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/monitoring/generalInformation").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("MonitoringGeneralInformation") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("MonitoringGeneralInformation") + "</a>");
         return breadcrumbs;
     }
 

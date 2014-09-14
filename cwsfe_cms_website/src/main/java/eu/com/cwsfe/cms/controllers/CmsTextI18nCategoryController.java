@@ -44,7 +44,7 @@ public class CmsTextI18nCategoryController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/cmsTextI18nCategories").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("TranslationCategoriesManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TranslationCategoriesManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -99,7 +99,7 @@ public class CmsTextI18nCategoryController implements JsonController {
             @ModelAttribute(value = "cmsTextI18nCategory") CmsTextI18nCategory cmsTextI18nCategory,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "category", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CategoryMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "category", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CategoryMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsTextI18nCategoryDAO.add(cmsTextI18nCategory);
@@ -123,7 +123,7 @@ public class CmsTextI18nCategoryController implements JsonController {
             @ModelAttribute(value = "cmsTextI18nCategory") CmsTextI18nCategory cmsTextI18nCategory,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("TextI18nCategoryMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TextI18nCategoryMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsTextI18nCategoryDAO.delete(cmsTextI18nCategory);

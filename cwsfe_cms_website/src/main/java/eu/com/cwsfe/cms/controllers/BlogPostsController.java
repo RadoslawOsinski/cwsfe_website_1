@@ -61,7 +61,7 @@ public class BlogPostsController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -75,10 +75,10 @@ public class BlogPostsController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostsManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostsManagement") + "</a>");
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CurrentBlogPost") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentBlogPost") + "</a>");
         return breadcrumbs;
     }
 
@@ -130,8 +130,8 @@ public class BlogPostsController implements JsonController {
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "postAuthorId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("AuthorMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "postTextCode", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("PostTextCodeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "postAuthorId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "postTextCode", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("PostTextCodeMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPost.setPostCreationDate(new Date());
@@ -159,7 +159,7 @@ public class BlogPostsController implements JsonController {
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostsDAO.delete(blogPost);
@@ -209,9 +209,9 @@ public class BlogPostsController implements JsonController {
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "postTextCode", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("PostTextCodeMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "status", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("StatusMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "postTextCode", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("PostTextCodeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "status", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("StatusMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostsDAO.updatePostBasicInfo(blogPost);

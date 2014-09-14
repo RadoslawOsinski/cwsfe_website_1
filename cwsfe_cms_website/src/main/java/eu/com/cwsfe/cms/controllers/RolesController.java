@@ -45,7 +45,7 @@ public class RolesController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/roles").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("RolesManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("RolesManagement") + "</a>");
         return breadcrumbs;
     }
 

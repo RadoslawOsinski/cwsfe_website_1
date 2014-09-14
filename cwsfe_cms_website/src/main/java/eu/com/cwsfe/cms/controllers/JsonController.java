@@ -10,4 +10,6 @@ public interface JsonController {
     public static final String JSON_STATUS_SUCCESS = "SUCCESS";
     public static final String JSON_STATUS_FAIL = "FAIL";
 
+    public static final String CWSFE_CMS_RESOURCE_BUNDLE_PATH = "cwsfe_cms_i18n";
+
 }
