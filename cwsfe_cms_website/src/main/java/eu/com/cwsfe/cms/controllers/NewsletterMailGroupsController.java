@@ -76,7 +76,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroupsDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listNewsletterMailGroupsForDropList(
+    @ResponseBody
+    public String listNewsletterMailGroupsForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -94,9 +95,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroupsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String listNewsletterMailGroups(
+    public String listNewsletterMailGroups(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -124,9 +124,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addNewsletterMailGroup", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String addNewsletterMailGroup(
+    public String addNewsletterMailGroup(
             @ModelAttribute(value = "newsletterMailGroup") NewsletterMailGroup newsletterMailGroup,
             BindingResult result, Locale locale
     ) {
@@ -151,9 +150,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteNewsletterMailGroup", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String deleteNewsletterMailGroup(
+    public String deleteNewsletterMailGroup(
             @ModelAttribute(value = "newsletterMailGroup") NewsletterMailGroup newsletterMailGroup,
             BindingResult result, Locale locale
     ) {
@@ -187,9 +185,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroups/newsletterMailAddressesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String newsletterMailAddressesList(
+    public String newsletterMailAddressesList(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -217,9 +214,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroups/updateNewsletterMailGroup", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String updateNewsletterMailGroup(
+    public String updateNewsletterMailGroup(
             @ModelAttribute(value = "newsletterMailGroup") NewsletterMailGroup newsletterMailGroup,
             BindingResult result, Locale locale
     ) {
@@ -245,9 +241,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroups/addNewsletterMailAddresses", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String addNewsletterMailAddresses(
+    public String addNewsletterMailAddresses(
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
     ) {
@@ -288,9 +283,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroups/deleteNewsletterMailAddress", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String deleteNewsletterMailAddress(
+    public String deleteNewsletterMailAddress(
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
     ) {
@@ -314,9 +308,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroups/activateNewsletterMailAddress", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String activateNewsletterMailAddress(
+    public String activateNewsletterMailAddress(
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
     ) {
@@ -340,9 +333,8 @@ class NewsletterMailGroupsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailGroups/deactivateNewsletterMailAddress", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String deactivateNewsletterMailAddress(
+    public String deactivateNewsletterMailAddress(
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
     ) {

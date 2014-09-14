@@ -37,7 +37,8 @@ public class BlogPostImagesController implements JsonController {
     private BlogPostImagesDAO blogPostImagesDAO;
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/blogPostImagesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogKeywords(
+    @ResponseBody
+    public String listBlogKeywords(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -98,7 +99,8 @@ public class BlogPostImagesController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/deleteBlogPostImage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteBlogPostImage(
+    @ResponseBody
+    public String deleteBlogPostImage(
             @ModelAttribute(value = "blogPostImage") BlogPostImage blogPostImage,
             BindingResult result, Locale locale
     ) {

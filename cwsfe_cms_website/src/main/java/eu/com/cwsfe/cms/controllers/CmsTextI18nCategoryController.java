@@ -49,9 +49,8 @@ public class CmsTextI18nCategoryController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/cmsTextI18nCategoriesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String listCmsTextI18nCategories(
+    public String listCmsTextI18nCategories(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -76,7 +75,8 @@ public class CmsTextI18nCategoryController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/cmsTextI18nCategoryDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listCmsLanguagesForDropList(
+    @ResponseBody
+    public String listCmsLanguagesForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -95,7 +95,8 @@ public class CmsTextI18nCategoryController implements JsonController {
 
 
     @RequestMapping(value = "/CWSFE_CMS/addCmsTextI18nCategory", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addTextI18nCategory(
+    @ResponseBody
+    public String addTextI18nCategory(
             @ModelAttribute(value = "cmsTextI18nCategory") CmsTextI18nCategory cmsTextI18nCategory,
             BindingResult result, Locale locale
     ) {
@@ -119,7 +120,8 @@ public class CmsTextI18nCategoryController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteCmsTextI18nCategory", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteTextI18nCategory(
+    @ResponseBody
+    public String deleteTextI18nCategory(
             @ModelAttribute(value = "cmsTextI18nCategory") CmsTextI18nCategory cmsTextI18nCategory,
             BindingResult result, Locale locale
     ) {

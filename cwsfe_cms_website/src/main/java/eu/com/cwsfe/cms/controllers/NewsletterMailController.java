@@ -92,9 +92,8 @@ public class NewsletterMailController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMailsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String listNewsletterMails(
+    public String listNewsletterMails(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -124,9 +123,8 @@ public class NewsletterMailController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addNewsletterMail", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String addNewsletterMail(
+    public String addNewsletterMail(
             @ModelAttribute(value = "newsletterMail") NewsletterMail newsletterMail,
             BindingResult result, Locale locale
     ) {
@@ -153,9 +151,8 @@ public class NewsletterMailController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteNewsletterMail", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String deleteNewsletterMail(
+    public String deleteNewsletterMail(
             @ModelAttribute(value = "newsletterMail") NewsletterMail newsletterMail,
             BindingResult result, Locale locale
     ) {
@@ -179,9 +176,8 @@ public class NewsletterMailController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/unDeleteNewsletterMail", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String unDeleteNewsletterMail(
+    public String unDeleteNewsletterMail(
             @ModelAttribute(value = "newsletterMail") NewsletterMail newsletterMail,
             BindingResult result, Locale locale
     ) {
@@ -268,9 +264,8 @@ public class NewsletterMailController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMails/newsletterTestSend", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String newsletterTestSend(
+    public String newsletterTestSend(
             @ModelAttribute(value = "newsletterMail") NewsletterMail newsletterMail,
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
