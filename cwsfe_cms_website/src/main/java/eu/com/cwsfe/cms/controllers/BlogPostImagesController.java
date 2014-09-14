@@ -79,7 +79,8 @@ public class BlogPostImagesController implements JsonController {
             image = ImageIO.read(blogPostImage.getFile().getFileItem().getInputStream());
             blogPostImage.setWidth(image.getWidth());
             blogPostImage.setHeight(image.getHeight());
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            LOGGER.error("Problem with reading image", e);
         }
         blogPostImage.setFileName(blogPostImage.getFile().getName());
         blogPostImage.setFileSize(blogPostImage.getFile().getSize());
@@ -87,13 +88,6 @@ public class BlogPostImagesController implements JsonController {
         blogPostImage.setContent(blogPostImage.getFile().getFileItem().get());
         blogPostImage.setCreated(new Date());
         ValidationUtils.rejectIfEmpty(result, "title", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("TitleMustBeSet"));
-//        ValidationUtils.rejectIfEmpty(result, "file", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FileNotChoosen"));
-//        ValidationUtils.rejectIfEmpty(result, "fileName", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FileNotChoosen"));
-//        if (fileName == null || fileSize == null || mimeType == null) {
-//                throw new BusinessException("<br>" + LANG.getTranslation("FileIsBrokenOrEmpty"));
-//            } else if (!isImageMimeTypeValid(mimeType)) {
-//                throw new BusinessException("<br>" + LANG.getTranslation("InvalidFileFormat") + ": " + mimeType);
-//            } else {
         ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
         if (!result.hasErrors()) {
             blogPostImagesDAO.add(blogPostImage);

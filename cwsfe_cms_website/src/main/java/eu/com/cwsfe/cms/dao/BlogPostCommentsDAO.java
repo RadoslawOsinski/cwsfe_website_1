@@ -22,35 +22,6 @@ public class BlogPostCommentsDAO {
         return jdbcTemplate.queryForObject(query, Integer.class);
     }
 
-//    public static List<BlogPostComment> list() {
-//        List<Object[]> dbResults = SQL.read("""
-//                select
-//                id, parent_comment_id, blog_post_i18n_content_id, comment, user_name, email, status, created
-//                from CMS_BLOG_POST_COMMENTS
-//                where status <> 'D'
-//        order by created
-//        """);
-//        List<BlogPostComment> results;
-//        if (dbResults == null) {
-//            results = new ArrayList<BlogPostComment>(0);
-//        } else {
-//            results = new ArrayList<BlogPostComment>(dbResults.size());
-//            for (Object[] dbResult : dbResults) {
-//                results.add(new BlogPostComment(
-//                        id: dbResult[0],
-//                        parentCommentId: dbResult[1],
-//                        blogPostI18nContentId: dbResult[2],
-//                        comment: dbResult[3],
-//                        username: dbResult[4],
-//                        email: dbResult[5],
-//                        status: dbResult[6],
-//                        created: dbResult[7]
-//                ));
-//            }
-//        }
-//        return results;
-//    }
-
     public List<BlogPostComment> listPublishedForPostI18nContent(Long blogPostI18nContentId) {
         Object[] dbParams = new Object[1];
         dbParams[0] = blogPostI18nContentId;
@@ -77,74 +48,6 @@ public class BlogPostCommentsDAO {
         blogPostComment.setCreated(resultSet.getDate("created"));
         return blogPostComment;
     }
-
-
-//    public static Long listPublishedForPostI18nContentCommentsCount(Long blogPostI18nContentId) {
-//        Object[] dbParams = new Object[1];
-//        dbParams[0] = blogPostI18nContentId;
-//        Object[] dbResult = SQL.readLine("""
-//                select count(id)
-//                from CMS_BLOG_POST_COMMENTS
-//                where status = 'P' and blog_post_i18n_content_id = ?
-//                """, dbParams);
-//        return dbResult[0];
-//    }
-//
-//    public static List<BlogPostComment> listPublishedForPostI18nContent(Long blogPostI18nContentId) {
-//        Object[] dbParams = new Object[1];
-//        dbParams[0] = blogPostI18nContentId;
-//        List<Object[]> dbResults = SQL.read("""
-//                select
-//                id, parent_comment_id, blog_post_i18n_content_id, comment, user_name, email, status, created
-//                from CMS_BLOG_POST_COMMENTS
-//                where status = 'P' and blog_post_i18n_content_id = ?
-//                order by created
-//        """, dbParams);
-//        List<BlogPostComment> results;
-//        if (dbResults == null) {
-//            results = new ArrayList<BlogPostComment>(0);
-//        } else {
-//            results = new ArrayList<BlogPostComment>(dbResults.size());
-//            for (Object[] dbResult : dbResults) {
-//                results.add(new BlogPostComment(
-//                        id: dbResult[0],
-//                        parentCommentId: dbResult[1],
-//                        blogPostI18nContentId: dbResult[2],
-//                        comment: dbResult[3],
-//                        username: dbResult[4],
-//                        email: dbResult[5],
-//                        status: dbResult[6],
-//                        created: dbResult[7]
-//                ));
-//            }
-//        }
-//        return results;
-//    }
-//
-//    public static BlogPostComment get(Long id) {
-//        Object[] dbParams = new Object[1];
-//        dbParams[0] = id;
-//        Object[] dbResult = SQL.readLine("""
-//                select
-//                id, parent_comment_id, blog_post_i18n_content_id, comment, user_name, email, status, created
-//                from CMS_BLOG_POST_COMMENTS
-//                where id = ?
-//                """, dbParams);
-//        BlogPostComment blogPostComment = null;
-//        if (dbResult != null) {
-//            blogPostComment = new BlogPostComment(
-//                    id: dbResult[0],
-//                    parentCommentId: dbResult[1],
-//                    blogPostI18nContentId: dbResult[2],
-//                    comment: dbResult[3],
-//                    username: dbResult[4],
-//                    email: dbResult[5],
-//                    status: dbResult[6],
-//                    created: dbResult[7]
-//            );
-//        Integer}
-//        return blogPostComment;
-//    }
 
     public List<BlogPostComment> searchByAjax(
             int iDisplayStart, int iDisplayLength

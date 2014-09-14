@@ -50,8 +50,6 @@ class MainCmsController implements JsonController {
     private List<String> setAdditionalJS(String contextPath) {
         List<String> jsUrl = new ArrayList<>(3);
         jsUrl.add(contextPath + "/resources-cwsfe-cms/js/tipsy/tipsy.js");
-//        jsUrl.add(contextPath + "/resources-cwsfe-cms/js/jqplot/jquery.jqplot.min.js");
-//        jsUrl.add(contextPath + "/resources-cwsfe-cms/js/jqplot/jqplot.dateAxisRenderer.min.js");
         jsUrl.add(contextPath + "/resources-cwsfe-cms/js/cms/main/Dashboard.js");
         return jsUrl;
     }
