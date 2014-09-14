@@ -1,6 +1,8 @@
 package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.BlogPostImage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,10 +13,13 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
 public class BlogPostImagesDAO {
+
+    private static final Logger LOGGER = LogManager.getLogger(BlogPostImagesDAO.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -45,7 +50,8 @@ public class BlogPostImagesDAO {
         List<BlogPostImage> blogPostImages = new ArrayList<>(0);
         try {
             blogPostImages = jdbcTemplate.query(query, dbParams, (resultSet, rowNum) -> mapBlogPostImage(resultSet, false));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return blogPostImages;
     }
@@ -97,7 +103,8 @@ public class BlogPostImagesDAO {
         try {
             blogPostImages = jdbcTemplate.query(query, dbParams, (resultSet, rowNum) ->
                     mapBlogPostImage(resultSet, false));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return blogPostImages;
     }
@@ -116,7 +123,8 @@ public class BlogPostImagesDAO {
         try {
             blogPostImages = jdbcTemplate.query(query, dbParams, (resultSet, rowNum) ->
                     mapBlogPostImage(resultSet, true));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return blogPostImages;
     }
@@ -133,7 +141,8 @@ public class BlogPostImagesDAO {
         try {
             blogPostImages = jdbcTemplate.query(query, (resultSet, rowNum) ->
                     mapBlogPostImage(resultSet, true));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "]", e);
         }
         return blogPostImages;
     }

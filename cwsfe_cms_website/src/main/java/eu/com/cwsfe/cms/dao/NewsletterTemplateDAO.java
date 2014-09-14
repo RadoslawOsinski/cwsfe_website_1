@@ -1,6 +1,8 @@
 package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.NewsletterTemplate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,6 +19,8 @@ import java.util.List;
  */
 @Repository
 public class NewsletterTemplateDAO {
+
+    private static final Logger LOGGER = LogManager.getLogger(NewsletterTemplateDAO.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -148,7 +153,8 @@ public class NewsletterTemplateDAO {
         try {
             return jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) ->
                     mapNewsletterTemplate(resultSet));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return null;
     }

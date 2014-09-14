@@ -1,5 +1,7 @@
 package eu.com.cwsfe.cms.images;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import eu.com.cwsfe.cms.dao.CmsNewsImagesDAO;
 
@@ -14,6 +16,8 @@ public class NewsImageServlet extends CachingImageServlet {
 
     private static final long serialVersionUID = -8378252746962850154L;
 
+    private static final Logger LOGGER = LogManager.getLogger(NewsImageServlet.class);
+
     @Autowired
     private CmsNewsImagesDAO cmsNewsImagesDAO;
 
@@ -23,8 +27,9 @@ public class NewsImageServlet extends CachingImageServlet {
         Long imageId;
         try {
             imageId = Long.parseLong(imageIdString);
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            LOGGER.error("Number format problem: " + imageIdString, e);
             return null;
         }
         return imageId;

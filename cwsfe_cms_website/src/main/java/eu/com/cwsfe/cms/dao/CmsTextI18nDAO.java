@@ -1,6 +1,8 @@
 package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsTextI18n;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -10,10 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
 public class CmsTextI18nDAO {
+
+    private static final Logger LOGGER = LogManager.getLogger(CmsTextI18nDAO.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -84,7 +89,8 @@ public class CmsTextI18nDAO {
         dbParams[2] = key;
         try {
             return jdbcTemplate.queryForObject(query, dbParams, String.class);
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return null;
     }

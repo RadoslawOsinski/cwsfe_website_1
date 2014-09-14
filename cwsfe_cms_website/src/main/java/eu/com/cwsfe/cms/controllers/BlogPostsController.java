@@ -4,6 +4,8 @@ import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +26,8 @@ import java.util.*;
  */
 @Controller
 public class BlogPostsController {
+
+    private static final Logger LOGGER = LogManager.getLogger(BlogPostsController.class);
 
     @Autowired
     private BlogKeywordsDAO blogKeywordsDAO;
@@ -91,7 +95,8 @@ public class BlogPostsController {
         Integer searchAuthorId = null;
         try {
             searchAuthorId = Integer.parseInt(webRequest.getParameter("searchAuthorId"));
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            LOGGER.error("Search author id is not a number: " + webRequest.getParameter("searchAuthorId"));
         }
         List<Object[]> dbList = blogPostsDAO.searchByAjax(iDisplayStart, iDisplayLength, searchAuthorId, searchPostTextCode);
         Integer dbListDisplayRecordsSize = blogPostsDAO.searchByAjaxCount(searchAuthorId, searchPostTextCode);

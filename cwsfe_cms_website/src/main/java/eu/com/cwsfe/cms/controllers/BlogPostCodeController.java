@@ -4,6 +4,8 @@ import eu.com.cwsfe.cms.dao.BlogPostCodesDAO;
 import eu.com.cwsfe.cms.model.BlogPostCode;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,6 +23,8 @@ import java.util.ResourceBundle;
 @Controller
 public class BlogPostCodeController {
 
+    private static final Logger LOGGER = LogManager.getLogger(BlogPostCodeController.class);
+
     @Autowired
     private BlogPostCodesDAO blogPostCodesDAO;
 
@@ -34,7 +38,8 @@ public class BlogPostCodeController {
         Long blogPostId = null;
         try {
             blogPostId = Long.parseLong(webRequest.getParameter("blogPostId"));
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            LOGGER.error("Blog post id is not a number: " + webRequest.getParameter("blogPostId"));
         }
         List<BlogPostCode> dbList = blogPostCodesDAO.searchByAjax(iDisplayStart, iDisplayLength, blogPostId);
         Integer dbListDisplayRecordsSize = blogPostCodesDAO.searchByAjaxCount(blogPostId);
