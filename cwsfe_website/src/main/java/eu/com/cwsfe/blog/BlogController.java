@@ -33,6 +33,19 @@ public class BlogController extends GenericController {
      */
     private static final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";
 
+    public static final String BLOG_POSTS = "blogPosts";
+    public static final String BLOG_POST_I_18_N_CONTENT = "blogPostI18nContent";
+    public static final String BLOG_POST_I_18_N_CONTENTS = "blogPostI18nContents";
+    public static final String CURRENT_PAGE = "currentPage";
+    public static final String CATEGORY_ID = "categoryId";
+    public static final String ARCHIVE_YEAR = "archiveYear";
+    public static final String ARCHIVE_MONTH = "archiveMonth";
+    public static final String NUMBER_OF_PAGES = "numberOfPages";
+    public static final String POSTS_ARCHIVE_STATISTICS = "postsArchiveStatistics";
+    public static final String ARTICLES_PER_PAGE = "articlesPerPage";
+    public static final String BLOG_KEYWORDS = "blogKeywords";
+    public static final String SEARCH_TEXT = "searchText";
+
     @Autowired
     private BlogPostsDAO blogPostsDAO;
     @Autowired
@@ -59,17 +72,17 @@ public class BlogController extends GenericController {
         setPageMetadata(model, locale, "");
         String searchText = "";
         BlogListHelper blogListHelper = listPosts(locale, DEFAULT_CURRENT_PAGE, null, searchText, null, null);
-        model.addAttribute("blogPosts", blogListHelper.blogPosts);
-        model.addAttribute("blogPostI18nContents", blogListHelper.blogPostI18nContents);
-        model.addAttribute("currentPage", blogListHelper.currentPage);
-        model.addAttribute("categoryId", blogListHelper.categoryId);
-        model.addAttribute("archiveYear", blogListHelper.archiveYear);
-        model.addAttribute("archiveMonth", blogListHelper.archiveMonth);
-        model.addAttribute("numberOfPages", blogListHelper.numberOfPages);
-        model.addAttribute("postsArchiveStatistics", blogListHelper.postsArchiveStatistics);
-        model.addAttribute("articlesPerPage", blogListHelper.articlesPerPage);
-        model.addAttribute("blogKeywords", blogListHelper.blogKeywords);
-        model.addAttribute("searchText", blogListHelper.searchText);
+        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
+        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
+        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
+        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
+        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
+        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
+        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
+        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
+        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
+        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
+        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
         return "blog/Blog";
     }
 
@@ -102,17 +115,17 @@ public class BlogController extends GenericController {
         setPageMetadata(model, locale, "");
         String searchText = "";
         BlogListHelper blogListHelper = listPosts(locale, 0, categoryId, searchText, null, null);
-        model.addAttribute("blogPosts", blogListHelper.blogPosts);
-        model.addAttribute("blogPostI18nContents", blogListHelper.blogPostI18nContents);
-        model.addAttribute("currentPage", blogListHelper.currentPage);
-        model.addAttribute("categoryId", blogListHelper.categoryId);
-        model.addAttribute("archiveYear", blogListHelper.archiveYear);
-        model.addAttribute("archiveMonth", blogListHelper.archiveMonth);
-        model.addAttribute("numberOfPages", blogListHelper.numberOfPages);
-        model.addAttribute("postsArchiveStatistics", blogListHelper.postsArchiveStatistics);
-        model.addAttribute("articlesPerPage", blogListHelper.articlesPerPage);
-        model.addAttribute("blogKeywords", blogListHelper.blogKeywords);
-        model.addAttribute("searchText", blogListHelper.searchText);
+        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
+        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
+        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
+        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
+        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
+        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
+        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
+        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
+        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
+        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
+        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
         return "blog/Blog";
     }
 
@@ -120,17 +133,17 @@ public class BlogController extends GenericController {
     public String browseByDate(ModelMap model, Locale locale, @PathVariable("archiveYear") Long archiveYear, @PathVariable("archiveMonth") Long archiveMonth) {
         setPageMetadata(model, locale, "");
         BlogListHelper blogListHelper = listPosts(locale, 0, null, "", archiveYear, archiveMonth);
-        model.addAttribute("blogPosts", blogListHelper.blogPosts);
-        model.addAttribute("blogPostI18nContents", blogListHelper.blogPostI18nContents);
-        model.addAttribute("currentPage", blogListHelper.currentPage);
-        model.addAttribute("categoryId", blogListHelper.categoryId);
-        model.addAttribute("archiveYear", blogListHelper.archiveYear);
-        model.addAttribute("archiveMonth", blogListHelper.archiveMonth);
-        model.addAttribute("numberOfPages", blogListHelper.numberOfPages);
-        model.addAttribute("postsArchiveStatistics", blogListHelper.postsArchiveStatistics);
-        model.addAttribute("articlesPerPage", blogListHelper.articlesPerPage);
-        model.addAttribute("blogKeywords", blogListHelper.blogKeywords);
-        model.addAttribute("searchText", blogListHelper.searchText);
+        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
+        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
+        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
+        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
+        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
+        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
+        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
+        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
+        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
+        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
+        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
         return "blog/Blog";
     }
 
@@ -138,17 +151,17 @@ public class BlogController extends GenericController {
     public String browseBySearch(ModelMap model, Locale locale, @RequestParam(value = "searchText", required = false) String searchText) {
         setPageMetadata(model, locale, "");
         BlogListHelper blogListHelper = listPosts(locale, 0, null, searchText, null, null);
-        model.addAttribute("blogPosts", blogListHelper.blogPosts);
-        model.addAttribute("blogPostI18nContents", blogListHelper.blogPostI18nContents);
-        model.addAttribute("currentPage", blogListHelper.currentPage);
-        model.addAttribute("categoryId", blogListHelper.categoryId);
-        model.addAttribute("archiveYear", blogListHelper.archiveYear);
-        model.addAttribute("archiveMonth", blogListHelper.archiveMonth);
-        model.addAttribute("numberOfPages", blogListHelper.numberOfPages);
-        model.addAttribute("postsArchiveStatistics", blogListHelper.postsArchiveStatistics);
-        model.addAttribute("articlesPerPage", blogListHelper.articlesPerPage);
-        model.addAttribute("blogKeywords", blogListHelper.blogKeywords);
-        model.addAttribute("searchText", blogListHelper.searchText);
+        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
+        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
+        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
+        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
+        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
+        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
+        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
+        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
+        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
+        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
+        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
         return "blog/Blog";
     }
 
@@ -192,17 +205,17 @@ public class BlogController extends GenericController {
             }
         }
         BlogListHelper blogListHelper = listPosts(locale, currentPage, categoryId, searchText, archiveYear, archiveMonth);
-        model.addAttribute("blogPosts", blogListHelper.blogPosts);
-        model.addAttribute("blogPostI18nContents", blogListHelper.blogPostI18nContents);
-        model.addAttribute("currentPage", blogListHelper.currentPage);
-        model.addAttribute("categoryId", blogListHelper.categoryId);
-        model.addAttribute("archiveYear", blogListHelper.archiveYear);
-        model.addAttribute("archiveMonth", blogListHelper.archiveMonth);
-        model.addAttribute("numberOfPages", blogListHelper.numberOfPages);
-        model.addAttribute("postsArchiveStatistics", blogListHelper.postsArchiveStatistics);
-        model.addAttribute("articlesPerPage", blogListHelper.articlesPerPage);
-        model.addAttribute("blogKeywords", blogListHelper.blogKeywords);
-        model.addAttribute("searchText", blogListHelper.searchText);
+        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
+        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
+        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
+        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
+        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
+        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
+        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
+        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
+        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
+        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
+        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
         return "blog/Blog";
     }
 
@@ -216,7 +229,7 @@ public class BlogController extends GenericController {
     ) {
         Lang currentLang = languagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
-            currentLang = languagesDAO.getByCode("en");    //default language
+            currentLang = getDefaultLanguage();
         }
         BlogListHelper blogListHelper = new BlogListHelper();
         blogListHelper.articlesPerPage = 5;
@@ -284,6 +297,10 @@ public class BlogController extends GenericController {
         return blogListHelper;
     }
 
+    private Lang getDefaultLanguage() {
+        return languagesDAO.getByCode("en");
+    }
+
     private List<BlogKeyword> i18nBlogKeywords(Lang currentLang, List<BlogKeyword> blogKeywords) {
         List<BlogKeyword> i18nBlogKeywords = new ArrayList<>(blogKeywords.size());
         for (BlogKeyword blogKeyword : blogKeywords) {
@@ -303,7 +320,7 @@ public class BlogController extends GenericController {
                                  @PathVariable("blogPostI18nContentId") Long blogPostI18nContentId) {
         Lang currentLang = languagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
-            currentLang = languagesDAO.getByCode("en");    //default language
+            currentLang = getDefaultLanguage();
         }
         final BlogPost blogPost = blogPostsDAO.get(blogPostId);
         blogPost.setCmsAuthor(cmsAuthorsDAO.get(blogPost.getPostAuthorId()));
@@ -316,10 +333,10 @@ public class BlogController extends GenericController {
             blogPostComment.setEmail(MD5Util.md5Hex(blogPostComment.getEmail().trim().toLowerCase()));
         }
         blogPostI18nContent.setBlogPostComments(blogPostComments);
-        model.addAttribute("blogPostI18nContent", blogPostI18nContent);
-        model.addAttribute("postsArchiveStatistics", blogPostsDAO.listArchiveStatistics(currentLang.getId()));
-        model.addAttribute("blogKeywords", i18nBlogKeywords(currentLang, blogKeywordsDAO.list()));
-        model.addAttribute("searchText", "");
+        model.addAttribute(BLOG_POST_I_18_N_CONTENT, blogPostI18nContent);
+        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogPostsDAO.listArchiveStatistics(currentLang.getId()));
+        model.addAttribute(BLOG_KEYWORDS, i18nBlogKeywords(currentLang, blogKeywordsDAO.list()));
+        model.addAttribute(SEARCH_TEXT, "");
         setPageMetadata(model, locale, " " + blogPostI18nContent.getPostTitle());
         return "blog/SinglePostView";
     }
