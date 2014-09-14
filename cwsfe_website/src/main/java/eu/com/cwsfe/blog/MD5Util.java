@@ -1,5 +1,8 @@
 package eu.com.cwsfe.blog;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,6 +11,11 @@ import java.security.NoSuchAlgorithmException;
  * @author Radoslaw Osinski
  */
 class MD5Util {
+
+    private static final Logger LOGGER = LogManager.getLogger(MD5Util.class);
+
+    private MD5Util() {
+    }
 
     private static String hex(byte[] array) {
         StringBuilder sb = new StringBuilder();
@@ -20,10 +28,10 @@ class MD5Util {
 
     public static String md5Hex(String message) {
         try {
-            MessageDigest md =
-                    MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             return hex(md.digest(message.getBytes("CP1252")));
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ignored) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            LOGGER.error("Problem with counting digest", e);
         }
         return null;
     }

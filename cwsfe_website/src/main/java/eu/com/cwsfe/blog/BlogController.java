@@ -9,7 +9,6 @@ import net.sf.json.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -52,8 +51,6 @@ public class BlogController implements GenericController {
     private CmsLanguagesDAO languagesDAO;
     @Autowired
     private CmsTextI18nDAO cmsTextI18nDAO;
-    @Autowired
-    private MailSender mailSender;
 
     private static final int DEFAULT_CURRENT_PAGE = 0;
 
@@ -174,21 +171,24 @@ public class BlogController implements GenericController {
         if (categoryString != null && !categoryString.isEmpty()) {
             try {
                 categoryId = Long.parseLong(categoryString);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LOGGER.error("Category cannot be parsed: " + categoryString, e);
             }
         }
         Long archiveYear = null;
         if (archiveYearString != null && !archiveYearString.isEmpty()) {
             try {
                 archiveYear = Long.parseLong(archiveYearString);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LOGGER.error("Archive year cannot be parsed: " + archiveYearString, e);
             }
         }
         Long archiveMonth = null;
         if (archiveMonthString != null && !archiveMonthString.isEmpty()) {
             try {
                 archiveMonth = Long.parseLong(archiveMonthString);
-            } catch (Exception ignored) {
+            } catch (Exception e) {
+                LOGGER.error("Archive month cannot be parsed: " + archiveMonthString, e);
             }
         }
         BlogListHelper blogListHelper = listPosts(locale, currentPage, categoryId, searchText, archiveYear, archiveMonth);
@@ -341,13 +341,6 @@ public class BlogController implements GenericController {
         if (!result.hasErrors()) {
             blogPostComment.setCreated(new Date());
             blogPostCommentsDAO.add(blogPostComment);
-//            SimpleMailMessage message = new SimpleMailMessage();
-//            message.setTo("Radoslaw.Osinski@cwsfe.pl");
-//            message.setSubject("New comment on cwsfe website by " +
-//                    blogPostComment.getUsername() + "[" + blogPostComment.getEmail() + "]"
-//            );
-//            message.setText("Comment: " + blogPostComment.getComment());
-//            mailSender.send(message);
             modelMap.addAttribute("addCommentInfoMessage", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("AddedSuccessfullyWaitForModeratorPublication"));
         } else {
             String addCommentErrorMessage = "";
@@ -360,9 +353,8 @@ public class BlogController implements GenericController {
     }
 
     @RequestMapping(value = "/blogPostCode/{postId}/{codeId}", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String getBlogPostCode(
+    public String getBlogPostCode(
             @PathVariable("postId") Long postId,
             @PathVariable("codeId") String codeId
     ) {

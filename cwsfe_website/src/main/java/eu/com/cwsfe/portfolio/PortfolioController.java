@@ -7,6 +7,8 @@ import eu.com.cwsfe.cms.model.CmsNews;
 import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
 import eu.com.cwsfe.cms.model.Lang;
 import eu.com.cwsfe.model.Keyword;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,6 +24,8 @@ import java.util.*;
  */
 @Controller
 class PortfolioController implements GenericController {
+
+    private static final Logger LOGGER = LogManager.getLogger(PortfolioController.class);
 
     @Autowired
     private CmsFoldersDAO cmsFoldersDAO;
@@ -74,7 +78,8 @@ class PortfolioController implements GenericController {
         if (newsFolderIdString != null && !newsFolderIdString.isEmpty()) {
             try {
                 newsFolderId = Integer.parseInt(newsFolderIdString);
-            } catch (Exception ignored) {
+            } catch (NumberFormatException e) {
+                LOGGER.error("News folder id cannot be parsed: " + newsFolderIdString, e);
             }
         }
         setPageMetadata(model, locale, "");
