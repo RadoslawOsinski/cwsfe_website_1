@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogKeywordsController {
+public class BlogKeywordsController implements JsonController {
 
     @Autowired
     private BlogKeywordsDAO blogKeywordsDAO;
@@ -81,17 +81,17 @@ public class BlogKeywordsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogKeywordsDAO.add(blogKeyword);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -105,17 +105,17 @@ public class BlogKeywordsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogKeywordsDAO.delete(blogKeyword);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }

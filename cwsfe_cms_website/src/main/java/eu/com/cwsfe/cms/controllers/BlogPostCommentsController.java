@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogPostCommentsController {
+public class BlogPostCommentsController implements JsonController {
 
     @Autowired
     private BlogPostCommentsDAO blogPostCommentsDAO;
@@ -34,17 +34,17 @@ public class BlogPostCommentsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.publish(blogPostComment);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -58,17 +58,17 @@ public class BlogPostCommentsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.block(blogPostComment);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -82,17 +82,17 @@ public class BlogPostCommentsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.markAsSpam(blogPostComment);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -106,17 +106,17 @@ public class BlogPostCommentsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.delete(blogPostComment);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }

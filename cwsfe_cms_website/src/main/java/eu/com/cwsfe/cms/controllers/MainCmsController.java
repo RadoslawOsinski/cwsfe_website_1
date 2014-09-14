@@ -23,7 +23,7 @@ import java.util.List;
  * @author Radoslaw Osinski
  */
 @Controller
-class MainCmsController {
+class MainCmsController implements JsonController {
 
     @Autowired
     private BlogPostsDAO blogPostsDAO;
@@ -71,7 +71,7 @@ class MainCmsController {
         }
         jsonArray1.add(jsonArray2);
         responseDetailsJson.put("statistics", jsonArray1);
-        responseDetailsJson.put("status", "OK");
+        responseDetailsJson.put(JSON_STATUS, "OK");
         return responseDetailsJson.toString();
     }
 

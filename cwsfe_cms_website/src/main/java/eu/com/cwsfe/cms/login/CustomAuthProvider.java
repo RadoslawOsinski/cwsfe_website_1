@@ -29,7 +29,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> classArg) {
-        return classArg.getName() != null && classArg.getName().equals("org.springframework.security.authentication.UsernamePasswordAuthenticationToken");
+        return classArg.getName() != null && "org.springframework.security.authentication.UsernamePasswordAuthenticationToken".equals(classArg.getName());
     }
 
     @Override

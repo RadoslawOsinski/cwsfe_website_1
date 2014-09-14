@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class InitialConfigurationController {
+class InitialConfigurationController implements JsonController {
 
     @Autowired
     private CmsGlobalParamsDAO cmsGlobalParamsDAO;
@@ -56,7 +56,7 @@ class InitialConfigurationController {
     public String showInitialConfiguration() {
         try {
             CmsGlobalParam cwsfeCmsIsConfigured = cmsGlobalParamsDAO.getByCode("CWSFE_CMS_IS_CONFIGURED");
-            if (cwsfeCmsIsConfigured == null || cwsfeCmsIsConfigured.getValue() == null || cwsfeCmsIsConfigured.getValue().equals("N")) {
+            if (cwsfeCmsIsConfigured == null || cwsfeCmsIsConfigured.getValue() == null || "N".equals(cwsfeCmsIsConfigured.getValue())) {
                 return "cms/configuration/InitialConfiguration";
             } else {
                 return "cms/login/Login";
