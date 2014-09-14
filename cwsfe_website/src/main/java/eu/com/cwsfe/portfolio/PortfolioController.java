@@ -148,7 +148,7 @@ class PortfolioController implements GenericController {
         portfolioListHelper.cmsNewsList = cmsNewsList;
         portfolioListHelper.cmsNewsI18nContents = cmsNewsI18nContents;
         portfolioListHelper.newsFolderId = newsFolderId;
-        portfolioListHelper.numberOfPages = (int) (Math.floor(foundedNewsTotal / newsPerPage) + (foundedNewsTotal % newsPerPage > 0 ? 1 : 0));
+        portfolioListHelper.numberOfPages = (int) (Math.floor(foundedNewsTotal / (double) newsPerPage) + (foundedNewsTotal % newsPerPage > 0 ? 1 : 0));
         return portfolioListHelper;
     }
 

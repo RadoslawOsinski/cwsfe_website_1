@@ -279,7 +279,7 @@ public class BlogController implements GenericController {
         blogListHelper.archiveYear = archiveYear;
         blogListHelper.archiveMonth = archiveMonth;
         blogListHelper.numberOfPages = (int)
-                (Math.floor((Integer) foundedArticlesTotal[0] / blogListHelper.articlesPerPage) +
+                (Math.floor((Integer) foundedArticlesTotal[0] / (double) blogListHelper.articlesPerPage) +
                         ((int) foundedArticlesTotal[0] % blogListHelper.articlesPerPage > 0 ? 1 : 0));
         return blogListHelper;
     }
@@ -309,7 +309,6 @@ public class BlogController implements GenericController {
         blogPost.setCmsAuthor(cmsAuthorsDAO.get(blogPost.getPostAuthorId()));
         model.addAttribute("blogPost", blogPost);
         BlogPostI18nContent blogPostI18nContent = blogPostI18nContentsDAO.get(blogPostI18nContentId);
-        final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";  //trick for printing code examples inside of blog posts
         blogPostI18nContent.setPostShortcut(blogPostI18nContent.getPostShortcut().replaceAll(CURRENT_BLOG_POST_LABEL, Long.toString(blogPostId)));
         blogPostI18nContent.setPostDescription(blogPostI18nContent.getPostDescription().replaceAll(CURRENT_BLOG_POST_LABEL, Long.toString(blogPostId)));
         List<BlogPostComment> blogPostComments = blogPostCommentsDAO.listPublishedForPostI18nContent(blogPostI18nContent.getId());

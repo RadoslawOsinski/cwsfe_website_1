@@ -70,9 +70,9 @@ public class ContactController implements GenericController {
             mailSender.send(message);
             model.addAttribute("mailSended", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MessageHasBeenSent"));
         } else {
-            String errors = "";
+            StringBuilder errors = new StringBuilder();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
-                errors += result.getAllErrors().get(i).getCode() + "<br/>";
+                errors.append(result.getAllErrors().get(i).getCode()).append("<br/>");
             }
             model.addAttribute("mailSendOperationErrors", errors);
         }

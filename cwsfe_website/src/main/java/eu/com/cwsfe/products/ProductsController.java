@@ -25,7 +25,7 @@ import java.util.*;
 @Controller
 public class ProductsController implements GenericController {
 
-    public static final Logger LOGGER = LogManager.getLogger(ProductsController.class);
+    private static final Logger LOGGER = LogManager.getLogger(ProductsController.class);
 
     @Autowired
     private CmsFoldersDAO cmsFoldersDAO;
@@ -147,7 +147,7 @@ public class ProductsController implements GenericController {
         productsListHelper.cmsNewsList = cmsNewsList;
         productsListHelper.cmsNewsI18nContents = cmsNewsI18nContents;
         productsListHelper.newsFolderId = newsFolderId;
-        productsListHelper.numberOfPages = (int) (Math.floor(foundedNewsTotal / newsPerPage) + (foundedNewsTotal % newsPerPage > 0 ? 1 : 0));
+        productsListHelper.numberOfPages = (int) (Math.floor(foundedNewsTotal / (double) newsPerPage) + (foundedNewsTotal % newsPerPage > 0 ? 1 : 0));
         return productsListHelper;
     }
 
