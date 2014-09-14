@@ -23,7 +23,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class ProductsController implements GenericController {
+public class ProductsController extends GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(ProductsController.class);
 

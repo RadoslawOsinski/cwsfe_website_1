@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class ContactController implements GenericController {
+public class ContactController extends GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(ContactController.class);
 

@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class MainController implements GenericController {
+public class MainController extends GenericController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showMainPage(ModelMap model, Locale locale) {

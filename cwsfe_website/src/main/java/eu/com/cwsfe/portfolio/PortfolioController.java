@@ -23,7 +23,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-class PortfolioController implements GenericController {
+class PortfolioController extends GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(PortfolioController.class);
 

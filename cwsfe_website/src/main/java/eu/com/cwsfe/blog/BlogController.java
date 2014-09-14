@@ -24,7 +24,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogController implements GenericController {
+public class BlogController extends GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(BlogController.class);
 

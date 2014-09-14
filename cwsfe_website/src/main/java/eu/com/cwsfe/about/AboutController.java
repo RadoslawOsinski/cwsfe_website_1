@@ -13,7 +13,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class AboutController implements GenericController {
+public class AboutController extends GenericController {
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String showLoginPage(ModelMap model, Locale locale) {

@@ -30,9 +30,8 @@ class SiteMapController {
     private BlogPostsDAO blogPostsDAO;
 
     @RequestMapping(value = "/sitemap.xml", produces = "application/xml;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String generateSiteMap(Locale locale, HttpServletRequest request) {
+    public String generateSiteMap(Locale locale, HttpServletRequest request) {
         return generateSiteMap(request.getServerName().contains("www."), locale);
     }
 

@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class ServicesController implements GenericController {
+class ServicesController extends GenericController {
 
     public static final String SERVICES_FOLDER = "Services";
 

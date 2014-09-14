@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class NewsletterController implements GenericController {
+class NewsletterController extends GenericController {
 
     @Autowired
     private NewsletterMailGroupDAO newsletterMailGroupDAO;
