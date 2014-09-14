@@ -29,7 +29,10 @@ public class BlogController implements GenericController {
 
     private static final Logger LOGGER = LogManager.getLogger(BlogController.class);
 
-    private static final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";  //trick for printing code examples inside of blog posts
+    /**
+     * trick for printing code examples inside of blog posts
+     */
+    private static final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";
 
     @Autowired
     private BlogPostsDAO blogPostsDAO;
@@ -328,13 +331,13 @@ public class BlogController implements GenericController {
             @RequestParam(value = "blogPostId") Long blogPostId,
             ModelMap modelMap, BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "blogPostI18nContentId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UsernameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "blogPostI18nContentId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE, locale).getString("BlogPostMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE, locale).getString("UsernameMustBeSet"));
         ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
         if (blogPostComment.getEmail() != null && !EmailValidator.isValidEmailAddress(blogPostComment.getEmail())) {
             result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));
         }
-        ValidationUtils.rejectIfEmpty(result, "comment", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "comment", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE, locale).getString("CommentMustBeSet"));
         if (!result.hasErrors()) {
             blogPostComment.setCreated(new Date());
             blogPostCommentsDAO.add(blogPostComment);
