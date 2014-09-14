@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class MonitoringGeneralInformationController implements JsonController {
+public class MonitoringGeneralInformationController extends JsonController {
 
     @Autowired
     private ServerWatch serverWatch;

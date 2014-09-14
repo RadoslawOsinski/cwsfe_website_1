@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class CmsNewsImagesController implements JsonController {
+public class CmsNewsImagesController extends JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(CmsNewsImagesController.class);
 
@@ -88,13 +88,6 @@ public class CmsNewsImagesController implements JsonController {
         cmsNewsImage.setContent(cmsNewsImage.getFile().getFileItem().get());
         cmsNewsImage.setCreated(new Date());
         ValidationUtils.rejectIfEmpty(result, "title", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TitleMustBeSet"));
-//        ValidationUtils.rejectIfEmpty(result, "file", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FileNotChoosen"));
-//        ValidationUtils.rejectIfEmpty(result, "fileName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FileNotChoosen"));
-//        if (fileName == null || fileSize == null || mimeType == null) {
-//                throw new BusinessException("<br>" + LANG.getTranslation("FileIsBrokenOrEmpty"));
-//            } else if (!isImageMimeTypeValid(mimeType)) {
-//                throw new BusinessException("<br>" + LANG.getTranslation("InvalidFileFormat") + ": " + mimeType);
-//            } else {
         ValidationUtils.rejectIfEmpty(result, "newsId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsMustBeSet"));
         if (!result.hasErrors()) {
             cmsNewsImagesDAO.add(cmsNewsImage);

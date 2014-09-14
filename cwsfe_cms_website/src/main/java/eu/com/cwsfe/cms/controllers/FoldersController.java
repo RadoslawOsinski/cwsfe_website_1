@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class FoldersController implements JsonController {
+public class FoldersController extends JsonController {
 
     @Autowired
     private CmsFoldersDAO cmsFoldersDAO;

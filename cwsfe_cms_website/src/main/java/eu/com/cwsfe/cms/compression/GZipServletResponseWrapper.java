@@ -60,8 +60,12 @@ class GZipServletResponseWrapper extends HttpServletResponseWrapper {
             exception2 = e;
         }
 
-        if (exception1 != null) throw exception1;
-        if (exception2 != null) throw exception2;
+        if (exception1 != null) {
+            throw exception1;
+        }
+        if (exception2 != null) {
+            throw exception2;
+        }
     }
 
     @Override

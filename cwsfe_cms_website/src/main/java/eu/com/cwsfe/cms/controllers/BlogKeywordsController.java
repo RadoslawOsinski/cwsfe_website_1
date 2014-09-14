@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogKeywordsController implements JsonController {
+public class BlogKeywordsController extends JsonController {
 
     @Autowired
     private BlogKeywordsDAO blogKeywordsDAO;

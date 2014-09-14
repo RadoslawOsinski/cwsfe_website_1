@@ -3,7 +3,7 @@ package eu.com.cwsfe.cms.controllers;
 /**
  * Created by Radosław Osiński
  */
-public interface JsonController {
+public abstract class JsonController {
 
     public static final String JSON_RESULT = "result";
     public static final String JSON_STATUS = "status";

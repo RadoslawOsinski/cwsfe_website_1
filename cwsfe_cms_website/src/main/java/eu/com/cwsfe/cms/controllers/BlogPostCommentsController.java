@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogPostCommentsController implements JsonController {
+public class BlogPostCommentsController extends JsonController {
 
     @Autowired
     private BlogPostCommentsDAO blogPostCommentsDAO;

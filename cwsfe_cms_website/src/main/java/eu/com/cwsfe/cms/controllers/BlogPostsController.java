@@ -25,7 +25,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogPostsController implements JsonController {
+public class BlogPostsController extends JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(BlogPostsController.class);
 

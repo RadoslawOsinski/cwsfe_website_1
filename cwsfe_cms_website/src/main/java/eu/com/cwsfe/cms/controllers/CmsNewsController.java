@@ -27,7 +27,7 @@ import java.util.*;
  * @author Radoslaw Osinski
  */
 @Controller
-public class CmsNewsController implements JsonController {
+public class CmsNewsController extends JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(CmsNewsController.class);
 

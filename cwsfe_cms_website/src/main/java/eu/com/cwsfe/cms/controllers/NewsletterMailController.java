@@ -33,7 +33,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class NewsletterMailController implements JsonController {
+public class NewsletterMailController extends JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(NewsletterMailController.class);
 
@@ -275,10 +275,10 @@ public class NewsletterMailController implements JsonController {
         if (!EmailValidator.isValidEmailAddress(newsletterMailAddress.getEmail())) {
             result.rejectValue("email", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("EmailIsInvalid"));
         }
-        newsletterMail = newsletterMailDAO.get(newsletterMail.getId());
+        NewsletterMail newsletterMailFromDb = newsletterMailDAO.get(newsletterMail.getId());
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
-            sendTestEmail(newsletterMail, newsletterMailAddress);
+            sendTestEmail(newsletterMailFromDb, newsletterMailAddress);
             responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
             responseDetailsJson.put(JSON_RESULT, "");
         } else {

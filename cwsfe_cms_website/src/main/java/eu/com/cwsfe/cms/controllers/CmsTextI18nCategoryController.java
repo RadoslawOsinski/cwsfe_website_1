@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class CmsTextI18nCategoryController implements JsonController {
+public class CmsTextI18nCategoryController extends JsonController {
 
     @Autowired
     private CmsTextI18nCategoryDAO cmsTextI18nCategoryDAO;

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class NewsTypesController implements JsonController {
+class NewsTypesController extends JsonController {
 
     @Autowired
     private NewsTypesDAO newsTypesDAO;
