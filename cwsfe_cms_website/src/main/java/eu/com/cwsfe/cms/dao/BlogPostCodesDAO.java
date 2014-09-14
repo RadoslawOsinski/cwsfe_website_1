@@ -1,6 +1,8 @@
 package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.BlogPostCode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Repository
 public class BlogPostCodesDAO {
+
+    private static final Logger LOGGER = LogManager.getLogger(BlogPostCodesDAO.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -92,7 +96,8 @@ public class BlogPostCodesDAO {
         BlogPostCode blogPostCode = null;
         try {
             blogPostCode = jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapBlogPostCode(resultSet));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + dbParams, e);
         }
         return blogPostCode;
     }

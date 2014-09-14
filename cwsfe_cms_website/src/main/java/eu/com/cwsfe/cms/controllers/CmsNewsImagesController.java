@@ -4,6 +4,8 @@ import eu.com.cwsfe.cms.dao.CmsNewsImagesDAO;
 import eu.com.cwsfe.cms.model.CmsNewsImage;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -29,6 +31,8 @@ import java.util.ResourceBundle;
 @Controller
 public class CmsNewsImagesController {
 
+    private static final Logger LOGGER = LogManager.getLogger(CmsNewsImagesController.class);
+
     @Autowired
     private CmsNewsImagesDAO cmsNewsImagesDAO;
 
@@ -42,7 +46,8 @@ public class CmsNewsImagesController {
         Long newsId = null;
         try {
             newsId = Long.parseLong(webRequest.getParameter("cmsNewsId"));
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            LOGGER.error("Cms news id is not a number: " + webRequest.getParameter("cmsNewsId"), e);
         }
         List<CmsNewsImage> dbList = cmsNewsImagesDAO.searchByAjaxWithoutContent(iDisplayStart, iDisplayLength, newsId);
         Integer dbListDisplayRecordsSize = cmsNewsImagesDAO.searchByAjaxCountWithoutContent(newsId);
@@ -74,7 +79,8 @@ public class CmsNewsImagesController {
             image = ImageIO.read(cmsNewsImage.getFile().getFileItem().getInputStream());
             cmsNewsImage.setWidth(image.getWidth());
             cmsNewsImage.setHeight(image.getHeight());
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            LOGGER.error("Problem with reading image", e);
         }
         cmsNewsImage.setFileName(cmsNewsImage.getFile().getName());
         cmsNewsImage.setFileSize(cmsNewsImage.getFile().getSize());

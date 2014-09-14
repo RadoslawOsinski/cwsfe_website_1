@@ -7,6 +7,8 @@ import eu.com.cwsfe.cms.model.NewsletterMailAddress;
 import eu.com.cwsfe.cms.model.NewsletterTemplate;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -30,6 +32,8 @@ import java.util.ResourceBundle;
  */
 @Controller
 class NewsletterTemplateController {
+
+    private static final Logger LOGGER = LogManager.getLogger(NewsletterTemplateController.class);
 
     @Autowired
     private NewsletterTemplateDAO newsletterTemplateDAO;
@@ -262,7 +266,8 @@ class NewsletterTemplateController {
             mimeMessage.setContent(newsletterTemplate.getContent(), "text/html");
             helper.setSubject(newsletterTemplate.getSubject());
             helper.setReplyTo("info@cwsfe.pl");
-        } catch (MessagingException ignored) {
+        } catch (MessagingException e) {
+            LOGGER.error("Problem with sending message", e);
         }
         cmsMailSender.send(mimeMessage);
     }

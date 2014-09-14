@@ -1,6 +1,8 @@
 package eu.com.cwsfe.cms.dao;
 
 import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -10,10 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
 public class CmsNewsI18nContentsDAO {
+
+    private static final Logger LOGGER = LogManager.getLogger(CmsNewsI18nContentsDAO.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -92,7 +97,8 @@ public class CmsNewsI18nContentsDAO {
         CmsNewsI18nContent cmsNewsI18nContent = null;
         try {
             cmsNewsI18nContent = jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapCmsNewsI18nContent(resultSet));
-        } catch (DataAccessException ignored) {
+        } catch (DataAccessException e) {
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return cmsNewsI18nContent;
     }
