@@ -4,6 +4,7 @@ import eu.com.cwsfe.cms.dao.BlogPostImagesDAO;
 import eu.com.cwsfe.cms.model.BlogPostImage;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.apache.logging.log4j.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -29,6 +31,8 @@ import java.util.ResourceBundle;
 @Controller
 public class BlogPostImagesController {
 
+    public static final Logger LOGGER = LogManager.getLogger(BlogPostImagesController.class);
+
     @Autowired
     private BlogPostImagesDAO blogPostImagesDAO;
 
@@ -42,7 +46,8 @@ public class BlogPostImagesController {
         Long blogPostId = null;
         try {
             blogPostId = Long.parseLong(webRequest.getParameter("blogPostId"));
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            LOGGER.error("Blog post id is not a number: " + webRequest.getParameter("blogPostId"), e);
         }
         List<BlogPostImage> dbList = blogPostImagesDAO.searchByAjaxWithoutContent(iDisplayStart, iDisplayLength, blogPostId);
         Integer dbListDisplayRecordsSize = blogPostImagesDAO.searchByAjaxCountWithoutContent(blogPostId);
