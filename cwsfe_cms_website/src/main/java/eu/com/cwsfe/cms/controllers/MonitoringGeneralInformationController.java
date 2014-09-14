@@ -53,7 +53,8 @@ public class MonitoringGeneralInformationController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/monitoring/generalMemoryInfo", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String getGeneralMemoryInfo() {
+    @ResponseBody
+    public String getGeneralMemoryInfo() {
         JSONObject responseDetailsJson = new JSONObject();
         responseDetailsJson.put("usedMemoryInMb", serverWatch.usedMemoryInMb());
         responseDetailsJson.put("availableMemoryInMB", serverWatch.availableMemoryInMB());

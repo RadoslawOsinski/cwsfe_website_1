@@ -55,7 +55,8 @@ class MainCmsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPostsListForChart", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogPosts() {
+    @ResponseBody
+    public String listBlogPosts() {
         List<Object[]> dbList = blogPostsDAO.listArchiveStatistics();
         JSONObject responseDetailsJson = new JSONObject();
         JSONArray jsonArray1 = new JSONArray();

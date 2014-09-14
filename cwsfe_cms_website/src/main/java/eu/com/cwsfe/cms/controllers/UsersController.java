@@ -78,7 +78,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/usersList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listUsers(
+    @ResponseBody
+    public String listUsers(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -103,7 +104,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/usersDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listUsersForDropList(
+    @ResponseBody
+    public String listUsersForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -121,7 +123,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addUser(
+    @ResponseBody
+    public String addUser(
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
@@ -147,7 +150,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteUser(
+    @ResponseBody
+    public String deleteUser(
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
@@ -171,7 +175,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/lockUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String lockUser(
+    @ResponseBody
+    public String lockUser(
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
@@ -195,7 +200,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/unlockUser", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String unlockUser(
+    @ResponseBody
+    public String unlockUser(
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
@@ -259,7 +265,8 @@ class UsersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/users/updateUserBasicInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String updateUserBasicInfo(
+    @ResponseBody
+    public String updateUserBasicInfo(
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {

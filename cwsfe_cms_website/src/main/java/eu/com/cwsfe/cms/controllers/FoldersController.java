@@ -49,7 +49,8 @@ public class FoldersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/foldersList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listFolders(
+    @ResponseBody
+    public String listFolders(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -74,7 +75,8 @@ public class FoldersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/news/foldersDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listFoldersForDropList(
+    @ResponseBody
+    public String listFoldersForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -92,7 +94,8 @@ public class FoldersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addFolder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addFolder(
+    @ResponseBody
+    public String addFolder(
             @ModelAttribute(value = "cmsFolder") CmsFolder cmsFolder,
             BindingResult result, Locale locale
     ) {
@@ -116,7 +119,8 @@ public class FoldersController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteFolder", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteFolder(
+    @ResponseBody
+    public String deleteFolder(
             @ModelAttribute(value = "cmsFolder") CmsFolder cmsFolder,
             BindingResult result, Locale locale
     ) {

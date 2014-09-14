@@ -26,7 +26,8 @@ public class BlogPostCommentsController implements JsonController {
     private BlogPostCommentsDAO blogPostCommentsDAO;
 
     @RequestMapping(value = "/CWSFE_CMS/publishBlogPostComment", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String blogPostCommentPublish(
+    @ResponseBody
+    public String blogPostCommentPublish(
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
@@ -50,7 +51,8 @@ public class BlogPostCommentsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blockBlogPostComment", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String blogPostCommentBlock(
+    @ResponseBody
+    public String blogPostCommentBlock(
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
@@ -74,7 +76,8 @@ public class BlogPostCommentsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/markAsSpamBlogPostComment", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String blogPostCommentMarkAsSpam(
+    @ResponseBody
+    public String blogPostCommentMarkAsSpam(
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
@@ -98,7 +101,8 @@ public class BlogPostCommentsController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteBlogPostComment", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String blogPostCommentDelete(
+    @ResponseBody
+    public String blogPostCommentDelete(
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {

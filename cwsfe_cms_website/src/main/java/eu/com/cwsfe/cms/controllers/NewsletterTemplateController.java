@@ -81,9 +81,8 @@ class NewsletterTemplateController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterTemplatesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String listNewsletterTemplates(
+    public String listNewsletterTemplates(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -113,9 +112,8 @@ class NewsletterTemplateController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addNewsletterTemplate", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String addNewsletterTemplate(
+    public String addNewsletterTemplate(
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, Locale locale
     ) {
@@ -140,9 +138,8 @@ class NewsletterTemplateController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteNewsletterTemplate", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String deleteNewsletterTemplate(
+    public String deleteNewsletterTemplate(
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, Locale locale
     ) {
@@ -166,9 +163,8 @@ class NewsletterTemplateController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/unDeleteNewsletterTemplate", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String unDeleteNewsletterTemplate(
+    public String unDeleteNewsletterTemplate(
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, Locale locale
     ) {
@@ -226,9 +222,8 @@ class NewsletterTemplateController implements JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterTemplates/newsletterTemplateTestSend", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String newsletterTemplateTestSend(
+    public String newsletterTemplateTestSend(
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
