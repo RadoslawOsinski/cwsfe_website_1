@@ -63,7 +63,7 @@ public class ServerWatch {
     }
 
     double asMb(long bytes) {
-        return bytes / 1024 / 1024;
+        return bytes / (double) 1024 / (double) 1024;
     }
 
 }

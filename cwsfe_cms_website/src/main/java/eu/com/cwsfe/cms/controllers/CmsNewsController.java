@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -44,7 +44,7 @@ public class CmsNewsController extends JsonController {
     @Autowired
     private CmsLanguagesDAO cmsLanguagesDAO;
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(value = "/CWSFE_CMS/news", method = RequestMethod.GET)
     public String defaultView(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
@@ -112,7 +112,7 @@ public class CmsNewsController extends JsonController {
                 formDetailsJson.put("author", objects[1]);
             }
             formDetailsJson.put("newsCode", objects[5]);
-            formDetailsJson.put("creationDate", DATE_FORMAT.format((Date) objects[4]));
+            formDetailsJson.put("creationDate", DATE_FORMAT.format(((Date) objects[4]).toInstant()));
             formDetailsJson.put("id", objects[0]);
             jsonArray.add(formDetailsJson);
         }

@@ -75,7 +75,7 @@ class InitialConfigurationController extends JsonController {
         ValidationUtils.rejectIfEmpty(result, "passwordHash", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("PasswordMustBeSet"));
         ModelAndView modelAndView = new ModelAndView();
         if (!result.hasErrors()) {
-            String errorMessage = "";
+            StringBuilder errorMessage = new StringBuilder();
             try {
                 final ResourceDatabasePopulator rdp = new ResourceDatabasePopulator();
                 Resource resource = resourceLoader.getResource("classpath:/META-INF/release/cms.sql");
@@ -83,12 +83,12 @@ class InitialConfigurationController extends JsonController {
                 rdp.populate(dataSource.getConnection());
             } catch (SQLException e) {
                 for (int i = 0; i < result.getAllErrors().size(); i++) {
-                    errorMessage += result.getAllErrors().get(i).getCode();
-                    errorMessage += "<br/>";
+                    errorMessage.append(result.getAllErrors().get(i).getCode());
+                    errorMessage.append("<br/>");
                 }
                 modelAndView.getModel().put("errors", errorMessage);
             }
-            if (errorMessage.isEmpty()) {
+            if (errorMessage.toString().isEmpty()) {
                 cmsUser.setPasswordHash(BCrypt.hashpw(cmsUser.getPasswordHash(), BCrypt.gensalt(13)));
                 cmsUser.setId(cmsUsersDAO.add(cmsUser));
                 CmsRole cwsfeCmsAdminRole = cmsRolesDAO.getByCode("ROLE_CWSFE_CMS_ADMIN");

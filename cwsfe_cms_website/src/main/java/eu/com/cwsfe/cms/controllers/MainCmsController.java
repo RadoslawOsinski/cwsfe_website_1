@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ class MainCmsController extends JsonController {
     @Autowired
     private BlogPostCommentsDAO blogPostCommentsDAO;
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(value="/CWSFE_CMS/Main", method = RequestMethod.GET)
     public String printDashboard(ModelMap model, Principal principal, HttpServletRequest httpServletRequest) {
@@ -90,7 +90,7 @@ class MainCmsController extends JsonController {
             final BlogPostComment objects = dbList.get(i);
             formDetailsJson.put("username", objects.getUsername() + "[" + objects.getEmail() + "]");
             formDetailsJson.put("comment", objects.getComment());
-            formDetailsJson.put("created", DATE_FORMAT.format(objects.getCreated()));
+            formDetailsJson.put("created", DATE_FORMAT.format(objects.getCreated().toInstant()));
             formDetailsJson.put("status", objects.getStatus());
             formDetailsJson.put("id", objects.getId());
             jsonArray.add(formDetailsJson);
