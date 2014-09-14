@@ -173,13 +173,15 @@ public class ProductsController extends GenericController {
             if (iNews[0].equals(cmsNews.getId()) && iNews[1].equals(cmsNewsI18nContent.getId())) {
                 try {
                     nextNews = newsAndContents.get(i + 1);
-                } catch (Exception e) {
+                } catch (IndexOutOfBoundsException e) {
                     nextNews = null;
+                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
                 }
                 try {
                     previousNews = newsAndContents.get(i - 1);
-                } catch (Exception e) {
+                } catch (IndexOutOfBoundsException e) {
                     previousNews = null;
+                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
                 }
                 break;
             }

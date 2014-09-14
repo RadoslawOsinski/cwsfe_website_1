@@ -116,7 +116,7 @@ class PortfolioController extends GenericController {
         Integer foundedNewsTotal;
         Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
-            currentPLang = langsDAO.getByCode("en");
+            currentPLang = getDefaultLanguage();
         }
         if (newsFolderId != null) {
             cmsNewsI18nContentIds = cmsNewsDAO.listByFolderLangWithPagingForProjects(newsFolderId, currentPLang.getId(), newsPerPage, currentPage * newsPerPage);
@@ -161,26 +161,28 @@ class PortfolioController extends GenericController {
         CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.get(Long.valueOf(cmsNewsI18nContentsId));
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
 
-        Lang currentLang = langsDAO.getByCode(locale.getLanguage());     //bellow there is code for finding news for previous/next links
+        //bellow there is code for finding news for previous/next links
+        Lang currentLang = langsDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
-            currentLang = langsDAO.getByCode("en");    //default language
+            currentLang = getDefaultLanguage();
         }
         List<Object[]> newsAndContents = cmsNewsDAO.listI18nProjects(currentLang.getId());
-        Object[] iNews;
         Object[] previousNews = null;
         Object[] nextNews = null;
         for (int i = 0; i < newsAndContents.size(); ++i) {
-            iNews = newsAndContents.get(i);
+            Object[] iNews = newsAndContents.get(i);
             if (iNews[0].equals(cmsNews.getId()) && iNews[1].equals(cmsNewsI18nContent.getId())) {
                 try {
                     nextNews = newsAndContents.get(i + 1);
-                } catch (Exception e) {
+                } catch (IndexOutOfBoundsException e) {
                     nextNews = null;
+                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
                 }
                 try {
                     previousNews = newsAndContents.get(i - 1);
-                } catch (Exception e) {
+                } catch (IndexOutOfBoundsException e) {
                     previousNews = null;
+                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
                 }
                 break;
             }
@@ -189,6 +191,10 @@ class PortfolioController extends GenericController {
         model.addAttribute("nextNews", nextNews);
         setPageMetadata(model, locale, " " + cmsNewsI18nContent.getNewsTitle());
         return "portfolio/PortfolioSingleView";
+    }
+
+    private Lang getDefaultLanguage() {
+        return langsDAO.getByCode("en");
     }
 
 }
