@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 @Controller
 public class BlogPostImagesController {
 
-    public static final Logger LOGGER = LogManager.getLogger(BlogPostImagesController.class);
+    private static final Logger LOGGER = LogManager.getLogger(BlogPostImagesController.class);
 
     @Autowired
     private BlogPostImagesDAO blogPostImagesDAO;
@@ -132,12 +132,12 @@ public class BlogPostImagesController {
             return false;
         }
         mimeType = mimeType.trim().toLowerCase();
-        return mimeType.equals("image/gif") ||
-                mimeType.equals("image/jpg") ||
-                mimeType.equals("image/jpeg") ||
-                mimeType.equals("image/pjpeg") ||
-                mimeType.equals("image/bmp") ||
-                mimeType.equals("image/png");
+        return "image/gif".equals(mimeType) ||
+                "image/jpg".equals(mimeType) ||
+                "image/jpeg".equals(mimeType) ||
+                "image/pjpeg".equals(mimeType) ||
+                "image/bmp".equals(mimeType) ||
+                "image/png".equals(mimeType);
     }
 
     protected void initBinder(ServletRequestDataBinder binder) {
