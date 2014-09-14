@@ -6,7 +6,7 @@ package eu.com.cwsfe.contact;
 class ContactMail extends BaseObject {
 
     private String name;
-    String email;
+    private String email;
     private String message;
 
     public String getName() {

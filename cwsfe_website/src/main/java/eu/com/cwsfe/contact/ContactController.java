@@ -1,6 +1,8 @@
 package eu.com.cwsfe.contact;
 
 import eu.com.cwsfe.model.Keyword;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,6 +24,8 @@ import java.util.ResourceBundle;
  */
 @Controller
 public class ContactController {
+
+    public static final Logger LOGGER = LogManager.getLogger(ContactController.class);
 
     @Autowired
     private MailSender mailSender;
@@ -52,8 +56,9 @@ public class ContactController {
         ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("NameMustBeSet"));
         ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailMustBeSet"));
         ValidationUtils.rejectIfEmpty(result, "message", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("MessageIsRequired"));
-        if (!EmailValidator.isValidEmailAddress(contactMail.email)) {
+        if (!EmailValidator.isValidEmailAddress(contactMail.getEmail())) {
             result.rejectValue("email", ResourceBundle.getBundle("cwsfe_i18n", locale).getString("EmailIsInvalid"));
+            LOGGER.warn("Email " + contactMail.getEmail() + " is invalid");
         }
         if (!result.hasErrors()) {
             SimpleMailMessage message = new SimpleMailMessage();

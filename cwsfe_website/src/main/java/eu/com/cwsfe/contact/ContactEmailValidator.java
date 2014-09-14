@@ -20,7 +20,7 @@ class ContactEmailValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "EmailIsRequired");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "message", "MessageIsRequired");
         ContactMail contactMail = (ContactMail) o;
-        if(!EmailValidator.isValidEmailAddress(contactMail.email)) {
+        if(!EmailValidator.isValidEmailAddress(contactMail.getEmail())) {
             errors.rejectValue("email", "EmailIsInvalid");
         }
     }
