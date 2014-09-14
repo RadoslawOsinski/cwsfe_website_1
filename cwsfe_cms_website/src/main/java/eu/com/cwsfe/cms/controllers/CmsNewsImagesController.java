@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class CmsNewsImagesController {
+public class CmsNewsImagesController implements JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(CmsNewsImagesController.class);
 
@@ -113,17 +113,17 @@ public class CmsNewsImagesController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNewsImagesDAO.delete(cmsNewsImage);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }

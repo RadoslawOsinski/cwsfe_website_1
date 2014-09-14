@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class NewsletterMailGroupsController {
+class NewsletterMailGroupsController implements JsonController {
 
     @Autowired
     private NewsletterMailGroupDAO newsletterMailGroupDAO;
@@ -135,17 +135,17 @@ class NewsletterMailGroupsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailGroupDAO.add(newsletterMailGroup);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -161,17 +161,17 @@ class NewsletterMailGroupsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailGroupDAO.delete(newsletterMailGroup);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -229,17 +229,17 @@ class NewsletterMailGroupsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailGroupDAO.update(newsletterMailGroup);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -272,17 +272,17 @@ class NewsletterMailGroupsController {
                 newsletterMailAddress.setUnSubscribeString(UUIDGenerator.getRandomUniqueID());
             }
             newsletterMailAddressDAO.add(newsletterMailAddress);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -298,17 +298,17 @@ class NewsletterMailGroupsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailAddressDAO.delete(newsletterMailAddress);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -324,17 +324,17 @@ class NewsletterMailGroupsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailAddressDAO.activate(newsletterMailAddress);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }
@@ -350,17 +350,17 @@ class NewsletterMailGroupsController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailAddressDAO.deactivate(newsletterMailAddress);
-            responseDetailsJson.put("status", "SUCCESS");
-            responseDetailsJson.put("result", "");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
+            responseDetailsJson.put(JSON_RESULT, "");
         } else {
-            responseDetailsJson.put("status", "FAIL");
+            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
             JSONArray jsonArray = new JSONArray();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
                 JSONObject formDetailsJson = new JSONObject();
                 formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
                 jsonArray.add(formDetailsJson);
             }
-            responseDetailsJson.put("result", jsonArray);
+            responseDetailsJson.put(JSON_RESULT, jsonArray);
         }
         return responseDetailsJson.toString();
     }

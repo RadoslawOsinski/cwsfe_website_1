@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class RolesController {
+public class RolesController implements JsonController {
 
     @Autowired
     private CmsRolesDAO cmsRolesDAO;
