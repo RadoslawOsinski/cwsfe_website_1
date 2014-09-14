@@ -2,6 +2,8 @@ package eu.com.cwsfe.cms.controllers;
 
 import eu.com.cwsfe.cms.dao.CmsGlobalParamsDAO;
 import eu.com.cwsfe.cms.model.CmsGlobalParam;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 class LoginController {
+
+    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
 
     @Autowired
     private CmsGlobalParamsDAO cmsGlobalParamsDAO;
@@ -29,6 +33,7 @@ class LoginController {
                 return "cms/login/Login";
             }
         } catch (DataAccessException e) {
+            LOGGER.error("Problem with initial configuration", e);
             return "cms/configuration/InitialConfiguration";
         }
     }
