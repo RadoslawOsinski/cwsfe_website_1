@@ -5,6 +5,8 @@ import eu.com.cwsfe.cms.model.*;
 import eu.com.cwsfe.contact.EmailValidator;
 import eu.com.cwsfe.model.Keyword;
 import net.sf.json.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,10 @@ import java.util.*;
  */
 @Controller
 public class BlogController {
+
+    private static final Logger LOGGER = LogManager.getLogger(BlogController.class);
+
+    private static final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";  //trick for printing code examples inside of blog posts
 
     @Autowired
     private BlogPostsDAO blogPostsDAO;
@@ -225,13 +231,15 @@ public class BlogController {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = null;
             Date endDate = null;
+            String dateString = archiveYear + "-" + ((archiveMonth < 10) ? "0" + archiveMonth : archiveMonth) + "-01";
             try {
-                startDate = formatter.parse(archiveYear + "-" + ((archiveMonth < 10) ? "0" + archiveMonth : archiveMonth) + "-01");
+                startDate = formatter.parse(dateString);
                 Calendar startDateCalendar = Calendar.getInstance();
                 startDateCalendar.setTime(startDate);
                 startDateCalendar.add(Calendar.MONTH, 1);
                 endDate = startDateCalendar.getTime();
-            } catch (ParseException ignored) {
+            } catch (ParseException e) {
+                LOGGER.error("Cannot parse date: " + dateString, e);
             }
             postI18nIds = blogPostsDAO.listForPageWithArchiveDateAndPaging(startDate, endDate, currentLang.getId(), blogListHelper.articlesPerPage, blogListHelper.currentPage);
             foundedArticlesTotal = blogPostsDAO.listCountForPageWithArchiveDateAndPaging(startDate, endDate, currentLang.getId());
@@ -253,7 +261,6 @@ public class BlogController {
                 blogPost.setCmsAuthor(cmsAuthorsDAO.get(blogPost.getPostAuthorId()));
                 blogPost.setBlogKeywords(i18nBlogKeywords(currentLang, blogPostKeywordsDAO.listForPost(blogPost.getId())));
                 BlogPostI18nContent blogPostI18nContent = blogPostI18nContentsDAO.get((Long) postI18nId[1]);
-                final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";  //trick for printing code examples inside of blog posts
                 blogPostI18nContent.setPostShortcut(blogPostI18nContent.getPostShortcut().replaceAll(CURRENT_BLOG_POST_LABEL, Long.toString(blogPostId)));
                 blogPostI18nContent.setPostDescription(blogPostI18nContent.getPostDescription().replaceAll(CURRENT_BLOG_POST_LABEL, Long.toString(blogPostId)));
                 blogPostI18nContent.setBlogPostComments(blogPostCommentsDAO.listPublishedForPostI18nContent(blogPostI18nContent.getId()));

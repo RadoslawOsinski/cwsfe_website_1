@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 @Controller
 public class ContactController {
 
-    public static final Logger LOGGER = LogManager.getLogger(ContactController.class);
+    private static final Logger LOGGER = LogManager.getLogger(ContactController.class);
 
     @Autowired
     private MailSender mailSender;

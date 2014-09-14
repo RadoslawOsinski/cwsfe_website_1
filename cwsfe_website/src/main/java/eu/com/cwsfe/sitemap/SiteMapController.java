@@ -19,6 +19,9 @@ import java.util.Locale;
 @Controller
 class SiteMapController {
 
+    public static final String LOCALE_PL = "pl";
+    public static final String LOCALE_EU = "eu";
+
     @Autowired
     private CmsNewsDAO cmsNewsDAO;
     @Autowired
@@ -34,7 +37,7 @@ class SiteMapController {
     }
 
     private String generateSiteMap(boolean withWww, Locale locale) {
-        String domainPrefix = locale.getLanguage().equals("pl") ? "pl" : "eu";
+        String domainPrefix = locale.getLanguage().equals(LOCALE_PL) ? LOCALE_PL : LOCALE_EU;
         String wwwString = "";
         if (withWww) {
             wwwString = "www.";
@@ -43,7 +46,7 @@ class SiteMapController {
         stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         stringBuilder.append("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">");
         String finalDomainPrefix = "http://" + wwwString + "cwsfe." + domainPrefix;
-        if ((domainPrefix.equals("pl") || domainPrefix.equals("eu"))) {
+        if ((domainPrefix.equals(LOCALE_PL) || domainPrefix.equals(LOCALE_EU))) {
             stringBuilder.append(addStaticUrl("0.9", finalDomainPrefix, "/"));
             stringBuilder.append(addStaticUrl("0.9", finalDomainPrefix, "/about"));
             stringBuilder.append(addStaticUrl("0.8", finalDomainPrefix, "/services"));
