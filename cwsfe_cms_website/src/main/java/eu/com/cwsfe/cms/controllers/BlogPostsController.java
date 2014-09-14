@@ -18,8 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Radoslaw Osinski
@@ -42,7 +43,7 @@ public class BlogPostsController extends JsonController {
     @Autowired
     private CmsLanguagesDAO cmsLanguagesDAO;
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts", method = RequestMethod.GET)
     public String defaultView(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
@@ -112,7 +113,7 @@ public class BlogPostsController extends JsonController {
                 formDetailsJson.put("author", objects[1]);
             }
             formDetailsJson.put("postTextCode", objects[2]);
-            formDetailsJson.put("postCreationDate", DATE_FORMAT.format((Date) objects[3]));
+            formDetailsJson.put("postCreationDate", DATE_FORMAT.format(((Date) objects[3]).toInstant()));
             formDetailsJson.put("id", objects[0]);
             jsonArray.add(formDetailsJson);
         }
@@ -192,9 +193,7 @@ public class BlogPostsController extends JsonController {
         blogPost.setBlogPostI18nContent(blogPostI18nContents);
         blogPost.setBlogKeywords(blogPostKeywordsDAO.listForPost(blogPost.getId()));
         List<Long> blogPostSelectedKeywords = new ArrayList<>(5);
-        for (BlogKeyword blogKeyword : blogPost.getBlogKeywords()) {
-            blogPostSelectedKeywords.add(blogKeyword.getId());
-        }
+        blogPostSelectedKeywords.addAll(blogPost.getBlogKeywords().stream().map(BlogKeyword::getId).collect(Collectors.toList()));
         model.addAttribute("blogPostSelectedKeywords", blogPostSelectedKeywords);
         model.addAttribute("blogKeywords", blogKeywordsDAO.list());
         model.addAttribute("blogPost", blogPost);

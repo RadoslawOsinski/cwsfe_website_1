@@ -212,9 +212,9 @@ class NewsletterTemplateController extends JsonController {
             newsletterTemplateDAO.update(newsletterTemplate);
             model.addAttribute("updateSuccessfull", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("Saved"));
         } else {
-            String errors = "";
+            StringBuilder errors = new StringBuilder();
             for (int i = 0; i < result.getAllErrors().size(); i++) {
-                errors += result.getAllErrors().get(i).getCode() + "<br/>";
+                errors.append(result.getAllErrors().get(i).getCode()).append("<br/>");
             }
             model.addAttribute("updateErrors", errors);
         }

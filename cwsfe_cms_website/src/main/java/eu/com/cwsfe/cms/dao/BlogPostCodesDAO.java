@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -97,7 +98,7 @@ public class BlogPostCodesDAO {
         try {
             blogPostCode = jdbcTemplate.queryForObject(query, dbParams, (resultSet, rowNum) -> mapBlogPostCode(resultSet));
         } catch (DataAccessException e) {
-            LOGGER.error("Problem query: [" + query + "] with params: " + dbParams, e);
+            LOGGER.error("Problem query: [" + query + "] with params: " + Arrays.toString(dbParams), e);
         }
         return blogPostCode;
     }
