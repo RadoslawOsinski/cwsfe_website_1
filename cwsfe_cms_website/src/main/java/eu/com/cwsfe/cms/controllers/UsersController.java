@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class UsersController implements JsonController {
+class UsersController extends JsonController {
 
     @Autowired
     private CmsUsersDAO cmsUsersDAO;

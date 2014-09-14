@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class InitialConfigurationController implements JsonController {
+class InitialConfigurationController extends JsonController {
 
     @Autowired
     private CmsGlobalParamsDAO cmsGlobalParamsDAO;

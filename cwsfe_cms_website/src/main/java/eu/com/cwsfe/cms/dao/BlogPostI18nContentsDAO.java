@@ -20,44 +20,6 @@ public class BlogPostI18nContentsDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-//    public static List<BlogPostI18nContent> listAll() {
-//        List<Object[]> dbResults = SQL.read("""
-//                select
-//                id, post_id, language_id, post_title, post_shortcut, post_description, status
-//                from BLOG_POST_I18N_CONTENTS
-//                where status <> 'D'
-//        order by post_id
-//        """);
-//        List<BlogPostI18nContent> results;
-//        if (dbResults == null) {
-//            results = new ArrayList<BlogPostI18nContent>(0);
-//        } else {
-//            results = new ArrayList<BlogPostI18nContent>(dbResults.size());
-//            for (Object[] dbResult : dbResults) {
-//                results.add(new BlogPostI18nContent(
-//                        id: dbResult[0],
-//                        postId: dbResult[1],
-//                        languageId: dbResult[2],
-//                        postTitle: dbResult[3],
-//                        postShortcut: dbResult[4],
-//                        postDescription: dbResult[5],
-//                        status: dbResult[6]
-//                ));
-//            }
-//        }
-//        return results;
-//    }
-//
-//                    postId: dbResult[1],
-//                    languageId: dbResult[2],
-//                    postTitle: dbResult[3],
-//                    postShortcut: dbResult[4],
-//                    postDescription: dbResult[5],
-//                    status: dbResult[6]
-//            );
-//        }
-//        return blogPost;
-//    }
     public BlogPostI18nContent get(Long id) {
         String query =
                 "SELECT " +

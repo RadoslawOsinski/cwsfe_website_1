@@ -68,7 +68,9 @@ public abstract class CachingImageServlet extends HttpServlet {
      */
     private void processRequest(HttpServletRequest request, HttpServletResponse response, boolean content) throws IOException {
         Long imageId = validateRequestedImage(request, response);
-        if (imageId == null) return;
+        if (imageId == null) {
+            return;
+        }
 
         // Prepare some variables. The ETag is an unique identifier of the file.
         String fileName = getImageFileName(imageId);

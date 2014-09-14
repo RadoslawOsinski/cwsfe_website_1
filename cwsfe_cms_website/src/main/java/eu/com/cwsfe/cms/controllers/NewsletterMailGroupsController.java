@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class NewsletterMailGroupsController implements JsonController {
+class NewsletterMailGroupsController extends JsonController {
 
     @Autowired
     private NewsletterMailGroupDAO newsletterMailGroupDAO;

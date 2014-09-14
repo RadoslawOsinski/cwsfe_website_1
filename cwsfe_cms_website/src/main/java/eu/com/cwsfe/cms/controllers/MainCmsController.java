@@ -23,7 +23,7 @@ import java.util.List;
  * @author Radoslaw Osinski
  */
 @Controller
-class MainCmsController implements JsonController {
+class MainCmsController extends JsonController {
 
     @Autowired
     private BlogPostsDAO blogPostsDAO;

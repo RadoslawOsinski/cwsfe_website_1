@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class LanguagesController implements JsonController {
+class LanguagesController extends JsonController {
 
     @Autowired
     private CmsLanguagesDAO cmsLanguagesDAO;

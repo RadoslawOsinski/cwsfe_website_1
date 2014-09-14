@@ -97,23 +97,6 @@ public class CmsGlobalParamsDAO {
                 mapCmsGlobalParam(resultSet));
     }
 
-    //    public static List<Object[]> listArray() {
-//        List<Object[]> dbResults = SQL.read("""
-//                select
-//                id, folder_name
-//                from CMS_GLOBAL_PARAMS
-//                where status = 'N'
-//                order by order_number
-//                """);
-//                List<Object[]> results;
-//        if (dbResults == null) {
-//            results = new ArrayList<Object[]>(0);
-//        } else {
-//            results = dbResults;
-//        }
-//        return results;
-//    }
-//
     public Long add(CmsGlobalParam cmsFolder) {
         Object[] dbParams = new Object[5];
         Long id = jdbcTemplate.queryForObject("SELECT nextval('CMS_GLOBAL_PARAMS_S')", Long.class);

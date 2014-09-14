@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-class NewsletterTemplateController implements JsonController {
+class NewsletterTemplateController extends JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(NewsletterTemplateController.class);
 

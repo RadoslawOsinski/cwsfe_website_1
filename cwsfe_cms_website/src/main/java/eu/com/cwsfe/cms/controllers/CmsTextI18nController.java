@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class CmsTextI18nController implements JsonController {
+public class CmsTextI18nController extends JsonController {
 
     @Autowired
     private CmsTextI18nDAO cmsTextI18nDAO;

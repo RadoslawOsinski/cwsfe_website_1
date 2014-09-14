@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Radoslaw Osinski
  */
 @Controller
-public class BlogPostImagesController implements JsonController {
+public class BlogPostImagesController extends JsonController {
 
     private static final Logger LOGGER = LogManager.getLogger(BlogPostImagesController.class);
 
