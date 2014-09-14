@@ -44,7 +44,7 @@ public class FoldersController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/folders").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FoldersManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FoldersManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -96,7 +96,7 @@ public class FoldersController implements JsonController {
             @ModelAttribute(value = "cmsFolder") CmsFolder cmsFolder,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "folderName", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FolderNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "folderName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FolderNameMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsFoldersDAO.add(cmsFolder);
@@ -120,7 +120,7 @@ public class FoldersController implements JsonController {
             @ModelAttribute(value = "cmsFolder") CmsFolder cmsFolder,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FolderMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FolderMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsFoldersDAO.delete(cmsFolder);

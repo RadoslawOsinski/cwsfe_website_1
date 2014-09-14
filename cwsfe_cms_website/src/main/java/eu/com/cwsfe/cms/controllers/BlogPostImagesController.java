@@ -87,8 +87,8 @@ public class BlogPostImagesController implements JsonController {
         blogPostImage.setMimeType(blogPostImage.getFile().getContentType());
         blogPostImage.setContent(blogPostImage.getFile().getFileItem().get());
         blogPostImage.setCreated(new Date());
-        ValidationUtils.rejectIfEmpty(result, "title", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("TitleMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogPostMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "title", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TitleMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "blogPostId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostMustBeSet"));
         if (!result.hasErrors()) {
             blogPostImagesDAO.add(blogPostImage);
         }
@@ -102,7 +102,7 @@ public class BlogPostImagesController implements JsonController {
             @ModelAttribute(value = "blogPostImage") BlogPostImage blogPostImage,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("ImageMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("ImageMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostImagesDAO.delete(blogPostImage);

@@ -71,8 +71,8 @@ class InitialConfigurationController implements JsonController {
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FirstNameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "passwordHash", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("PasswordMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FirstNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "passwordHash", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("PasswordMustBeSet"));
         ModelAndView modelAndView = new ModelAndView();
         if (!result.hasErrors()) {
             String errorMessage = "";

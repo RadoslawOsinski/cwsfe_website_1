@@ -56,7 +56,7 @@ class UsersController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UsersManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsersManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -70,10 +70,10 @@ class UsersController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UsersManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsersManagement") + "</a>");
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("SelectedUser") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("SelectedUser") + "</a>");
         return breadcrumbs;
     }
 
@@ -125,8 +125,8 @@ class UsersController implements JsonController {
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FirstNameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "passwordHash", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("PasswordMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FirstNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "passwordHash", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("PasswordMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsUser.setPasswordHash(BCrypt.hashpw(cmsUser.getPasswordHash(), BCrypt.gensalt(13)));
@@ -151,7 +151,7 @@ class UsersController implements JsonController {
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UserMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UserMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsUsersDAO.delete(cmsUser);
@@ -175,7 +175,7 @@ class UsersController implements JsonController {
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UserMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UserMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsUsersDAO.lock(cmsUser);
@@ -199,7 +199,7 @@ class UsersController implements JsonController {
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UserMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UserMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsUsersDAO.unlock(cmsUser);
@@ -263,9 +263,9 @@ class UsersController implements JsonController {
             @ModelAttribute(value = "cmsUser") CmsUser cmsUser,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UserMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("UsernameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, JSON_STATUS, ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("StatusMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UserMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsernameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, JSON_STATUS, ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("StatusMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsUsersDAO.updatePostBasicInfo(cmsUser);

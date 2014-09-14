@@ -63,7 +63,7 @@ public class CmsNewsController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CmsNewsManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -77,10 +77,10 @@ public class CmsNewsController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CmsNewsManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement") + "</a>");
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CurrentNews") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentNews") + "</a>");
         return breadcrumbs;
     }
 
@@ -128,10 +128,10 @@ public class CmsNewsController implements JsonController {
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "authorId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("AuthorMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "newsTypeId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsTypeMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "newsFolderId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FolderMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "newsCode", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsCodeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "authorId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsTypeId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsFolderId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FolderMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsCode", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsCodeMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNews.setCreationDate(new Date());
@@ -156,10 +156,10 @@ public class CmsNewsController implements JsonController {
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "newsTypeId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsTypeMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "newsFolderId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FolderMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "newsCode", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsCodeMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "status", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("StatusMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsTypeId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsFolderId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FolderMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsCode", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsCodeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "status", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("StatusMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNewsDAO.updatePostBasicInfo(cmsNews);
@@ -183,7 +183,7 @@ public class CmsNewsController implements JsonController {
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNewsDAO.delete(cmsNews);

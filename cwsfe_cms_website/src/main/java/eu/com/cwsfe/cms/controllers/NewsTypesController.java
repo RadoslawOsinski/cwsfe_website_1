@@ -44,7 +44,7 @@ class NewsTypesController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsTypes").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsTypesManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypesManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -96,7 +96,7 @@ class NewsTypesController implements JsonController {
             @ModelAttribute(value = "newsType") NewsType newsType,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "type", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsTypeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "type", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypeMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsTypesDAO.add(newsType);
@@ -120,7 +120,7 @@ class NewsTypesController implements JsonController {
             @ModelAttribute(value = "cmsNewsType") NewsType cmsNewsType,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsTypeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypeMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsTypesDAO.delete(cmsNewsType);

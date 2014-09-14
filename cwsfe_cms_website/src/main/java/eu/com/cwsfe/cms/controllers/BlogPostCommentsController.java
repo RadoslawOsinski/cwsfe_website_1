@@ -30,7 +30,7 @@ public class BlogPostCommentsController implements JsonController {
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CommentMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.publish(blogPostComment);
@@ -54,7 +54,7 @@ public class BlogPostCommentsController implements JsonController {
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CommentMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.block(blogPostComment);
@@ -78,7 +78,7 @@ public class BlogPostCommentsController implements JsonController {
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CommentMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.markAsSpam(blogPostComment);
@@ -102,7 +102,7 @@ public class BlogPostCommentsController implements JsonController {
             @ModelAttribute(value = "blogPostComment") BlogPostComment blogPostComment,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CommentMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CommentMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogPostCommentsDAO.delete(blogPostComment);

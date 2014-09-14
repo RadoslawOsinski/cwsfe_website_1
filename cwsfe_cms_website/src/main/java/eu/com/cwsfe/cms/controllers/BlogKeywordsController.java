@@ -44,7 +44,7 @@ public class BlogKeywordsController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogKeywords").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("BlogKeywordsManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogKeywordsManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -77,7 +77,7 @@ public class BlogKeywordsController implements JsonController {
             @ModelAttribute(value = "blogKeyword") BlogKeyword blogKeyword,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "keywordName", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("KeywordNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "keywordName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("KeywordNameMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogKeywordsDAO.add(blogKeyword);
@@ -101,7 +101,7 @@ public class BlogKeywordsController implements JsonController {
             @ModelAttribute(value = "blogKeyword") BlogKeyword blogKeyword,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FolderMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FolderMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             blogKeywordsDAO.delete(blogKeyword);

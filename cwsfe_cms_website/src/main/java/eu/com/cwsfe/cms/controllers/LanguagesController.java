@@ -44,7 +44,7 @@ class LanguagesController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/languages").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LanguagesManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LanguagesManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -97,10 +97,10 @@ class LanguagesController implements JsonController {
             @ModelAttribute(value = "cmsLanguage") Lang cmsLanguage,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "code", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LanguageCodeMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LanguageNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "code", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LanguageCodeMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LanguageNameMustBeSet"));
         if (Locale.forLanguageTag(cmsLanguage.getCode()).getLanguage().isEmpty()) {
-            result.rejectValue("code", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("Language2LetterCodeIsInvalid"));
+            result.rejectValue("code", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("Language2LetterCodeIsInvalid"));
         }
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
@@ -125,7 +125,7 @@ class LanguagesController implements JsonController {
             @ModelAttribute(value = "cmsLanguage") Lang cmsLanguage,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LanguageMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LanguageMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsLanguagesDAO.delete(cmsLanguage);

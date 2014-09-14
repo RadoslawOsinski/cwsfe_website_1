@@ -59,7 +59,7 @@ class NewsletterTemplateController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterTemplates").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplatesManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplatesManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -73,10 +73,10 @@ class NewsletterTemplateController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterTemplates").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplatesManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplatesManagement") + "</a>");
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterTemplates/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CurrentNewsletterTemplate") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentNewsletterTemplate") + "</a>");
         return breadcrumbs;
     }
 
@@ -119,8 +119,8 @@ class NewsletterTemplateController implements JsonController {
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "languageId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LanguageMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplateNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "languageId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LanguageMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplateNameMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterTemplateDAO.add(newsletterTemplate);
@@ -146,7 +146,7 @@ class NewsletterTemplateController implements JsonController {
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplateMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplateMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterTemplateDAO.delete(newsletterTemplate);
@@ -172,7 +172,7 @@ class NewsletterTemplateController implements JsonController {
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplateMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplateMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterTemplateDAO.undelete(newsletterTemplate);
@@ -206,15 +206,15 @@ class NewsletterTemplateController implements JsonController {
             @ModelAttribute(value = "newsletterTemplate") NewsletterTemplate newsletterTemplate,
             BindingResult result, ModelMap model, Locale locale, HttpServletRequest httpServletRequest
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplateMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "languageId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LanguageMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplateNameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "subject", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("SubjectMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "content", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("ContentMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplateMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "languageId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LanguageMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplateNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "subject", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("SubjectMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "content", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("ContentMustBeSet"));
         if (!result.hasErrors()) {
             newsletterTemplate.setContent(newsletterTemplate.getContent().trim());
             newsletterTemplateDAO.update(newsletterTemplate);
-            model.addAttribute("updateSuccessfull", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("Saved"));
+            model.addAttribute("updateSuccessfull", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("Saved"));
         } else {
             String errors = "";
             for (int i = 0; i < result.getAllErrors().size(); i++) {
@@ -233,10 +233,10 @@ class NewsletterTemplateController implements JsonController {
             @ModelAttribute(value = "newsletterMailAddress") NewsletterMailAddress newsletterMailAddress,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("NewsletterTemplateMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("EmailIsInvalid"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterTemplateMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("EmailIsInvalid"));
         if (!EmailValidator.isValidEmailAddress(newsletterMailAddress.getEmail())) {
-            result.rejectValue("email", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("EmailIsInvalid"));
+            result.rejectValue("email", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("EmailIsInvalid"));
         }
         newsletterTemplate = newsletterTemplateDAO.get(newsletterTemplate.getId());
         JSONObject responseDetailsJson = new JSONObject();

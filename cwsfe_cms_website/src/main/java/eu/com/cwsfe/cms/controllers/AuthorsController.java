@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 @Controller
 public class AuthorsController implements JsonController {
 
+
     @Autowired
     private CmsAuthorsDAO cmsAuthorsDAO;
 
@@ -44,7 +45,7 @@ public class AuthorsController implements JsonController {
         List<String> breadcrumbs = new ArrayList<>(1);
         breadcrumbs.add("<a href=\"" +
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/authors").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("AuthorsManagement") + "</a>");
+                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorsManagement") + "</a>");
         return breadcrumbs;
     }
 
@@ -99,8 +100,8 @@ public class AuthorsController implements JsonController {
             @ModelAttribute(value = "cmsAuthor") CmsAuthor cmsAuthor,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "firstName", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FirstNameMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "lastName", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("LastNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "firstName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FirstNameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "lastName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("LastNameMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsAuthorsDAO.add(cmsAuthor);
@@ -124,7 +125,7 @@ public class AuthorsController implements JsonController {
             @ModelAttribute(value = "cmsAuthor") CmsAuthor cmsAuthor,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("AuthorMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsAuthorsDAO.delete(cmsAuthor);

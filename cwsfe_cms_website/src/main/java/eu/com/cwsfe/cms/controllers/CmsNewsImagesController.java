@@ -87,15 +87,15 @@ public class CmsNewsImagesController implements JsonController {
         cmsNewsImage.setMimeType(cmsNewsImage.getFile().getContentType());
         cmsNewsImage.setContent(cmsNewsImage.getFile().getFileItem().get());
         cmsNewsImage.setCreated(new Date());
-        ValidationUtils.rejectIfEmpty(result, "title", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("TitleMustBeSet"));
-//        ValidationUtils.rejectIfEmpty(result, "file", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FileNotChoosen"));
-//        ValidationUtils.rejectIfEmpty(result, "fileName", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("FileNotChoosen"));
+        ValidationUtils.rejectIfEmpty(result, "title", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TitleMustBeSet"));
+//        ValidationUtils.rejectIfEmpty(result, "file", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FileNotChoosen"));
+//        ValidationUtils.rejectIfEmpty(result, "fileName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("FileNotChoosen"));
 //        if (fileName == null || fileSize == null || mimeType == null) {
 //                throw new BusinessException("<br>" + LANG.getTranslation("FileIsBrokenOrEmpty"));
 //            } else if (!isImageMimeTypeValid(mimeType)) {
 //                throw new BusinessException("<br>" + LANG.getTranslation("InvalidFileFormat") + ": " + mimeType);
 //            } else {
-        ValidationUtils.rejectIfEmpty(result, "newsId", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("CmsNewsMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "newsId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsMustBeSet"));
         if (!result.hasErrors()) {
             cmsNewsImagesDAO.add(cmsNewsImage);
         }
@@ -109,7 +109,7 @@ public class CmsNewsImagesController implements JsonController {
             @ModelAttribute(value = "cmsNewsImage") CmsNewsImage cmsNewsImage,
             BindingResult result, Locale locale
     ) {
-        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle("cwsfe_cms_i18n", locale).getString("ImageMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "id", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("ImageMustBeSet"));
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNewsImagesDAO.delete(cmsNewsImage);
