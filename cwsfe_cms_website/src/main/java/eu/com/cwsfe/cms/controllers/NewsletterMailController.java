@@ -136,17 +136,9 @@ public class NewsletterMailController extends JsonController {
         if (!result.hasErrors()) {
             newsletterMail.setMailContent("");
             newsletterMailDAO.add(newsletterMail);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -161,17 +153,9 @@ public class NewsletterMailController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailDAO.delete(newsletterMail);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -186,17 +170,9 @@ public class NewsletterMailController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             newsletterMailDAO.undelete(newsletterMail);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -248,17 +224,9 @@ public class NewsletterMailController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             sendNewsletterEmail(newsletterMail);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -279,17 +247,9 @@ public class NewsletterMailController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             sendTestEmail(newsletterMailFromDb, newsletterMailAddress);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }

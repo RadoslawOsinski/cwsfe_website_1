@@ -96,17 +96,9 @@ public class CmsTextI18nController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsTextI18nDAO.add(cmsTextI18n);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -121,17 +113,9 @@ public class CmsTextI18nController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsTextI18nDAO.delete(cmsTextI18n);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
