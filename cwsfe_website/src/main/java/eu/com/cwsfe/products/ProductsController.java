@@ -113,16 +113,13 @@ public class ProductsController extends GenericController {
     private ProductsListHelper listProducts(Locale locale, Integer currentPage, Integer newsFolderId, int newsPerPage) {
         List<Object[]> cmsNewsI18nContentIds;
         Integer foundedNewsTotal;
-        Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
-        if (currentPLang == null) {
-            currentPLang = langsDAO.getByCode("en");
-        }
+        Lang currentLang = getCurrentLanguageOrDefault(locale);
         if (newsFolderId != null) {
-            cmsNewsI18nContentIds = cmsNewsDAO.listByFolderLangWithPagingForProducts(newsFolderId, currentPLang.getId(), newsPerPage, currentPage * newsPerPage);
-            foundedNewsTotal = cmsNewsDAO.countListByFolderLangWithPagingForProducts(newsFolderId, currentPLang.getId());
+            cmsNewsI18nContentIds = cmsNewsDAO.listByFolderLangWithPagingForProducts(newsFolderId, currentLang.getId(), newsPerPage, currentPage * newsPerPage);
+            foundedNewsTotal = cmsNewsDAO.countListByFolderLangWithPagingForProducts(newsFolderId, currentLang.getId());
         } else {
-            cmsNewsI18nContentIds = cmsNewsDAO.listLangWithPagingForProducts(currentPLang.getId(), newsPerPage, currentPage * newsPerPage);
-            foundedNewsTotal = cmsNewsDAO.countListLangWithPagingForProducts(currentPLang.getId());
+            cmsNewsI18nContentIds = cmsNewsDAO.listLangWithPagingForProducts(currentLang.getId(), newsPerPage, currentPage * newsPerPage);
+            foundedNewsTotal = cmsNewsDAO.countListLangWithPagingForProducts(currentLang.getId());
         }
         List<CmsNews> cmsNewsList;
         List<CmsNewsI18nContent> cmsNewsI18nContents;
@@ -134,8 +131,7 @@ public class ProductsController extends GenericController {
             cmsNewsI18nContents = new ArrayList<>(cmsNewsI18nContentIds.size());
             for (Object[] postI18nId : cmsNewsI18nContentIds) {
                 CmsNews cmsNews = cmsNewsDAO.get((Long) postI18nId[0]);
-                cmsNews.setCmsNewsImages(cmsNewsImagesDAO.listImagesForNewsWithoutThumbnails(cmsNews.getId()));
-                cmsNews.setThumbnailImage(cmsNewsImagesDAO.getThumbnailForNews(cmsNews.getId()));
+                setNewsImagesAndThumbnail(cmsNews);
                 CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.get((Long) postI18nId[1]);
                 if (cmsNewsI18nContent != null) {
                     cmsNewsList.add(cmsNews);
@@ -154,29 +150,39 @@ public class ProductsController extends GenericController {
     @RequestMapping(value = "/products/singleNews/{cmsNewsId}/{cmsNewsI18nContentsId}", method = RequestMethod.GET)
     public String singleNewsView(ModelMap model, Locale locale, @PathVariable("cmsNewsId") Integer cmsNewsId, @PathVariable("cmsNewsI18nContentsId") Integer cmsNewsI18nContentsId) {
         CmsNews cmsNews = cmsNewsDAO.get(Long.valueOf(cmsNewsId));
-        cmsNews.setCmsNewsImages(cmsNewsImagesDAO.listImagesForNewsWithoutThumbnails(cmsNews.getId()));
-        cmsNews.setThumbnailImage(cmsNewsImagesDAO.getThumbnailForNews(cmsNews.getId()));
+        setNewsImagesAndThumbnail(cmsNews);
         model.addAttribute("cmsNews", cmsNews);
         CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.get(Long.valueOf(cmsNewsI18nContentsId));
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
 
-        Lang currentLang = langsDAO.getByCode(locale.getLanguage());     //bellow there is code for finding news for previous/next links
+        //bellow there is code for finding news for previous/next links
+        Lang currentLang = getCurrentLanguageOrDefault(locale);
+        List<Object[]> newsAndContents = cmsNewsDAO.listI18nProducts(currentLang.getId());
+        model.addAttribute("previousNews", findPrevNews(cmsNews, cmsNewsI18nContent, newsAndContents));
+        model.addAttribute("nextNews", findNextNews(cmsNews, cmsNewsI18nContent, newsAndContents));
+        setPageMetadata(model, locale, " " + cmsNewsI18nContent.getNewsTitle());
+        return "products/ProductsSingleView";
+    }
+
+    private Lang getCurrentLanguageOrDefault(Locale locale) {
+        Lang currentLang = langsDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
             currentLang = langsDAO.getByCode("en");    //default language
         }
-        List<Object[]> newsAndContents = cmsNewsDAO.listI18nProducts(currentLang.getId());
+        return currentLang;
+    }
+
+    private void setNewsImagesAndThumbnail(CmsNews cmsNews) {
+        cmsNews.setCmsNewsImages(cmsNewsImagesDAO.listImagesForNewsWithoutThumbnails(cmsNews.getId()));
+        cmsNews.setThumbnailImage(cmsNewsImagesDAO.getThumbnailForNews(cmsNews.getId()));
+    }
+
+    private Object[] findPrevNews(CmsNews cmsNews, CmsNewsI18nContent cmsNewsI18nContent, List<Object[]> newsAndContents) {
         Object[] iNews;
         Object[] previousNews = null;
-        Object[] nextNews = null;
         for (int i = 0; i < newsAndContents.size(); ++i) {
             iNews = newsAndContents.get(i);
             if (iNews[0].equals(cmsNews.getId()) && iNews[1].equals(cmsNewsI18nContent.getId())) {
-                try {
-                    nextNews = newsAndContents.get(i + 1);
-                } catch (IndexOutOfBoundsException e) {
-                    nextNews = null;
-                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
-                }
                 try {
                     previousNews = newsAndContents.get(i - 1);
                 } catch (IndexOutOfBoundsException e) {
@@ -186,10 +192,25 @@ public class ProductsController extends GenericController {
                 break;
             }
         }
-        model.addAttribute("previousNews", previousNews);
-        model.addAttribute("nextNews", nextNews);
-        setPageMetadata(model, locale, " " + cmsNewsI18nContent.getNewsTitle());
-        return "products/ProductsSingleView";
+        return previousNews;
+    }
+
+    private Object[] findNextNews(CmsNews cmsNews, CmsNewsI18nContent cmsNewsI18nContent, List<Object[]> newsAndContents) {
+        Object[] nextNews = null;
+        Object[] iNews;
+        for (int i = 0; i < newsAndContents.size(); ++i) {
+            iNews = newsAndContents.get(i);
+            if (iNews[0].equals(cmsNews.getId()) && iNews[1].equals(cmsNewsI18nContent.getId())) {
+                try {
+                    nextNews = newsAndContents.get(i + 1);
+                } catch (IndexOutOfBoundsException e) {
+                    nextNews = null;
+                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
+                }
+                break;
+            }
+        }
+        return nextNews;
     }
 
 }
