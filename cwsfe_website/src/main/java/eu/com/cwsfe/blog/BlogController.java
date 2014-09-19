@@ -45,6 +45,7 @@ public class BlogController extends GenericController {
     public static final String ARTICLES_PER_PAGE = "articlesPerPage";
     public static final String BLOG_KEYWORDS = "blogKeywords";
     public static final String SEARCH_TEXT = "searchText";
+    public static final String BLOG_VIEW_PATH = "blog/Blog";
 
     @Autowired
     private BlogPostsDAO blogPostsDAO;
@@ -72,6 +73,11 @@ public class BlogController extends GenericController {
         setPageMetadata(model, locale, "");
         String searchText = "";
         BlogListHelper blogListHelper = listPosts(locale, DEFAULT_CURRENT_PAGE, null, searchText, null, null);
+        addBlogSearchResults(model, blogListHelper);
+        return BLOG_VIEW_PATH;
+    }
+
+    private void addBlogSearchResults(ModelMap model, BlogListHelper blogListHelper) {
         model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
         model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
         model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
@@ -83,7 +89,6 @@ public class BlogController extends GenericController {
         model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
         model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
         model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
-        return "blog/Blog";
     }
 
     private void setPageMetadata(ModelMap model, Locale locale, String additionalTitle) {
@@ -115,54 +120,24 @@ public class BlogController extends GenericController {
         setPageMetadata(model, locale, "");
         String searchText = "";
         BlogListHelper blogListHelper = listPosts(locale, 0, categoryId, searchText, null, null);
-        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
-        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
-        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
-        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
-        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
-        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
-        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
-        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
-        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
-        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
-        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
-        return "blog/Blog";
+        addBlogSearchResults(model, blogListHelper);
+        return BLOG_VIEW_PATH;
     }
 
     @RequestMapping(value = "/blog/date/{archiveYear}/{archiveMonth}", method = RequestMethod.GET)
     public String browseByDate(ModelMap model, Locale locale, @PathVariable("archiveYear") Long archiveYear, @PathVariable("archiveMonth") Long archiveMonth) {
         setPageMetadata(model, locale, "");
         BlogListHelper blogListHelper = listPosts(locale, 0, null, "", archiveYear, archiveMonth);
-        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
-        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
-        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
-        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
-        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
-        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
-        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
-        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
-        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
-        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
-        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
-        return "blog/Blog";
+        addBlogSearchResults(model, blogListHelper);
+        return BLOG_VIEW_PATH;
     }
 
     @RequestMapping(value = "/blog/search/", method = RequestMethod.POST)
     public String browseBySearch(ModelMap model, Locale locale, @RequestParam(value = "searchText", required = false) String searchText) {
         setPageMetadata(model, locale, "");
         BlogListHelper blogListHelper = listPosts(locale, 0, null, searchText, null, null);
-        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
-        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
-        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
-        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
-        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
-        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
-        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
-        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
-        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
-        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
-        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
-        return "blog/Blog";
+        addBlogSearchResults(model, blogListHelper);
+        return BLOG_VIEW_PATH;
     }
 
     @RequestMapping(value = "/blog/list/", method = RequestMethod.GET)
@@ -180,43 +155,24 @@ public class BlogController extends GenericController {
         if (searchText == null) {
             searchText = "";
         }
-        Long categoryId = null;
-        if (categoryString != null && !categoryString.isEmpty()) {
-            try {
-                categoryId = Long.parseLong(categoryString);
-            } catch (Exception e) {
-                LOGGER.error("Category cannot be parsed: " + categoryString, e);
-            }
-        }
-        Long archiveYear = null;
-        if (archiveYearString != null && !archiveYearString.isEmpty()) {
-            try {
-                archiveYear = Long.parseLong(archiveYearString);
-            } catch (Exception e) {
-                LOGGER.error("Archive year cannot be parsed: " + archiveYearString, e);
-            }
-        }
-        Long archiveMonth = null;
-        if (archiveMonthString != null && !archiveMonthString.isEmpty()) {
-            try {
-                archiveMonth = Long.parseLong(archiveMonthString);
-            } catch (Exception e) {
-                LOGGER.error("Archive month cannot be parsed: " + archiveMonthString, e);
-            }
-        }
+        Long categoryId = parseStringParameter(categoryString);
+        Long archiveYear = parseStringParameter(archiveYearString);
+        Long archiveMonth = parseStringParameter(archiveMonthString);
         BlogListHelper blogListHelper = listPosts(locale, currentPage, categoryId, searchText, archiveYear, archiveMonth);
-        model.addAttribute(BLOG_POSTS, blogListHelper.blogPosts);
-        model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
-        model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
-        model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
-        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
-        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
-        model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
-        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
-        model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
-        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
-        model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
-        return "blog/Blog";
+        addBlogSearchResults(model, blogListHelper);
+        return BLOG_VIEW_PATH;
+    }
+
+    private Long parseStringParameter(String stringParameter) {
+        Long parserParameter = null;
+        if (stringParameter != null && !stringParameter.isEmpty()) {
+            try {
+                parserParameter = Long.parseLong(stringParameter);
+            } catch (Exception e) {
+                LOGGER.error("String parameter cannot be parsed: " + stringParameter, e);
+            }
+        }
+        return parserParameter;
     }
 
     BlogListHelper listPosts(
