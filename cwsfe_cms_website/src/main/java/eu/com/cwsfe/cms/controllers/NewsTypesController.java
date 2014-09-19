@@ -49,8 +49,8 @@ class NewsTypesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsTypesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody
-    String listNewsTypes(
+    @ResponseBody
+    public String listNewsTypes(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -74,7 +74,8 @@ class NewsTypesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/news/newsTypesDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listNewsTypesForDropList(
+    @ResponseBody
+    public String listNewsTypesForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -92,7 +93,8 @@ class NewsTypesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addNewsType", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addNewsType(
+    @ResponseBody
+    public String addNewsType(
             @ModelAttribute(value = "newsType") NewsType newsType,
             BindingResult result, Locale locale
     ) {
@@ -116,7 +118,8 @@ class NewsTypesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteNewsType", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteNewsType(
+    @ResponseBody
+    public String deleteNewsType(
             @ModelAttribute(value = "cmsNewsType") NewsType cmsNewsType,
             BindingResult result, Locale locale
     ) {

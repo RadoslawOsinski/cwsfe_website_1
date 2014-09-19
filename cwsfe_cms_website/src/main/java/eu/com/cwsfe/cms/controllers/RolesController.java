@@ -50,7 +50,8 @@ public class RolesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/rolesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listRoles(
+    @ResponseBody
+    public String listRoles(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -74,7 +75,8 @@ public class RolesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/rolesDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listRolesForDropList(
+    @ResponseBody
+    public String listRolesForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {

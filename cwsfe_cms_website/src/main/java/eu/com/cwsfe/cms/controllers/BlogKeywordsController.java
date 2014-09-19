@@ -49,7 +49,8 @@ public class BlogKeywordsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogKeywordsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogKeywords(
+    @ResponseBody
+    public String listBlogKeywords(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -73,7 +74,8 @@ public class BlogKeywordsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addBlogKeyword", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addBlogKeyword(
+    @ResponseBody
+    public String addBlogKeyword(
             @ModelAttribute(value = "blogKeyword") BlogKeyword blogKeyword,
             BindingResult result, Locale locale
     ) {
@@ -97,7 +99,8 @@ public class BlogKeywordsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteBlogKeyword", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteFolder(
+    @ResponseBody
+    public String deleteFolder(
             @ModelAttribute(value = "blogKeyword") BlogKeyword blogKeyword,
             BindingResult result, Locale locale
     ) {

@@ -55,7 +55,8 @@ public class CmsTextI18nController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/cmsTextI18nList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listCmsTextI18n(
+    @ResponseBody
+    public String listCmsTextI18n(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -82,7 +83,8 @@ public class CmsTextI18nController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addCmsTextI18n", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addTextI18n(
+    @ResponseBody
+    public String addTextI18n(
             @ModelAttribute(value = "cmsTextI18n") CmsTextI18n cmsTextI18n,
             BindingResult result, Locale locale
     ) {
@@ -109,7 +111,8 @@ public class CmsTextI18nController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteCmsTextI18n", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteTextI18n(
+    @ResponseBody
+    public String deleteTextI18n(
             @ModelAttribute(value = "cmsTextI18n") CmsTextI18n cmsTextI18n,
             BindingResult result, Locale locale
     ) {

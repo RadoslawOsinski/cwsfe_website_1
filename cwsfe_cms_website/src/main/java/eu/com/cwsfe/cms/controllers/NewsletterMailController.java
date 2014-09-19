@@ -237,9 +237,8 @@ public class NewsletterMailController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsletterMails/newsletterSend", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String newsletterSend(
+    public String newsletterSend(
             @ModelAttribute(value = "newsletterMail") NewsletterMail newsletterMail,
             BindingResult result, Locale locale
     ) {

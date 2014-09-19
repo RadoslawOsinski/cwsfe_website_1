@@ -84,9 +84,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPostsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String listBlogPosts(
+    public String listBlogPosts(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -125,9 +124,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addBlogPost", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String addBlogPost(
+    public String addBlogPost(
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
@@ -154,9 +152,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteBlogPost", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String delete(
+    public String delete(
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
@@ -202,9 +199,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/updatePostBasicInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String updatePostBasicInfo(
+    public String updatePostBasicInfo(
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {

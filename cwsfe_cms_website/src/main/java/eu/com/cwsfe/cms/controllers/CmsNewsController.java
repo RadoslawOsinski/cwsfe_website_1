@@ -85,7 +85,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogKeywords(
+    @ResponseBody
+    public String listBlogKeywords(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -124,7 +125,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addNews", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addNews(
+    @ResponseBody
+    public String addNews(
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
@@ -152,7 +154,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/news/updateNewsBasicInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String updateNewsBasicInfo(
+    @ResponseBody
+    public String updateNewsBasicInfo(
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
@@ -179,7 +182,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteNews", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteFolder(
+    @ResponseBody
+    public String deleteFolder(
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {

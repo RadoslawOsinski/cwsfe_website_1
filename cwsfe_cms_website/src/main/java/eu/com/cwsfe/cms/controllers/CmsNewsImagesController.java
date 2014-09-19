@@ -37,7 +37,8 @@ public class CmsNewsImagesController extends JsonController {
     private CmsNewsImagesDAO cmsNewsImagesDAO;
 
     @RequestMapping(value = "/CWSFE_CMS/news/cmsNewsImagesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String list(
+    @ResponseBody
+    public String list(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -98,7 +99,8 @@ public class CmsNewsImagesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/news/deleteCmsNewsImage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteCmsNewsImage(
+    @ResponseBody
+    public String deleteCmsNewsImage(
             @ModelAttribute(value = "cmsNewsImage") CmsNewsImage cmsNewsImage,
             BindingResult result, Locale locale
     ) {

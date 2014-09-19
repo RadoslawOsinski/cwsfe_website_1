@@ -49,7 +49,8 @@ class LanguagesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/languagesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listLanguages(
+    @ResponseBody
+    public String listLanguages(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -74,7 +75,8 @@ class LanguagesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/cmsLanguagesDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listCmsLanguagesForDropList(
+    @ResponseBody
+    public String listCmsLanguagesForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -93,7 +95,8 @@ class LanguagesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addLanguage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addLanguage(
+    @ResponseBody
+    public String addLanguage(
             @ModelAttribute(value = "cmsLanguage") Lang cmsLanguage,
             BindingResult result, Locale locale
     ) {
@@ -121,7 +124,8 @@ class LanguagesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteLanguage", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteLanguage(
+    @ResponseBody
+    public String deleteLanguage(
             @ModelAttribute(value = "cmsLanguage") Lang cmsLanguage,
             BindingResult result, Locale locale
     ) {
