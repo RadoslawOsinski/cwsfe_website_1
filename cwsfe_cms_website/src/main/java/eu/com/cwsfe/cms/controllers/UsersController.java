@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.CmsRolesDAO;
 import eu.com.cwsfe.cms.dao.CmsUserRolesDAO;
 import eu.com.cwsfe.cms.dao.CmsUsersDAO;
@@ -54,9 +55,9 @@ class UsersController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsersManagement") + "</a>");
+        String breadCrumbUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users").build().toUriString();
+        String breadCrumbText = ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsersManagement");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(breadCrumbUrl, breadCrumbText));
         return breadcrumbs;
     }
 
@@ -68,12 +69,8 @@ class UsersController extends JsonController {
 
     private List<String> getSingleUserBreadcrumbs(Locale locale, Long id) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsersManagement") + "</a>");
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("SelectedUser") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users").build().toUriString(), ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("UsersManagement")));
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/users/" + id).build().toUriString(), ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("SelectedUser")));
         return breadcrumbs;
     }
 

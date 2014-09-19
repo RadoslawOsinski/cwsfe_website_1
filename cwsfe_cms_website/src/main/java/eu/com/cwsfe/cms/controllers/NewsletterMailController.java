@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.EmailValidator;
 import eu.com.cwsfe.cms.dao.NewsletterMailAddressDAO;
 import eu.com.cwsfe.cms.dao.NewsletterMailDAO;
@@ -61,9 +62,9 @@ public class NewsletterMailController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterMails").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterMailsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterMails").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterMailsManagement")));
         return breadcrumbs;
     }
 

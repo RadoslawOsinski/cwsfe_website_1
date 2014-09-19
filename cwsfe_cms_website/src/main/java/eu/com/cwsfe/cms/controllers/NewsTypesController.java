@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.NewsTypesDAO;
 import eu.com.cwsfe.cms.model.NewsType;
 import net.sf.json.JSONArray;
@@ -42,9 +43,9 @@ class NewsTypesController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsTypes").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypesManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsTypes").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsTypesManagement")));
         return breadcrumbs;
     }
 

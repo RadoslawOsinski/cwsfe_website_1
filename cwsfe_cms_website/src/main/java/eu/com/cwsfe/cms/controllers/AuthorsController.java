@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.CmsAuthorsDAO;
 import eu.com.cwsfe.cms.model.CmsAuthor;
 import net.sf.json.JSONArray;
@@ -43,9 +44,9 @@ public class AuthorsController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/authors").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/authors").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorsManagement")));
         return breadcrumbs;
     }
 
