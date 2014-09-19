@@ -62,9 +62,7 @@ public class CmsNewsController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString(),
-                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement")));
+        addCmsNewsManagementBreadCrumb(locale, breadcrumbs);
         return breadcrumbs;
     }
 
@@ -76,13 +74,17 @@ public class CmsNewsController extends JsonController {
 
     private List<String> getSingleNewsBreadcrumbs(Locale locale, Long id) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString(),
-                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement")));
+        addCmsNewsManagementBreadCrumb(locale, breadcrumbs);
         breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
                 ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news/" + id).build().toUriString(),
                 ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentNews")));
         return breadcrumbs;
+    }
+
+    private void addCmsNewsManagementBreadCrumb(Locale locale, List<String> breadcrumbs) {
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement")));
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
@@ -139,17 +141,9 @@ public class CmsNewsController extends JsonController {
         if (!result.hasErrors()) {
             cmsNews.setCreationDate(new Date());
             cmsNewsDAO.add(cmsNews);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -167,17 +161,9 @@ public class CmsNewsController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNewsDAO.updatePostBasicInfo(cmsNews);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
@@ -192,17 +178,9 @@ public class CmsNewsController extends JsonController {
         JSONObject responseDetailsJson = new JSONObject();
         if (!result.hasErrors()) {
             cmsNewsDAO.delete(cmsNews);
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_SUCCESS);
-            responseDetailsJson.put(JSON_RESULT, "");
+            addJsonSuccess(responseDetailsJson);
         } else {
-            responseDetailsJson.put(JSON_STATUS, JSON_STATUS_FAIL);
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < result.getAllErrors().size(); i++) {
-                JSONObject formDetailsJson = new JSONObject();
-                formDetailsJson.put("error", result.getAllErrors().get(i).getCode());
-                jsonArray.add(formDetailsJson);
-            }
-            responseDetailsJson.put(JSON_RESULT, jsonArray);
+            prepareErrorResponse(result, responseDetailsJson);
         }
         return responseDetailsJson.toString();
     }
