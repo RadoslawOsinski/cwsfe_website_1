@@ -36,47 +36,40 @@ class ServicesController extends GenericController {
 
     @RequestMapping(value = "/services", method = RequestMethod.GET)
     public String showServicesPage(ModelMap model, Locale locale) {
-        setPageMetadata(model, locale);
-        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
-        NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
-        CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), "Services");
-        Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
-        if (currentPLang == null) {
-            currentPLang = langsDAO.getByCode("en");
-        }
-        CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.getByLanguageForNews(cmsNews.getId(), currentPLang.getId());
-        model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
+        String newsCode = "Services";
+        setServicePageContent(model, locale, newsCode);
         return "services/Services";
     }
 
     @RequestMapping(value = "/services/serviceDetails", method = RequestMethod.GET)
     public String showMixedServicesPage(ModelMap model, Locale locale) {
+        String newsCode = "ServiceDetails";
+        setServicePageContent(model, locale, newsCode);
+        return "services/ServicesDetails";
+    }
+
+    private void setServicePageContent(ModelMap model, Locale locale, String newsCode) {
         setPageMetadata(model, locale);
         CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
         NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
-        CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), "ServiceDetails");
-        Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
-        if (currentPLang == null) {
-            currentPLang = langsDAO.getByCode("en");
-        }
-        CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.getByLanguageForNews(cmsNews.getId(), currentPLang.getId());
-        model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
-        return "services/ServicesDetails";
+        CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), newsCode);
+        setNewsIn18nContent(model, locale, cmsNews);
     }
 
     @RequestMapping(value = "/services/serviceStages", method = RequestMethod.GET)
     public String showServiceStagesPage(ModelMap model, Locale locale) {
-        setPageMetadata(model, locale);
-        CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
-        NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
-        CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), "ServiceStages");
+        String newsCode = "ServiceStages";
+        setServicePageContent(model, locale, newsCode);
+        return "services/ServicesStages";
+    }
+
+    private void setNewsIn18nContent(ModelMap model, Locale locale, CmsNews cmsNews) {
         Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
             currentPLang = langsDAO.getByCode("en");
         }
         CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.getByLanguageForNews(cmsNews.getId(), currentPLang.getId());
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
-        return "services/ServicesStages";
     }
 
     private void setPageMetadata(ModelMap model, Locale locale) {
