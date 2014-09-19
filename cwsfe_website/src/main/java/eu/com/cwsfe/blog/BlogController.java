@@ -149,12 +149,6 @@ public class BlogController extends GenericController {
                             @RequestParam(value = "archiveMonth", required = false) String archiveMonthString
     ) {
         setPageMetadata(model, locale, "");
-        if (currentPage == null) {
-            currentPage = 0;
-        }
-        if (searchText == null) {
-            searchText = "";
-        }
         Long categoryId = parseStringParameter(categoryString);
         Long archiveYear = parseStringParameter(archiveYearString);
         Long archiveMonth = parseStringParameter(archiveMonthString);
@@ -189,7 +183,11 @@ public class BlogController extends GenericController {
         }
         BlogListHelper blogListHelper = new BlogListHelper();
         blogListHelper.articlesPerPage = 5;
-        blogListHelper.currentPage = currentPage;
+        if (currentPage == null) {
+            blogListHelper.currentPage = 0;
+        } else {
+            blogListHelper.currentPage = currentPage;
+        }
         blogListHelper.postsArchiveStatistics = blogPostsDAO.listArchiveStatistics(currentLang.getId());
         blogListHelper.blogKeywords = i18nBlogKeywords(currentLang, blogKeywordsDAO.list());
         List<Object[]> postI18nIds;
