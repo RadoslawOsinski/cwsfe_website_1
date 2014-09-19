@@ -100,18 +100,7 @@ class NewsletterController extends GenericController {
             NewsletterMailGroup mailGroup = newsletterMailGroupDAO.getByNameAndLanguage("General", lang.getId());
             NewsletterMailAddress existingMailAddress = newsletterMailAddressDAO.getByEmailAndMailGroup(newsletterSubscription.getEmail(), mailGroup.getId());
             if (existingMailAddress == null) {
-                NewsletterMailAddress newsletterMailAddress = new NewsletterMailAddress();
-                newsletterMailAddress.setMailGroupId(mailGroup.getId());
-                newsletterMailAddress.setConfirmString(UUIDGenerator.getRandomUniqueID());
-                while (newsletterMailAddressDAO.getByConfirmString(newsletterMailAddress.getConfirmString()) != null) {
-                    newsletterMailAddress.setConfirmString(UUIDGenerator.getRandomUniqueID());
-                }
-                newsletterMailAddress.setUnSubscribeString(UUIDGenerator.getRandomUniqueID());
-                while (newsletterMailAddressDAO.getByUnSubscribeString(newsletterMailAddress.getUnSubscribeString()) != null) {
-                    newsletterMailAddress.setUnSubscribeString(UUIDGenerator.getRandomUniqueID());
-                }
-                newsletterMailAddress.setEmail(newsletterSubscription.getEmail());
-                newsletterMailAddressDAO.add(newsletterMailAddress);
+                NewsletterMailAddress newsletterMailAddress = addNewsletterMailAddress(newsletterSubscription, mailGroup);
                 sendConfirmationEmail(newsletterMailAddress);
                 return showNewsletterAddedToList(model, locale);
             } else if (existingMailAddress.getStatus().equals(NewsletterMailAddress.STATUS_ACTIVE)) {
@@ -131,6 +120,22 @@ class NewsletterController extends GenericController {
             }
         }
         return "main/Main";
+    }
+
+    private NewsletterMailAddress addNewsletterMailAddress(NewsletterSubscription newsletterSubscription, NewsletterMailGroup mailGroup) {
+        NewsletterMailAddress newsletterMailAddress = new NewsletterMailAddress();
+        newsletterMailAddress.setMailGroupId(mailGroup.getId());
+        newsletterMailAddress.setConfirmString(UUIDGenerator.getRandomUniqueID());
+        while (newsletterMailAddressDAO.getByConfirmString(newsletterMailAddress.getConfirmString()) != null) {
+            newsletterMailAddress.setConfirmString(UUIDGenerator.getRandomUniqueID());
+        }
+        newsletterMailAddress.setUnSubscribeString(UUIDGenerator.getRandomUniqueID());
+        while (newsletterMailAddressDAO.getByUnSubscribeString(newsletterMailAddress.getUnSubscribeString()) != null) {
+            newsletterMailAddress.setUnSubscribeString(UUIDGenerator.getRandomUniqueID());
+        }
+        newsletterMailAddress.setEmail(newsletterSubscription.getEmail());
+        newsletterMailAddressDAO.add(newsletterMailAddress);
+        return newsletterMailAddress;
     }
 
     private void sendConfirmationEmail(NewsletterMailAddress newsletterMailAddress) {
