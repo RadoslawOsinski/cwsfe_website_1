@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.CmsRolesDAO;
 import eu.com.cwsfe.cms.model.CmsRole;
 import net.sf.json.JSONArray;
@@ -43,14 +44,15 @@ public class RolesController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/roles").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("RolesManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/roles").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("RolesManagement")));
         return breadcrumbs;
     }
 
     @RequestMapping(value = "/CWSFE_CMS/rolesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listRoles(
+    @ResponseBody
+    public String listRoles(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -74,7 +76,8 @@ public class RolesController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/rolesDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listRolesForDropList(
+    @ResponseBody
+    public String listRolesForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {

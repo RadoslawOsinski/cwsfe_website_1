@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.BlogKeywordsDAO;
 import eu.com.cwsfe.cms.model.BlogKeyword;
 import net.sf.json.JSONArray;
@@ -42,14 +43,15 @@ public class BlogKeywordsController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogKeywords").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogKeywordsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogKeywords").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogKeywordsManagement")));
         return breadcrumbs;
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogKeywordsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogKeywords(
+    @ResponseBody
+    public String listBlogKeywords(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -73,7 +75,8 @@ public class BlogKeywordsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addBlogKeyword", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addBlogKeyword(
+    @ResponseBody
+    public String addBlogKeyword(
             @ModelAttribute(value = "blogKeyword") BlogKeyword blogKeyword,
             BindingResult result, Locale locale
     ) {
@@ -97,7 +100,8 @@ public class BlogKeywordsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteBlogKeyword", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteFolder(
+    @ResponseBody
+    public String deleteFolder(
             @ModelAttribute(value = "blogKeyword") BlogKeyword blogKeyword,
             BindingResult result, Locale locale
     ) {

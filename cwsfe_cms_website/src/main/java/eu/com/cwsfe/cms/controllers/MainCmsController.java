@@ -75,7 +75,8 @@ class MainCmsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPostCommentsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogPostComments(
+    @ResponseBody
+    public String listBlogPostComments(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho

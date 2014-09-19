@@ -99,10 +99,11 @@ class InitialConfigurationController extends JsonController {
                 modelAndView.setView(new RedirectView("/CWSFE_CMS/", true, false, false));
             }
         } else {
-            String errorMessage = "";
+            StringBuilder errorMessage = new StringBuilder();
+            ;
             for (int i = 0; i < result.getAllErrors().size(); i++) {
-                errorMessage += result.getAllErrors().get(i).getCode();
-                errorMessage += "<br/>";
+                errorMessage.append(result.getAllErrors().get(i).getCode());
+                errorMessage.append("<br/>");
             }
             modelAndView.getModel().put("errors", errorMessage);
             modelAndView.setView(new RedirectView("/CWSFE_CMS/configuration/initialConfiguration", true, false, false));

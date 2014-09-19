@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.CmsAuthorsDAO;
 import eu.com.cwsfe.cms.model.CmsAuthor;
 import net.sf.json.JSONArray;
@@ -43,14 +44,15 @@ public class AuthorsController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/authors").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/authors").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("AuthorsManagement")));
         return breadcrumbs;
     }
 
     @RequestMapping(value = "/CWSFE_CMS/authorsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listAuthors(
+    @ResponseBody
+    public String listAuthors(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -76,7 +78,8 @@ public class AuthorsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/authorsDropList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listAuthorsForDropList(
+    @ResponseBody
+    public String listAuthorsForDropList(
             @RequestParam String term,
             @RequestParam Integer limit
     ) {
@@ -96,7 +99,8 @@ public class AuthorsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addAuthor", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addAuthor(
+    @ResponseBody
+    public String addAuthor(
             @ModelAttribute(value = "cmsAuthor") CmsAuthor cmsAuthor,
             BindingResult result, Locale locale
     ) {
@@ -121,7 +125,8 @@ public class AuthorsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteAuthor", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteAuthor(
+    @ResponseBody
+    public String deleteAuthor(
             @ModelAttribute(value = "cmsAuthor") CmsAuthor cmsAuthor,
             BindingResult result, Locale locale
     ) {

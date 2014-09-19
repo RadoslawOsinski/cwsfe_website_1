@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.CmsLanguagesDAO;
 import eu.com.cwsfe.cms.dao.CmsTextI18nCategoryDAO;
 import eu.com.cwsfe.cms.dao.CmsTextI18nDAO;
@@ -48,14 +49,15 @@ public class CmsTextI18nController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/cmsTextI18n").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TranslationsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/cmsTextI18n").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("TranslationsManagement")));
         return breadcrumbs;
     }
 
     @RequestMapping(value = "/CWSFE_CMS/cmsTextI18nList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listCmsTextI18n(
+    @ResponseBody
+    public String listCmsTextI18n(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho
@@ -82,7 +84,8 @@ public class CmsTextI18nController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addCmsTextI18n", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addTextI18n(
+    @ResponseBody
+    public String addTextI18n(
             @ModelAttribute(value = "cmsTextI18n") CmsTextI18n cmsTextI18n,
             BindingResult result, Locale locale
     ) {
@@ -109,7 +112,8 @@ public class CmsTextI18nController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteCmsTextI18n", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteTextI18n(
+    @ResponseBody
+    public String deleteTextI18n(
             @ModelAttribute(value = "cmsTextI18n") CmsTextI18n cmsTextI18n,
             BindingResult result, Locale locale
     ) {

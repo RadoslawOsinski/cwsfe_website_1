@@ -29,7 +29,8 @@ public class BlogPostCodeController extends JsonController {
     private BlogPostCodesDAO blogPostCodesDAO;
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/blogPostCodesList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogKeywords(
+    @ResponseBody
+    public String listBlogKeywords(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -66,7 +67,8 @@ public class BlogPostCodeController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/addBlogPostCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addNews(
+    @ResponseBody
+    public String addNews(
             @ModelAttribute(value = "blogPostCode") BlogPostCode blogPostCode,
             BindingResult result, Locale locale
     ) {
@@ -96,7 +98,8 @@ public class BlogPostCodeController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/deleteBlogPostCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String blogPostCodeDelete(
+    @ResponseBody
+    public String blogPostCodeDelete(
             @ModelAttribute(value = "blogPostCode") BlogPostCode blogPostCode,
             BindingResult result, Locale locale
     ) {

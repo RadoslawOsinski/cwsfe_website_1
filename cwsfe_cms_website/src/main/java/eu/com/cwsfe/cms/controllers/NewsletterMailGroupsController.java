@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.EmailValidator;
 import eu.com.cwsfe.cms.UUIDGenerator;
 import eu.com.cwsfe.cms.dao.CmsLanguagesDAO;
@@ -52,9 +53,8 @@ class NewsletterMailGroupsController extends JsonController {
     private List<String> getBreadcrumbs(Locale locale) {
         //todo pozmieniać fromCurrentContextPath() aby działało na produkcji
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterMailGroups").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterMailGroupsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/newsletterMailGroups").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("NewsletterMailGroupsManagement")));
         return breadcrumbs;
     }
 

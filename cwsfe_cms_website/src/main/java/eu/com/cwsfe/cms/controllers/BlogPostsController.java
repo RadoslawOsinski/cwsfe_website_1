@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.*;
 import net.sf.json.JSONArray;
@@ -60,9 +61,9 @@ public class BlogPostsController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostManagement")));
         return breadcrumbs;
     }
 
@@ -74,19 +75,18 @@ public class BlogPostsController extends JsonController {
 
     private List<String> getSingleBlogPostsBreadcrumbs(Locale locale, Long id) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostsManagement") + "</a>");
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentBlogPost") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("BlogPostsManagement")));
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/blogPosts/" + id).build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentBlogPost")));
         return breadcrumbs;
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPostsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String listBlogPosts(
+    public String listBlogPosts(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -125,9 +125,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addBlogPost", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String addBlogPost(
+    public String addBlogPost(
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
@@ -154,9 +153,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteBlogPost", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String delete(
+    public String delete(
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {
@@ -202,9 +200,8 @@ public class BlogPostsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/blogPosts/updatePostBasicInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public
     @ResponseBody
-    String updatePostBasicInfo(
+    public String updatePostBasicInfo(
             @ModelAttribute(value = "blogPost") BlogPost blogPost,
             BindingResult result, Locale locale
     ) {

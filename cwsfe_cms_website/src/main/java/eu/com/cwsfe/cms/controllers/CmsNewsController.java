@@ -1,5 +1,6 @@
 package eu.com.cwsfe.cms.controllers;
 
+import eu.com.cwsfe.cms.BreadCrumbBuilder;
 import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.CmsNews;
 import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
@@ -61,9 +62,9 @@ public class CmsNewsController extends JsonController {
 
     private List<String> getBreadcrumbs(Locale locale) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement")));
         return breadcrumbs;
     }
 
@@ -75,17 +76,18 @@ public class CmsNewsController extends JsonController {
 
     private List<String> getSingleNewsBreadcrumbs(Locale locale, Long id) {
         List<String> breadcrumbs = new ArrayList<>(1);
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement") + "</a>");
-        breadcrumbs.add("<a href=\"" +
-                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news/" + id).build().toUriString() +
-                "\" tabindex=\"-1\">" + ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentNews") + "</a>");
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news").build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CmsNewsManagement")));
+        breadcrumbs.add(BreadCrumbBuilder.getBreadCrumb(
+                ServletUriComponentsBuilder.fromCurrentContextPath().path("/CWSFE_CMS/news/" + id).build().toUriString(),
+                ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE_PATH, locale).getString("CurrentNews")));
         return breadcrumbs;
     }
 
     @RequestMapping(value = "/CWSFE_CMS/newsList", method = RequestMethod.GET, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String listBlogKeywords(
+    @ResponseBody
+    public String listBlogKeywords(
             @RequestParam int iDisplayStart,
             @RequestParam int iDisplayLength,
             @RequestParam String sEcho,
@@ -124,7 +126,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/addNews", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String addNews(
+    @ResponseBody
+    public String addNews(
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
@@ -152,7 +155,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/news/updateNewsBasicInfo", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String updateNewsBasicInfo(
+    @ResponseBody
+    public String updateNewsBasicInfo(
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
@@ -179,7 +183,8 @@ public class CmsNewsController extends JsonController {
     }
 
     @RequestMapping(value = "/CWSFE_CMS/deleteNews", method = RequestMethod.POST, produces = "application/json;charset=UTF-8;pageEncoding=UTF-8")
-    public @ResponseBody String deleteFolder(
+    @ResponseBody
+    public String deleteFolder(
             @ModelAttribute(value = "cmsNews") CmsNews cmsNews,
             BindingResult result, Locale locale
     ) {
