@@ -3,6 +3,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'base'
 apply plugin: 'sonar-runner'
+apply plugin: 'jacoco'
 
 version = '1.0'
 group = "eu.com.cwsfe"
@@ -13,9 +14,12 @@ idea {
     module {
         sourceDirs += file('src/main/java')
         sourceDirs += file('src/main/resources')
-        testSourceDirs += file('src/main/test/java')
-        testSourceDirs += file('src/main/test/resources')
+        testSourceDirs += file('src/test/java')
+        testSourceDirs += file('src/test/resources')
         excludeDirs += file('target')
+        excludeDirs += file('build')
+        excludeDirs += file('out')
+        excludeDirs += file('.gradle')
     }
 }
 
@@ -30,6 +34,8 @@ repositories {
 }
 
 compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
     options.encoding = 'UTF-8'
     options.compilerArgs = ['-Xlint', '-Xlint:-serial', '-Xlint:-path']
 }
@@ -39,11 +45,8 @@ dependencies {
     providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     //providedCompile group: 'org.jboss.spec.javax.jms', name: 'jboss-jms-api_2.0_spec', version: '1.0.0.Final'
     compile project(':cwsfe_cms_website')
-//    compile group: 'net.sf.ehcache', name: 'ehcache-core', version: '2.6.6'
-//    compile group: 'net.sf.ehcache', name: 'ehcache-web', version: '2.0.4'
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.0.6.RELEASE'
-    testCompile group: 'junit', name: 'junit', version: '4.9'
-    testCompile group: 'org.testng', name: 'testng', version: '6.3.1'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
 task yuiMinimizeCssFiles {
@@ -89,4 +92,10 @@ sonarRunner {
         property "sonar.login", props["sonar.login"]
         property "sonar.password", props["sonar.password"]
     }
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
 }
