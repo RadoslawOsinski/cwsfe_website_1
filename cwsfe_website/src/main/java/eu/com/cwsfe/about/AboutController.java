@@ -16,7 +16,7 @@ import java.util.*;
 public class AboutController extends GenericController {
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String showLoginPage(ModelMap model, Locale locale) {
+    public String showPage(ModelMap model, Locale locale) {
         setPageMetadata(model, locale);
         return "about/About";
     }
