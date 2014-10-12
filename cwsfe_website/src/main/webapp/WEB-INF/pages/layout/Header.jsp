@@ -56,6 +56,10 @@
                 cycle_all: '/resources-cwsfe/js/jquery/cycle.all.min',
                 prettyPhoto: '/resources-cwsfe/js/prettyPhoto/prettyPhoto',
                 ajaxCodeFetcher: '/resources-cwsfe/js/AjaxCodeFetcher'
+            },
+            shim: {
+                'cycle_all': ['jquery'],
+                'prettyPhoto': ['jquery']
             }
         });
     </script>
