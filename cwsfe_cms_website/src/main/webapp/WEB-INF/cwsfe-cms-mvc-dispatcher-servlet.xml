@@ -68,8 +68,6 @@
     <bean id="cwsfe_cms_newsImageServlet" class="eu.com.cwsfe.cms.images.NewsImageServlet"/>
 
     <import resource="cwsfe-cms-mail-configuration.xml"/>
-    <import resource="spring-security.xml"/>
-
-    <!--<bean id="exampleInitBean" name="cmsAutomaticUpdate" class="pl.com.cwsfe.cms.release.AutomaticRelease"/>-->
+    <import resource="cwsfe-cms-spring-security.xml"/>
 
 </beans>

@@ -33,7 +33,7 @@
 <section id="login-container">
     <div id="login_header"></div>
 
-    <spring:url value="/j_spring_security_check" var="loginCheckUrl" htmlEscape="true"/>
+    <spring:url value="/CWSFE_CMS/cwsfe_cms_security_check" var="loginCheckUrl" htmlEscape="true"/>
     <form id="login_form" action="${loginCheckUrl}" method='POST'>
         <div id="login_wrapper">
             <div class="login_wrapper_container">
@@ -52,14 +52,14 @@
                                     <label for="username">Username</label>
 
                                     <div class="field-box">
-                                        <input type="text" id="username" name="j_username" class="w-icon"></div>
+                                        <input type="text" id="username" name="userName" class="w-icon"></div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="one-half password-half">
                                     <label for="password">Password</label>
 
                                     <div class="field-box">
-                                        <input type="password" id="password" name="j_password" class="w-icon">
+                                        <input type="password" id="password" name="password" class="w-icon">
                                     </div>
                                     <div class="clear"></div>
                                 </div>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http pattern="/CWSFE_CMS/loginPage" security="none"/>
+    <http pattern="/CWSFE_CMS/loginFailed" security="none"/>
+    <http pattern="/CWSFE_CMS/configuration/initialConfiguration" security="none"/>
+
+    <http auto-config="false" authentication-manager-ref="cmsAuthorization" pattern="/CWSFE_CMS/*"
+          entry-point-ref="cmsAuthenticationEntryPoint">
+        <intercept-url pattern="/CWSFE_CMS/*" access="ROLE_CWSFE_CMS_ADMIN"/>
+        <!--<session-management invalid-session-url="/timeout.htm"/>-->
+        <access-denied-handler error-page="/CWSFE_CMS/loginFailed"/>
+        <logout logout-success-url="/CWSFE_CMS/loginPage" invalidate-session="true"
+                logout-url="/CWSFE_CMS/logout"/>
+        <!--logout-url="/j_spring_security_logout"/>-->
+        <custom-filter ref="cmsAuthenticationProcessingFilter" position="FORM_LOGIN_FILTER"/>
+    </http>
+
+    <authentication-manager id="cmsAuthorization">
+        <authentication-provider ref="cmsAuthenticationProvider"/>
+    </authentication-manager>
+
+    <beans:bean id="cmsAuthenticationProvider" class="eu.com.cwsfe.cms.login.CmsAuthProvider"/>
+
+    <beans:bean id="cmsAuthenticationEntryPoint"
+                class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/CWSFE_CMS/loginPage"/>
+    </beans:bean>
+
+    <beans:bean id="cmsAuthenticationProcessingFilter" class="eu.com.cwsfe.cms.login.CmsAuthenticationProcessingFilter">
+        <beans:property name="authenticationManager" ref="cmsAuthorization"/>
+        <beans:property name="filterProcessesUrl" value="/CWSFE_CMS/cwsfe_cms_security_check"/>
+        <beans:property name="authenticationFailureHandler" ref="cmsLoginFailureHandler"/>
+        <beans:property name="authenticationSuccessHandler" ref="cmsLoginSuccessHandler"/>
+    </beans:bean>
+
+    <beans:bean id="cmsLoginSuccessHandler"
+                class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/CWSFE_CMS/Main"/>
+        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+    </beans:bean>
+
+    <beans:bean id="cmsLoginFailureHandler"
+                class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/CWSFE_CMS/loginFailed"/>
+    </beans:bean>
+
+</beans:beans>
