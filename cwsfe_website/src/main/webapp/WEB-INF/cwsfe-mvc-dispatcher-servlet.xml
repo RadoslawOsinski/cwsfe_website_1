@@ -13,6 +13,7 @@
 
     <context:component-scan base-package="eu.com.cwsfe"/>
     <context:component-scan base-package="eu.com.cwsfe.cms"/>
+    <context:component-scan base-package="eu.com.cwsfe.webmonitor"/>
 
     <context:annotation-config/>
 
@@ -44,6 +45,7 @@
             <list>
                 <value>cwsfe_i18n</value>
                 <value>cwsfe_cms_i18n</value>
+                <value>cwsfe_web_monitor_i18n</value>
             </list>
         </property>
     </bean>
@@ -67,6 +69,8 @@
 
     <import resource="cwsfe-cms-dao.xml"/>
     <import resource="cwsfe-cms-mvc-dispatcher-servlet.xml"/>
+    <import resource="cwsfe-web-monitor-dao.xml"/>
+    <import resource="cwsfe-web-monitor-mvc-dispatcher-servlet.xml"/>
     <import resource="cwsfe-mail-configuration.xml"/>
 
     <!--<bean class="org.springframework.cache.ehcache.EhCacheCacheManager">-->

@@ -45,6 +45,7 @@ dependencies {
     providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
     //providedCompile group: 'org.jboss.spec.javax.jms', name: 'jboss-jms-api_2.0_spec', version: '1.0.0.Final'
     compile project(':cwsfe_cms_website')
+    compile project(':cwsfe_web_monitor')
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.0.6.RELEASE'
     testCompile group: 'org.springframework', name: 'spring-test-mvc', version: '1.0.0.M2'
@@ -77,6 +78,7 @@ def minimizeCssFile(File file) {
 war {
     it.dependsOn yuiMinimizeCssFiles
     from (project(':cwsfe_cms_website').file('src/main/webapp/'))
+    from(project(':cwsfe_web_monitor').file('src/main/webapp/'))
 }
 
 sonarRunner {

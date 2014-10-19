@@ -30,11 +30,6 @@
                 </a>
             </c3:if>
         </li>
-        <%--<li>--%>
-            <%--<a href="#">--%>
-                <%--<img src="${pageContext.request.contextPath}/resources/img/layout/images/social/facebook.png" width="16" height="16" alt="facebook icon"/>--%>
-            <%--</a>--%>
-        <%--</li>--%>
         <li>
             <a href="https://twitter.com/cwsfe" target="_blank">
                 <img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/social/twitter.png" width="16" height="16" alt="CompanyWebsiteOnTwitter"/>
@@ -46,22 +41,16 @@
             </a>
         </li>
         <%--<li>--%>
-            <%--<a href="#">--%>
-                <%--<img src="${pageContext.request.contextPath}/resources/img/layout/images/social/dribble.png" width="16" height="16"--%>
-                     <%--alt="dribble icon"/>--%>
+        <%--<spring:url value="/CWSFE_WEB_MONITOR" var="webMonitorLoginUrl" htmlEscape="true"/>--%>
+        <%--<a href="${webMonitorLoginUrl}" rel="nofollow">--%>
+        <%--<img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/analytics.png" width="16" height="16" alt="analytics icon"/>--%>
             <%--</a>--%>
         <%--</li>--%>
         <li>
-            <spring:url value="/CWSFE_CMS" var="loginUrl" htmlEscape="true"/>
-            <a href="${loginUrl}" rel="nofollow">
+            <spring:url value="/CWSFE_CMS" var="cmsLoginUrl" htmlEscape="true"/>
+            <a href="${cmsLoginUrl}" rel="nofollow">
                 <img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/bg-author.png" width="16" height="16" alt="administration icon"/>
             </a>
         </li>
-        <%--$ifNotNull($user.userID(), {--%>
-        <%--<li>--%>
-            <%--<a href="$page.logout("cwsfe.Home")"><spring:message code="Logout")</a>--%>
-            <%--<a href="#">Logout</a>--%>
-        <%--</li>--%>
-        <%--})--%>
     </ul>
 </div>

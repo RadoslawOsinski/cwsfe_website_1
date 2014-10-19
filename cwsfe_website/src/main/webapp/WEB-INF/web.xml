@@ -70,10 +70,8 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-        <!--<url-pattern>/CWSFE_CMS_loginPage</url-pattern>-->
-        <!--<url-pattern>/CWSFE_CMS_loginFailed</url-pattern>-->
-        <!--<url-pattern>/j_spring_security_check</url-pattern>-->
-        <!--<url-pattern>/j_spring_security_logout</url-pattern>-->
+        <url-pattern>/CWSFE_WEB_MONITOR/*</url-pattern>
+        <url-pattern>/CWSFE_CMS/*</url-pattern>
     </filter-mapping>
     <!--<filter-mapping>-->
     <!--<filter-name>sessionExpirationFilter</filter-name>-->

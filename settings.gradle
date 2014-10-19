@@ -1,1 +1,1 @@
-include "cwsfe_website", "cwsfe_cms_website"
+include "cwsfe_website", "cwsfe_cms_website", "cwsfe_web_monitor"

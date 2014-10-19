@@ -10,6 +10,13 @@
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
         </RollingFile>
+        <RollingFile name="CWSFE_WEB_MONITOR_LOG" fileName="${log-path}/cwsfe_web_monitor.log"
+                     filePattern="${log-path}/cwsfe_web_monitor-%d{yyyy-MM-dd}.log" append="false">
+            <PatternLayout pattern="[%p] %d [%t] %x %c - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
         <RollingFile name="CWSFE_LOG" fileName="${log-path}/cwsfe.log" filePattern="${log-path}/cwsfe-%d{yyyy-MM-dd}.log" append="false">
             <PatternLayout pattern="[%p] %d [%t] %x %c - %m%n"/>
             <Policies>
@@ -26,6 +33,9 @@
         </Logger>
         <Logger name="eu.com.cwsfe.cms" level="INFO" additivity="false">
             <appender-ref ref="CWSFE_CMS_LOG"/>
+        </Logger>
+        <Logger name="eu.com.cwsfe.webmonitor" level="INFO" additivity="false">
+            <appender-ref ref="CWSFE_WEB_MONITOR_LOG"/>
         </Logger>
         <Logger name="eu.com.cwsfe" level="INFO" additivity="false">
             <appender-ref ref="CWSFE_LOG"/>
