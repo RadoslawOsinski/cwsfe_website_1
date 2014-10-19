@@ -3,7 +3,6 @@ package eu.com.cwsfe.cms.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +18,7 @@ import java.util.List;
 /**
  * @author Radoslaw Osinski
  */
-public class CustomAuthProvider implements AuthenticationProvider {
+public class CmsAuthProvider implements AuthenticationProvider {
 
     @Autowired
     private CmsUsersDAO cmsUsersDAO;
@@ -27,8 +26,8 @@ public class CustomAuthProvider implements AuthenticationProvider {
     private CmsRolesDAO cmsRolesDAO;
 
     @Override
-    public boolean supports(Class<?> classArg) {
-        return classArg.getName() != null && "org.springframework.security.authentication.UsernamePasswordAuthenticationToken".equals(classArg.getName());
+    public boolean supports(Class<?> authentication) {
+        return (CmsUsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
     @Override
@@ -43,11 +42,10 @@ public class CustomAuthProvider implements AuthenticationProvider {
                 for (CmsRole cmsRole : cmsRoles) {
                     authorities.add(new SimpleGrantedAuthority(cmsRole.getRoleCode()));
                 }
-                return new UsernamePasswordAuthenticationToken(auth.getName(), password, authorities);
+                return new CmsUsernamePasswordAuthenticationToken(auth.getName(), password, authorities);
             }
         }
         throw new BadCredentialsException("Username/Password does not match for " + login);
     }
-
 
 }

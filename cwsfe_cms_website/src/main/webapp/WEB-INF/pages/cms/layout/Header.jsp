@@ -73,7 +73,7 @@
                 <div class="links">
                     <%--<a href="#">Profile</a>--%>
                     <%--<a href="#">Inbox</a>--%>
-                    <spring:url value="/CWSFE_CMS_logout" var="logoutUrl" htmlEscape="true"/>
+                        <spring:url value="/CWSFE_CMS/logout" var="logoutUrl" htmlEscape="true"/>
                     <a href="${logoutUrl}" class="logout" tabindex="-1"><spring:message code="Logout"/></a>
                 </div>
                 <%--<img src="img/profile-pict.jpg" alt="John Doe">--%>

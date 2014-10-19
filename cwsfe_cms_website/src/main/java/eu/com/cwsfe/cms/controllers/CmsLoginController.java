@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Radoslaw Osinski
  */
 @Controller
-class LoginController {
+class CmsLoginController {
 
-    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);
+    private static final Logger LOGGER = LogManager.getLogger(CmsLoginController.class);
 
     @Autowired
     private CmsGlobalParamsDAO cmsGlobalParamsDAO;
 
-    @RequestMapping(value="/CWSFE_CMS", method = RequestMethod.GET)
+    @RequestMapping(value = "/CWSFE_CMS", method = RequestMethod.GET)
     public String loginPage(ModelMap model) {
         try {
             addMainSiteUrl(model);
@@ -38,20 +38,20 @@ class LoginController {
         }
     }
 
-    @RequestMapping(value="/CWSFE_CMS_loginPage")
+    @RequestMapping(value = "/CWSFE_CMS/loginPage")
     public String login(ModelMap model) {
         addMainSiteUrl(model);
         return "cms/login/Login";
     }
 
-    @RequestMapping(value="/CWSFE_CMS_loginFailed", method = RequestMethod.GET)
+    @RequestMapping(value = "/CWSFE_CMS/loginFailed", method = RequestMethod.GET)
     public String loginError(ModelMap model) {
         model.addAttribute("error", "true");
         addMainSiteUrl(model);
         return "cms/login/Login";
     }
 
-    @RequestMapping(value="/CWSFE_CMS_logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/CWSFE_CMS/logout", method = RequestMethod.GET)
     public String logout(ModelMap model) {
         addMainSiteUrl(model);
         return "cms/login/Login";
