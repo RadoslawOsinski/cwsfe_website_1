@@ -12,6 +12,7 @@ import eu.com.cwsfe.cms.model.NewsletterMailGroup;
 import eu.com.cwsfe.model.Keyword;
 import eu.com.cwsfe.model.NewsletterSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,20 +43,21 @@ class NewsletterController extends GenericController {
     @Autowired
     private CmsLanguagesDAO cmsLanguagesDAO;
     @Autowired
-    private MailSender mailSender;
+    @Qualifier("mailSender")
+    private MailSender cmsMailSender;
 
     @RequestMapping(value = "/newsletterAddedToList", method = RequestMethod.GET)
-    public String showNewsletterAddedToList(ModelMap model, Locale locale) {
-        setPageMetadata(model, locale);
+    public String showNewsletterAddedToList(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
+        setPageMetadata(model, locale, httpServletRequest);
         return "newsletter/NewsletterAddedToList";
     }
 
     @RequestMapping(value = "/confirmNewsletterAddress/{confirmString}", method = RequestMethod.GET)
     public String newsletterConfirmAddress(
-            ModelMap model, Locale locale, @PathVariable(value = "confirmString") String confirmString
+            ModelMap model, Locale locale, @PathVariable(value = "confirmString") String confirmString, HttpServletRequest httpServletRequest
     ) {
         NewsletterMailAddress newsletterMailAddress = newsletterMailAddressDAO.getByConfirmString(confirmString);
-        setPageMetadata(model, locale);
+        setPageMetadata(model, locale, httpServletRequest);
         if (newsletterMailAddress == null) {
             return "newsletter/NewsletterAddressDoesNotExist";
         } else if (newsletterMailAddress.getStatus().equals(NewsletterMailAddress.STATUS_INACTIVE)) {
@@ -65,11 +68,11 @@ class NewsletterController extends GenericController {
         }
     }
 
-    private void setPageMetadata(ModelMap model, Locale locale) {
+    private void setPageMetadata(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
         model.addAttribute("headerPageTitle", "CWSFE Newsletter");
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", setAdditionalJS());
+        model.addAttribute("mainJavaScript", getPageJS(httpServletRequest.getContextPath()));
     }
 
     public List<Keyword> setPageKeywords(Locale locale) {
@@ -82,14 +85,14 @@ class NewsletterController extends GenericController {
         return new ArrayList<>(0);
     }
 
-    private Object setAdditionalJS() {
-        return new ArrayList<>(0);
+    private String getPageJS(String contextPath) {
+        return contextPath + "/resources-cwsfe-cms/js/cms/newsletter/Newsletter.js";
     }
 
     @RequestMapping(value = "/addAddressToNewsletter", method = RequestMethod.POST)
     public String addAddressToNewsletter(
             @ModelAttribute("newsletterSubscription") NewsletterSubscription newsletterSubscription,
-            BindingResult result, ModelMap model, Locale locale
+            BindingResult result, ModelMap model, Locale locale, HttpServletRequest httpServletRequest
     ) {
         ValidationUtils.rejectIfEmptyOrWhitespace(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
         if (!EmailValidator.isValidEmailAddress(newsletterSubscription.getEmail())) {
@@ -102,21 +105,21 @@ class NewsletterController extends GenericController {
             if (existingMailAddress == null) {
                 NewsletterMailAddress newsletterMailAddress = addNewsletterMailAddress(newsletterSubscription, mailGroup);
                 sendConfirmationEmail(newsletterMailAddress);
-                return showNewsletterAddedToList(model, locale);
+                return showNewsletterAddedToList(model, locale, httpServletRequest);
             } else if (existingMailAddress.getStatus().equals(NewsletterMailAddress.STATUS_ACTIVE)) {
-                setPageMetadata(model, locale);
+                setPageMetadata(model, locale, httpServletRequest);
                 return "newsletter/NewsletterAddressAlreadyConfirmed";
             } else if (existingMailAddress.getStatus().equals(NewsletterMailAddress.STATUS_INACTIVE)) {
                 sendConfirmationEmail(existingMailAddress);
-                return showNewsletterAddedToList(model, locale);
+                return showNewsletterAddedToList(model, locale, httpServletRequest);
             } else if (existingMailAddress.getStatus().equals(NewsletterMailAddress.STATUS_DELETED)) {
                 newsletterMailAddressDAO.deactivate(existingMailAddress);
                 sendConfirmationEmail(existingMailAddress);
-                return showNewsletterAddedToList(model, locale);
+                return showNewsletterAddedToList(model, locale, httpServletRequest);
             } else if (existingMailAddress.getStatus().equals(NewsletterMailAddress.STATUS_ERROR)) {
                 newsletterMailAddressDAO.deactivate(existingMailAddress);
                 sendConfirmationEmail(existingMailAddress);
-                return showNewsletterAddedToList(model, locale);
+                return showNewsletterAddedToList(model, locale, httpServletRequest);
             }
         }
         return "main/Main";
@@ -145,7 +148,7 @@ class NewsletterController extends GenericController {
         //todo ładny tekst!
         message.setText("Confirm account over link http://localhost:8080/confirmNewsletterAddress/" + newsletterMailAddress.getConfirmString());
         message.setReplyTo("info@cwsfe.pl");
-        mailSender.send(message);
+        cmsMailSender.send(message);
     }
 
 }

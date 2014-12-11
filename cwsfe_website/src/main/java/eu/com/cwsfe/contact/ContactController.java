@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -32,27 +33,27 @@ public class ContactController extends GenericController {
     private MailSender mailSender;
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
-    public String showPage(ModelMap model, Locale locale) {
-        setPageMetadata(model, locale);
+    public String showPage(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
+        setPageMetadata(model, locale, httpServletRequest);
         return "contact/Contact";
     }
 
     @RequestMapping(value = "/contact/sendEmail", method = RequestMethod.GET)
-    public String showPageAfterMailSend(ModelMap model, Locale locale) {
-        return showPage(model, locale);
+    public String showPageAfterMailSend(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
+        return showPage(model, locale, httpServletRequest);
     }
 
-    private void setPageMetadata(ModelMap model, Locale locale) {
+    private void setPageMetadata(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Contact"));
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Contact.js");
+        model.addAttribute("mainJavaScript", httpServletRequest.getContextPath() + "/resources-cwsfe/js/Contact.js");
     }
 
     @RequestMapping(value = "/contact/sendEmail", method = RequestMethod.POST)
     public String sendMail(
             @ModelAttribute(value = "contactMail") ContactMail contactMail,
-            BindingResult result, ModelMap model, Locale locale
+            BindingResult result, ModelMap model, Locale locale, HttpServletRequest httpServletRequest
     ) {
         ValidationUtils.rejectIfEmpty(result, "name", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("NameMustBeSet"));
         ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
@@ -76,7 +77,7 @@ public class ContactController extends GenericController {
             }
             model.addAttribute("mailSendOperationErrors", errors);
         }
-        return showPage(model, locale);
+        return showPage(model, locale, httpServletRequest);
     }
 
     List<Keyword> setPageKeywords(Locale locale) {

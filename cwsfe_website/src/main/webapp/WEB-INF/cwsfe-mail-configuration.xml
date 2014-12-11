@@ -7,7 +7,7 @@
 
 
     <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="mail/CWSFEMail"/>
+        <property name="jndiName" value="java:/mail/CWSFEMail"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

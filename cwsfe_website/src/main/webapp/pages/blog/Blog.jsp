@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/pages/layout/Header.jsp"%>
+<%@include file="/pages/layout/Header.jsp" %>
 
 <div id="page-header">
     <img src="${pageContext.request.contextPath}/resources-cwsfe/img/services/photodune-1402059-fiber-optics-s_880x200.JPG" width="880" height="200" alt="services image"/>
@@ -190,4 +190,4 @@
 
 </div>
 
-<%@include file="/WEB-INF/pages/layout/Footer.jsp"%>
+<%@include file="/pages/layout/Footer.jsp" %>

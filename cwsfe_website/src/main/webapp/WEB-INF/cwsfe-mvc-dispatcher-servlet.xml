@@ -3,85 +3,66 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
     <context:component-scan base-package="eu.com.cwsfe"/>
-    <context:component-scan base-package="eu.com.cwsfe.cms"/>
-    <context:component-scan base-package="eu.com.cwsfe.webmonitor"/>
-
     <context:annotation-config/>
-
-    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" order="0"/>
-    <mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
-    <mvc:resources mapping="/resources-cwsfe/**" location="/resources-cwsfe/" cache-period="31556926"/>
     <mvc:annotation-driven/>
 
-    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
-    <bean id="rssViewer" class="eu.com.cwsfe.rss.CustomRssViewer"/>
+    <bean id="cwsfeBeanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <bean id="cwsfeMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <!--<property name="maxUploadSize" value="2000000"/>-->
     </bean>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/pages/"/>
+    <bean id="cwsfeInternalResourceViewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+    <bean id="cwsfeLocaleResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="defaultLocale" value="en"/>
     </bean>
-    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <property name="paramName" value="language"/>
-    </bean>
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basenames">
-            <list>
-                <value>cwsfe_i18n</value>
-                <value>cwsfe_cms_i18n</value>
-                <value>cwsfe_web_monitor_i18n</value>
-            </list>
-        </property>
+
+    <bean id="cwsfeLocaleChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="cmsLanguage"/>
     </bean>
 
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+    <bean id="handlerMapping"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="interceptors" ref="cwsfeLocaleChangeInterceptor"/>
+    </bean>
+
+    <!-- spring sucks in definining different id than messageSource :( -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:basename="classpath:cwsfe_i18n" p:defaultEncoding="UTF-8" p:cacheSeconds="10"/>
+
+    <bean id="cwsfeCmsControllerClassNameHandlerMapping"
+          class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         <property name="interceptors">
             <list>
-                <ref bean="localeChangeInterceptor"/>
+                <ref bean="cwsfeLocaleChangeInterceptor"/>
             </list>
         </property>
     </bean>
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-                <property name="paramName" value="language"/>
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!-- Handles HTTP GET requests for /resources-cwsfe-cms/** by efficiently serving up static resources in the ${webappRoot}/resources-cwsfe-cms/ directory -->
+    <mvc:resources mapping="/resources-cwsfe/**" location="/resources-cwsfe/" cache-period="31556926"/>
 
-    <import resource="cwsfe-cms-dao.xml"/>
-    <import resource="cwsfe-cms-mvc-dispatcher-servlet.xml"/>
-    <import resource="cwsfe-web-monitor-dao.xml"/>
-    <import resource="cwsfe-web-monitor-mvc-dispatcher-servlet.xml"/>
+    <import resource="classpath*:cwsfe-cms-dao.xml"/>
+    <import resource="classpath*:cwsfe-cms-cache.xml"/>
+
+    <bean id="cwsfeBlogPostImageServlet" class="eu.com.cwsfe.cms.images.BlogPostImageServlet"/>
+    <bean id="cwsfeNewsImageServlet" class="eu.com.cwsfe.cms.images.NewsImageServlet"/>
+
     <import resource="cwsfe-mail-configuration.xml"/>
-
-    <!--<bean class="org.springframework.cache.ehcache.EhCacheCacheManager">-->
-        <!--<property name="cacheManager">-->
-            <!--<bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">-->
-                <!--<property name="configLocation" value="/WEB-INF/ehcache.xml"/>-->
-            <!--</bean>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <bean id="blogPostImageServlet" class="eu.com.cwsfe.cms.images.BlogPostImageServlet"/>
-    <bean id="newsImageServlet" class="eu.com.cwsfe.cms.images.NewsImageServlet"/>
+    <import resource="cwsfe-spring-security.xml"/>
 
 </beans>

@@ -95,7 +95,7 @@ public class BlogController extends GenericController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Blog") + " " + additionalTitle);
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Blog.js");
+        model.addAttribute("mainJavaScript", "/resources-cwsfe/js/Blog.js");
     }
 
     List<Keyword> setPageKeywords(Locale locale) {
@@ -304,7 +304,7 @@ public class BlogController extends GenericController {
             ModelMap modelMap, BindingResult result, Locale locale
     ) {
         ValidationUtils.rejectIfEmpty(result, "blogPostI18nContentId", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE, locale).getString("BlogPostMustBeSet"));
-        ValidationUtils.rejectIfEmpty(result, "username", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE, locale).getString("UsernameMustBeSet"));
+        ValidationUtils.rejectIfEmpty(result, "userName", ResourceBundle.getBundle(CWSFE_CMS_RESOURCE_BUNDLE, locale).getString("UsernameMustBeSet"));
         ValidationUtils.rejectIfEmpty(result, "email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailMustBeSet"));
         if (blogPostComment.getEmail() != null && !EmailValidator.isValidEmailAddress(blogPostComment.getEmail())) {
             result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));

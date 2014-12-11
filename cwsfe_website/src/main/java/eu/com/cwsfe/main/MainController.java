@@ -34,7 +34,7 @@ public class MainController extends GenericController {
         model.addAttribute("headerPageTitle", "CWSFE");
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Main.js");
+        model.addAttribute("mainJavaScript", "/resources-cwsfe/js/Main.js");
     }
 
     public List<Keyword> setPageKeywords(Locale locale) {

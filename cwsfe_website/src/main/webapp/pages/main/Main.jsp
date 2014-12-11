@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@include file="/WEB-INF/pages/layout/Header.jsp" %>
+<%@include file="/pages/layout/Header.jsp" %>
 
 <%@include file="SlideShow.jsp" %>
 
@@ -100,4 +100,4 @@
     </div>
 
 </div>
-<%@include file="/WEB-INF/pages/layout/Footer.jsp" %>
+<%@include file="/pages/layout/Footer.jsp" %>

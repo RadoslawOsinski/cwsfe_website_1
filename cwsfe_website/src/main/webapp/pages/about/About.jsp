@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@include file="/WEB-INF/pages/layout/Header.jsp"%>
+<%@include file="/pages/layout/Header.jsp" %>
 
 <div id="page-header">
     <img src="${pageContext.request.contextPath}/resources-cwsfe/img/about/photodune-2981403-computer-keyboard-and-social-media-images-s_880x200.jpg" width="880" height="200" alt="hands on keyboard image"/>
@@ -42,4 +42,4 @@
 
 </div>
 
-<%@include file="/WEB-INF/pages/layout/Footer.jsp"%>
+<%@include file="/pages/layout/Footer.jsp" %>

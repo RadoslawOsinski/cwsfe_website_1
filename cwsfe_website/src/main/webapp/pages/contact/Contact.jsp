@@ -1,6 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="/WEB-INF/pages/layout/Header.jsp" %>
+<%@include file="/pages/layout/Header.jsp" %>
 
 <div itemscope itemtype="http://schema.org/LocalBusiness">
 
@@ -105,4 +105,4 @@
 
 </div>
 
-<%@include file="/WEB-INF/pages/layout/Footer.jsp" %>
+<%@include file="/pages/layout/Footer.jsp" %>

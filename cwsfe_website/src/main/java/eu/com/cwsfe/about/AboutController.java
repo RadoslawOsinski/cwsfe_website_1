@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import eu.com.cwsfe.model.Keyword;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -16,15 +17,15 @@ import java.util.*;
 public class AboutController extends GenericController {
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
-    public String showPage(ModelMap model, Locale locale) {
-        setPageMetadata(model, locale);
+    public String showPage(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
+        setPageMetadata(model, locale, httpServletRequest);
         return "about/About";
     }
 
-    private void setPageMetadata(ModelMap model, Locale locale) {
+    private void setPageMetadata(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("AboutCompany"));
         model.addAttribute("keywords", setPageKeywords(locale));
-        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/About.js");
+        model.addAttribute("mainJavaScript", httpServletRequest.getContextPath() + "/resources-cwsfe/js/About.js");
     }
 
     List<Keyword> setPageKeywords(Locale locale) {
