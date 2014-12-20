@@ -24,7 +24,7 @@ import java.util.Locale;
 class RssController {
 
     @Autowired
-    private CmsLanguagesDAO langsDAO;
+    private CmsLanguagesDAO cmsLanguagesDAO;
     @Autowired
     private BlogPostsDAO blogPostsDAO;
     @Autowired
@@ -33,7 +33,7 @@ class RssController {
     @RequestMapping(value="/rssFeed", method = RequestMethod.GET)
     public ModelAndView getFeedInRss(Locale locale, HttpServletRequest request) {
         List<RssContent> items = new ArrayList<>();
-        List<Object[]> posts = blogPostsDAO.listI18nPosts(langsDAO.getByCode(locale.getLanguage()).getId());
+        List<Object[]> posts = blogPostsDAO.listI18nPosts(cmsLanguagesDAO.getByCode(locale.getLanguage()).getId());
         final String wwwString = request.getServerName().contains("www.") ? "www." : "";
         final String domainString = locale.getLanguage().contains("pl") ? "pl" : "eu";
         for (Object[] post : posts) {

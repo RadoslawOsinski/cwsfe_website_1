@@ -32,7 +32,7 @@ public class ProductsController extends GenericController {
     @Autowired
     private CmsNewsDAO cmsNewsDAO;
     @Autowired
-    private CmsLanguagesDAO langsDAO;
+    private CmsLanguagesDAO cmsLanguagesDAO;
     @Autowired
     private CmsNewsI18nContentsDAO cmsNewsI18nContentsDAO;
     @Autowired
@@ -165,9 +165,9 @@ public class ProductsController extends GenericController {
     }
 
     private Lang getCurrentLanguageOrDefault(Locale locale) {
-        Lang currentLang = langsDAO.getByCode(locale.getLanguage());
+        Lang currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
-            currentLang = langsDAO.getByCode("en");    //default language
+            currentLang = cmsLanguagesDAO.getByCode("en");    //default language
         }
         return currentLang;
     }

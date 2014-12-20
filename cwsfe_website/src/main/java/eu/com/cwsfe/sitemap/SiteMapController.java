@@ -25,7 +25,7 @@ class SiteMapController {
     @Autowired
     private CmsNewsDAO cmsNewsDAO;
     @Autowired
-    private CmsLanguagesDAO langsDAO;
+    private CmsLanguagesDAO cmsLanguagesDAO;
     @Autowired
     private BlogPostsDAO blogPostsDAO;
 
@@ -73,7 +73,7 @@ class SiteMapController {
 
     private String addPortfolioUrls(String priority, String finalDomainPrefix, Locale locale) {
         StringBuilder stringBuilder = new StringBuilder(400);
-        final Lang lang = langsDAO.getByCode(locale.getLanguage());
+        final Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         List<Object[]> projects = cmsNewsDAO.listI18nProjects(lang.getId());
         for (Object[] project : projects) {
             stringBuilder.append("<url>");
@@ -91,7 +91,7 @@ class SiteMapController {
 
     private String addProductsUrls(String priority, String finalDomainPrefix, Locale locale) {
         StringBuilder stringBuilder = new StringBuilder(400);
-        final Lang lang = langsDAO.getByCode(locale.getLanguage());
+        final Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         List<Object[]> products = cmsNewsDAO.listI18nProducts(lang.getId());
         for (Object[] product : products) {
             stringBuilder.append("<url>");
@@ -109,7 +109,7 @@ class SiteMapController {
 
     private String addBlogUrls(String priority, String finalDomainPrefix, Locale locale) {
         StringBuilder stringBuilder = new StringBuilder(400);
-        final Lang lang = langsDAO.getByCode(locale.getLanguage());
+        final Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         List<Object[]> posts = blogPostsDAO.listI18nPosts(lang.getId());
         for (Object[] post : posts) {
             stringBuilder.append("<url>");

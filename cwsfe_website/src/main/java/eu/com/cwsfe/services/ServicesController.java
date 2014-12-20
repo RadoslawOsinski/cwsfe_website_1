@@ -30,7 +30,7 @@ class ServicesController extends GenericController {
     @Autowired
     private NewsTypesDAO newsTypesDAO;
     @Autowired
-    private CmsLanguagesDAO langsDAO;
+    private CmsLanguagesDAO cmsLanguagesDAO;
     @Autowired
     private CmsNewsI18nContentsDAO cmsNewsI18nContentsDAO;
 
@@ -64,9 +64,9 @@ class ServicesController extends GenericController {
     }
 
     private void setNewsIn18nContent(ModelMap model, Locale locale, CmsNews cmsNews) {
-        Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
+        Lang currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
-            currentPLang = langsDAO.getByCode("en");
+            currentPLang = cmsLanguagesDAO.getByCode("en");
         }
         CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.getByLanguageForNews(cmsNews.getId(), currentPLang.getId());
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);

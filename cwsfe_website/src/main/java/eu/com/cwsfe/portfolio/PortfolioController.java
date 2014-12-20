@@ -32,7 +32,7 @@ class PortfolioController extends GenericController {
     @Autowired
     private CmsNewsDAO cmsNewsDAO;
     @Autowired
-    private CmsLanguagesDAO langsDAO;
+    private CmsLanguagesDAO cmsLanguagesDAO;
     @Autowired
     private CmsNewsI18nContentsDAO cmsNewsI18nContentsDAO;
     @Autowired
@@ -114,7 +114,7 @@ class PortfolioController extends GenericController {
     private PortfolioListHelper listPortfolio(Locale locale, Integer currentPage, Integer newsFolderId, int newsPerPage) {
         List<Object[]> cmsNewsI18nContentIds;
         Integer foundedNewsTotal;
-        Lang currentPLang = langsDAO.getByCode(locale.getLanguage());
+        Lang currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
             currentPLang = getDefaultLanguage();
         }
@@ -162,7 +162,7 @@ class PortfolioController extends GenericController {
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
 
         //bellow there is code for finding news for previous/next links
-        Lang currentLang = langsDAO.getByCode(locale.getLanguage());
+        Lang currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
             currentLang = getDefaultLanguage();
         }
@@ -194,7 +194,7 @@ class PortfolioController extends GenericController {
     }
 
     private Lang getDefaultLanguage() {
-        return langsDAO.getByCode("en");
+        return cmsLanguagesDAO.getByCode("en");
     }
 
 }
