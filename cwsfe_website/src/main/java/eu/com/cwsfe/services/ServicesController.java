@@ -51,7 +51,7 @@ class ServicesController extends GenericController {
     private void setServicePageContent(ModelMap model, Locale locale, String newsCode) {
         setPageMetadata(model, locale);
         CmsFolder cmsFolder = cmsFoldersDAO.getByFolderName(SERVICES_FOLDER);
-        NewsType newsType = newsTypesDAO.getByFolderName(SERVICES_FOLDER);
+        NewsType newsType = newsTypesDAO.getByType(SERVICES_FOLDER);
         CmsNews cmsNews = cmsNewsDAO.getByNewsTypeFolderAndNewsCode(newsType.getId(), cmsFolder.getId(), newsCode);
         setNewsIn18nContent(model, locale, cmsNews);
     }

@@ -188,7 +188,7 @@ public class BlogController extends GenericController {
         blogListHelper.postsArchiveStatistics = blogPostsDAO.listArchiveStatistics(currentLang.getId());
         blogListHelper.blogKeywords = i18nBlogKeywords(currentLang, blogKeywordsDAO.list());
         List<Object[]> postI18nIds;
-        Object[] foundedArticlesTotal;
+        long foundedArticlesTotal;
         if (categoryId != null) {
             postI18nIds = blogPostsDAO.listForPageWithCategoryAndPaging(categoryId, currentLang.getId(), blogListHelper.articlesPerPage, blogListHelper.currentPage);
             foundedArticlesTotal = blogPostsDAO.listCountForPageWithCategoryAndPaging(categoryId, currentLang.getId());
@@ -243,8 +243,8 @@ public class BlogController extends GenericController {
         blogListHelper.archiveYear = archiveYear;
         blogListHelper.archiveMonth = archiveMonth;
         blogListHelper.numberOfPages = (int)
-                (Math.floor((Integer) foundedArticlesTotal[0] / (double) blogListHelper.articlesPerPage) +
-                        ((int) foundedArticlesTotal[0] % blogListHelper.articlesPerPage > 0 ? 1 : 0));
+                (Math.floor(foundedArticlesTotal / (double) blogListHelper.articlesPerPage) +
+                        (foundedArticlesTotal % blogListHelper.articlesPerPage > 0 ? 1 : 0));
         return blogListHelper;
     }
 
@@ -331,7 +331,7 @@ public class BlogController extends GenericController {
             @PathVariable("codeId") String codeId
     ) {
         JSONObject responseDetailsJson = new JSONObject();
-        final BlogPostCode codeForPost = blogPostCodesDAO.getCodeForPost(postId, codeId);
+        final BlogPostCode codeForPost = blogPostCodesDAO.getCodeForPostByCodeId(postId, codeId);
         if (codeForPost == null) {
             responseDetailsJson.put("code", "...");
         } else {
