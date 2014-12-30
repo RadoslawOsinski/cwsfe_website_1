@@ -3,7 +3,7 @@ package eu.com.cwsfe.sitemap;
 import eu.com.cwsfe.cms.dao.BlogPostsDAO;
 import eu.com.cwsfe.cms.dao.CmsLanguagesDAO;
 import eu.com.cwsfe.cms.dao.CmsNewsDAO;
-import eu.com.cwsfe.cms.model.Lang;
+import eu.com.cwsfe.cms.model.Language;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,7 +73,7 @@ class SiteMapController {
 
     private String addPortfolioUrls(String priority, String finalDomainPrefix, Locale locale) {
         StringBuilder stringBuilder = new StringBuilder(400);
-        final Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+        final Language lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         List<Object[]> projects = cmsNewsDAO.listI18nProjects(lang.getId());
         for (Object[] project : projects) {
             stringBuilder.append("<url>");
@@ -91,7 +91,7 @@ class SiteMapController {
 
     private String addProductsUrls(String priority, String finalDomainPrefix, Locale locale) {
         StringBuilder stringBuilder = new StringBuilder(400);
-        final Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+        final Language lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         List<Object[]> products = cmsNewsDAO.listI18nProducts(lang.getId());
         for (Object[] product : products) {
             stringBuilder.append("<url>");
@@ -109,7 +109,7 @@ class SiteMapController {
 
     private String addBlogUrls(String priority, String finalDomainPrefix, Locale locale) {
         StringBuilder stringBuilder = new StringBuilder(400);
-        final Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+        final Language lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         List<Object[]> posts = blogPostsDAO.listI18nPosts(lang.getId());
         for (Object[] post : posts) {
             stringBuilder.append("<url>");

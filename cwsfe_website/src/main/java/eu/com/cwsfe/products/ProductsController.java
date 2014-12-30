@@ -5,7 +5,7 @@ import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.CmsFolder;
 import eu.com.cwsfe.cms.model.CmsNews;
 import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
-import eu.com.cwsfe.cms.model.Lang;
+import eu.com.cwsfe.cms.model.Language;
 import eu.com.cwsfe.model.Keyword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -113,7 +113,7 @@ public class ProductsController extends GenericController {
     private ProductsListHelper listProducts(Locale locale, Integer currentPage, Integer newsFolderId, int newsPerPage) {
         List<Object[]> cmsNewsI18nContentIds;
         Integer foundedNewsTotal;
-        Lang currentLang = getCurrentLanguageOrDefault(locale);
+        Language currentLang = getCurrentLanguageOrDefault(locale);
         if (newsFolderId != null) {
             cmsNewsI18nContentIds = cmsNewsDAO.listByFolderLangWithPagingForProducts(newsFolderId, currentLang.getId(), newsPerPage, currentPage * newsPerPage);
             foundedNewsTotal = cmsNewsDAO.countListByFolderLangWithPagingForProducts(newsFolderId, currentLang.getId());
@@ -156,7 +156,7 @@ public class ProductsController extends GenericController {
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
 
         //bellow there is code for finding news for previous/next links
-        Lang currentLang = getCurrentLanguageOrDefault(locale);
+        Language currentLang = getCurrentLanguageOrDefault(locale);
         List<Object[]> newsAndContents = cmsNewsDAO.listI18nProducts(currentLang.getId());
         model.addAttribute("previousNews", findPrevNews(cmsNews, cmsNewsI18nContent, newsAndContents));
         model.addAttribute("nextNews", findNextNews(cmsNews, cmsNewsI18nContent, newsAndContents));
@@ -164,8 +164,8 @@ public class ProductsController extends GenericController {
         return "products/ProductsSingleView";
     }
 
-    private Lang getCurrentLanguageOrDefault(Locale locale) {
-        Lang currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+    private Language getCurrentLanguageOrDefault(Locale locale) {
+        Language currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
             currentLang = cmsLanguagesDAO.getByCode("en");    //default language
         }

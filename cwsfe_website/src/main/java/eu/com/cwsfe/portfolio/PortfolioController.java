@@ -5,7 +5,7 @@ import eu.com.cwsfe.cms.dao.*;
 import eu.com.cwsfe.cms.model.CmsFolder;
 import eu.com.cwsfe.cms.model.CmsNews;
 import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
-import eu.com.cwsfe.cms.model.Lang;
+import eu.com.cwsfe.cms.model.Language;
 import eu.com.cwsfe.model.Keyword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -114,7 +114,7 @@ class PortfolioController extends GenericController {
     private PortfolioListHelper listPortfolio(Locale locale, Integer currentPage, Integer newsFolderId, int newsPerPage) {
         List<Object[]> cmsNewsI18nContentIds;
         Integer foundedNewsTotal;
-        Lang currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+        Language currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
             currentPLang = getDefaultLanguage();
         }
@@ -162,7 +162,7 @@ class PortfolioController extends GenericController {
         model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
 
         //bellow there is code for finding news for previous/next links
-        Lang currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+        Language currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
             currentLang = getDefaultLanguage();
         }
@@ -193,7 +193,7 @@ class PortfolioController extends GenericController {
         return "portfolio/PortfolioSingleView";
     }
 
-    private Lang getDefaultLanguage() {
+    private Language getDefaultLanguage() {
         return cmsLanguagesDAO.getByCode("en");
     }
 

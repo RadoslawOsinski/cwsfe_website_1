@@ -64,7 +64,7 @@ class ServicesController extends GenericController {
     }
 
     private void setNewsIn18nContent(ModelMap model, Locale locale, CmsNews cmsNews) {
-        Lang currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+        Language currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
         if (currentPLang == null) {
             currentPLang = cmsLanguagesDAO.getByCode("en");
         }

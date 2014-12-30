@@ -6,7 +6,7 @@ import eu.com.cwsfe.cms.UUIDGenerator;
 import eu.com.cwsfe.cms.dao.CmsLanguagesDAO;
 import eu.com.cwsfe.cms.dao.NewsletterMailAddressDAO;
 import eu.com.cwsfe.cms.dao.NewsletterMailGroupDAO;
-import eu.com.cwsfe.cms.model.Lang;
+import eu.com.cwsfe.cms.model.Language;
 import eu.com.cwsfe.cms.model.NewsletterMailAddress;
 import eu.com.cwsfe.cms.model.NewsletterMailGroup;
 import eu.com.cwsfe.model.Keyword;
@@ -99,7 +99,7 @@ class NewsletterController extends GenericController {
             result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));
         }
         if (!result.hasErrors()) {
-            Lang lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
+            Language lang = cmsLanguagesDAO.getByCode(locale.getLanguage());
             NewsletterMailGroup mailGroup = newsletterMailGroupDAO.getByNameAndLanguage("General", lang.getId());
             NewsletterMailAddress existingMailAddress = newsletterMailAddressDAO.getByEmailAndMailGroup(newsletterSubscription.getEmail(), mailGroup.getId());
             if (existingMailAddress == null) {

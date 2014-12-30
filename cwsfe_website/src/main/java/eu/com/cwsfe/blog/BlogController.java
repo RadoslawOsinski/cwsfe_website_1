@@ -177,7 +177,7 @@ public class BlogController extends GenericController {
             Long archiveYear,
             Long archiveMonth
     ) {
-        Lang currentLang = getCurrentOrDefaultLanguage(locale);
+        Language currentLang = getCurrentOrDefaultLanguage(locale);
         BlogListHelper blogListHelper = new BlogListHelper();
         blogListHelper.articlesPerPage = 5;
         if (currentPage == null) {
@@ -248,19 +248,19 @@ public class BlogController extends GenericController {
         return blogListHelper;
     }
 
-    private Lang getCurrentOrDefaultLanguage(Locale locale) {
-        Lang currentLang = languagesDAO.getByCode(locale.getLanguage());
+    private Language getCurrentOrDefaultLanguage(Locale locale) {
+        Language currentLang = languagesDAO.getByCode(locale.getLanguage());
         if (currentLang == null) {
             currentLang = getDefaultLanguage();
         }
         return currentLang;
     }
 
-    private Lang getDefaultLanguage() {
+    private Language getDefaultLanguage() {
         return languagesDAO.getByCode("en");
     }
 
-    private List<BlogKeyword> i18nBlogKeywords(Lang currentLang, List<BlogKeyword> blogKeywords) {
+    private List<BlogKeyword> i18nBlogKeywords(Language currentLang, List<BlogKeyword> blogKeywords) {
         List<BlogKeyword> i18nBlogKeywords = new ArrayList<>(blogKeywords.size());
         for (BlogKeyword blogKeyword : blogKeywords) {
             String keywordI18n = cmsTextI18nDAO.findTranslation(currentLang.getCode(), "BlogKeywords", blogKeyword.getKeywordName());
@@ -277,7 +277,7 @@ public class BlogController extends GenericController {
     public String singlePostView(ModelMap model, Locale locale,
                                  @PathVariable("blogPostId") Long blogPostId,
                                  @PathVariable("blogPostI18nContentId") Long blogPostI18nContentId) {
-        Lang currentLang = getCurrentOrDefaultLanguage(locale);
+        Language currentLang = getCurrentOrDefaultLanguage(locale);
         final BlogPost blogPost = blogPostsDAO.get(blogPostId);
         blogPost.setCmsAuthor(cmsAuthorsDAO.get(blogPost.getPostAuthorId()));
         model.addAttribute("blogPost", blogPost);
