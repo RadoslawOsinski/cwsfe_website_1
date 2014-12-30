@@ -1,7 +1,0 @@
-todo foundation tests
-todo <link rel='prev' title='Po pracy' href='http://www.itmagination.pl/kariera/po-pracy/' />
-todo <link rel='next' title='Dlaczego ITMAGINATION' href='http://www.itmagination.pl/firma/dlaczego-itmagination/' />
-todo <link rel='canonical' href='http://www.itmagination.pl/firma/' />
-todo <html lang="pl-PL">
-todo <a hreflang="en" href="http://www.itmagination.pl/company/">
-todo <head>...<link hreflang="en" href="http://www.itmagination.pl/company/" rel="alternate" />...</head>

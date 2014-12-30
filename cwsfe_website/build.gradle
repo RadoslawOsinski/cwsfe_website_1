@@ -6,7 +6,7 @@ apply plugin: 'base'
 apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
 
-version = '1.0'
+version = '2.0'
 group = "eu.com.cwsfe"
 compileJava.options.encoding = 'UTF-8'
 
@@ -89,38 +89,19 @@ dependencies {
     testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 }
 
-//task yuiMinimizeCssFiles {
-//    FileTree tree = fileTree(dir: 'src')
-//    tree.include '**/*.css'
-//    tree.exclude '**/*min.css'
-//    tree.each { File file -> minimizeCssFile(file); }
-//}
-
-//java -jar yuicompressor-x.y.z.jar myfile.js -o myfile-min.js --charset utf-8
-//def minimizeCssFile(File file) {
-//    String minimizedFileName = (file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4) + '-min.css').toString();
-//    javaexec {
-//        main = "-jar";
-//        args = [
-//                '../tools/yuicompressor-2.4.8.jar',
-//                file.getAbsolutePath(),
-//                '-o',
-//                minimizedFileName,
-//                '--charset',
-//                'utf-8'
-//        ].toList()
-//    };
-//}
-
-//war {
-//    it.dependsOn yuiMinimizeCssFiles
-//}b
-war.archiveName = 'CWSFE.war';
+war.archiveName = 'CWSFE-' + version + '.war';
 
 sonarRunner {
     def props = new Properties()
-    new File("sensitive_data.properties").withInputStream {
-        stream -> props.load(stream)
+    try {
+        def propertiesFile = new File("sensitive_data.properties")
+        if (propertiesFile != null) {
+            propertiesFile.withInputStream {
+                stream -> props.load(stream)
+            }
+        }
+    } catch (FileNotFoundException ignored) {
+        //file not exists in repo
     }
     sonarProperties {
         property 'toolVersion', '2.4'
@@ -131,6 +112,13 @@ sonarRunner {
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.login", props["sonar.login"]
         property "sonar.password", props["sonar.password"]
+
+        property "sonar.projectKey", 'cwsfe_website'
+        property "sonar.projectName", 'CWSFE website'
+//        property "sonar.projectVersion", '1.0'
+        property "sonar.sources", 'src/main'
+        property "sonar.tests", 'src/test'
+        property "sonar.sourceEncoding", 'UTF-8'
     }
 }
 
