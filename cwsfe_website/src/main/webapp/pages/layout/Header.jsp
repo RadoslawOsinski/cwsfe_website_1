@@ -49,17 +49,19 @@
         require.config({
             paths: {
                 shared_scripts: '/resources-cwsfe/js/shared_scripts',
-                jquery: '/resources-cwsfe/js/jquery/jquery-2.1.1.min.js',
-                jqueryAccordion: '/resources-cwsfe/js/jquery/jquery.accordion.js',
-                tabify: '/resources-cwsfe/js/jquery/jquery.tabify.js',
+                jquery: '/resources-cwsfe/js/jquery/jquery-2.1.1.min',
+                jqueryAccordion: '/resources-cwsfe/js/jquery/jquery.accordion',
+                tabify: '/resources-cwsfe/js/jquery/jquery.tabify',
                 tipsy: '/resources-cwsfe/js/tipsy/tipsy',
-                cycle_all: '/resources-cwsfe/js/jquery/cycle.all.min.js',
+                cycle_all: '/resources-cwsfe/js/jquery/cycle.all.min',
                 prettyPhoto: '/resources-cwsfe/js/prettyPhoto/prettyPhoto',
                 ajaxCodeFetcher: '/resources-cwsfe/js/AjaxCodeFetcher'
             },
             shim: {
                 'cycle_all': ['jquery'],
-                'prettyPhoto': ['jquery']
+                'prettyPhoto': ['jquery'],
+                'jqueryAccordion': ['jquery'],
+                'tabify': ['jquery']
             }
         });
     </script>
