@@ -32,7 +32,7 @@
     </bean>
 
     <bean id="cwsfeLocaleChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        <property name="paramName" value="cmsLanguage"/>
+        <property name="paramName" value="language"/>
     </bean>
 
     <bean id="handlerMapping"
@@ -44,14 +44,22 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:cwsfe_i18n" p:defaultEncoding="UTF-8" p:cacheSeconds="10"/>
 
-    <bean id="cwsfeCmsControllerClassNameHandlerMapping"
-          class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
         <property name="interceptors">
             <list>
                 <ref bean="cwsfeLocaleChangeInterceptor"/>
             </list>
         </property>
     </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                <property name="paramName" value="language"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- Handles HTTP GET requests for /resources-cwsfe-cms/** by efficiently serving up static resources in the ${webappRoot}/resources-cwsfe-cms/ directory -->
     <mvc:resources mapping="/resources-cwsfe/**" location="/resources-cwsfe/" cache-period="31556926"/>
