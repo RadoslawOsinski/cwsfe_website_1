@@ -44,8 +44,10 @@
     <link href="${pageContext.request.contextPath}/resources-cwsfe/img/layout/Fonts1/Fonts1-min.css" rel="stylesheet" type="text/css"/>
     <%--$//	<link href="$page.url("cwsfe.layout.Fonts2")" rel="stylesheet" type="text/css"/>--%>
 
-    <script data-main="${pageContext.request.contextPath}${additionalJavaScriptCode}" src="${pageContext.request.contextPath}/resources-cwsfe/js/requirejs/require.js" type="application/javascript"></script>
-    <script type="application/javascript">
+    <script data-main="${pageContext.request.contextPath}${additionalJavaScriptCode}"
+            src="${pageContext.request.contextPath}/resources-cwsfe/js/requirejs/require.js"
+            type="application/javascript" charset="utf-8"></script>
+    <script type="application/javascript" charset="utf-8">
         require.config({
             paths: {
                 shared_scripts: '/resources-cwsfe/js/shared_scripts',

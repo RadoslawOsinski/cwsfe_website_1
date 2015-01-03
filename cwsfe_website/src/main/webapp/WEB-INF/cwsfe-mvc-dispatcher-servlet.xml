@@ -27,7 +27,9 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="cwsfeLocaleResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+    <!-- don't change name, otherwise i18n does not work! Bean resolved by name not by type. -->
+    <bean id="cwsfeLocaleResolver" name="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="defaultLocale" value="en"/>
     </bean>
 
