@@ -1,15 +1,7 @@
 package eu.com.cwsfe.portfolio;
 
 import eu.com.cwsfe.GenericController;
-import eu.com.cwsfe.cms.dao.*;
-import eu.com.cwsfe.cms.model.CmsFolder;
-import eu.com.cwsfe.cms.model.CmsNews;
-import eu.com.cwsfe.cms.model.CmsNewsI18nContent;
-import eu.com.cwsfe.cms.model.Language;
 import eu.com.cwsfe.model.Keyword;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author Radoslaw Osinski
@@ -25,28 +20,10 @@ import java.util.*;
 @Controller
 class PortfolioController extends GenericController {
 
-    private static final Logger LOGGER = LogManager.getLogger(PortfolioController.class);
-
-    @Autowired
-    private CmsFoldersDAO cmsFoldersDAO;
-    @Autowired
-    private CmsNewsDAO cmsNewsDAO;
-    @Autowired
-    private CmsLanguagesDAO cmsLanguagesDAO;
-    @Autowired
-    private CmsNewsI18nContentsDAO cmsNewsI18nContentsDAO;
-    @Autowired
-    private CmsTextI18nDAO cmsTextI18nDAO;
-    @Autowired
-    private CmsNewsImagesDAO cmsNewsImagesDAO;
-
-    private static final int DEFAULT_NEWS_PER_PAGE = 6;
-
     private void setPageMetadata(ModelMap model, Locale locale, String portfolioTitle) {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Portfolio") + " " + portfolioTitle);
         model.addAttribute("keywords", setPageKeywords(locale, portfolioTitle));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Portfolio.js");
     }
 
     public List<Keyword> setPageKeywords(Locale locale, String portfolioTitle) {
@@ -69,132 +46,26 @@ class PortfolioController extends GenericController {
     @RequestMapping(value = "/portfolio", method = RequestMethod.GET)
     public String listPortfolio(ModelMap model, Locale locale,
                                              @RequestParam(value = "currentPage", required = false) Integer currentPage,
-                                             @RequestParam(value = "newsFolderId", required = false) String newsFolderIdString
+                                             @RequestParam(value = "newsFolder", required = false) String newsFolder
     ) {
+        setPageMetadata(model, locale, "");
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Portfolio.js");
         if (currentPage == null) {
             currentPage = 0;
         }
-        Integer newsFolderId = null;
-        if (newsFolderIdString != null && !newsFolderIdString.isEmpty()) {
-            try {
-                newsFolderId = Integer.parseInt(newsFolderIdString);
-            } catch (NumberFormatException e) {
-                LOGGER.error("News folder id cannot be parsed: " + newsFolderIdString, e);
-            }
-        }
-        setPageMetadata(model, locale, "");
-        PortfolioListHelper portfolioListHelper = listPortfolio(locale, currentPage, newsFolderId);
-        model.addAttribute("cmsNewsList", portfolioListHelper.cmsNewsList);
-        model.addAttribute("cmsNewsI18nContents", portfolioListHelper.cmsNewsI18nContents);
-        model.addAttribute("newsFolderId", portfolioListHelper.newsFolderId);
-        model.addAttribute("numberOfPages", portfolioListHelper.numberOfPages);
-        List<CmsFolder> cmsNewsFolders = cmsFoldersDAO.list();
-        model.addAttribute("cmsNewsFolders", cmsNewsFolders);
-        model.addAttribute("i18nCmsNewsFolders", i18nCmsFolders(locale.getLanguage(), cmsNewsFolders));
+        model.addAttribute("localeLanguage", locale.getLanguage());
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("newsFolder", newsFolder);
         return "portfolio/Portfolio";
-    }
-
-    private Map<String, String> i18nCmsFolders(String currentLangCode, List<CmsFolder> cmsFolders) {
-        Map<String, String> i18nCmsFolders = new HashMap<>(cmsFolders.size());
-        for (CmsFolder cmsFolder : cmsFolders) {
-            String folderNameI18n = cmsTextI18nDAO.findTranslation(currentLangCode, "Folders", cmsFolder.getFolderName());
-            if (folderNameI18n == null) {
-                folderNameI18n = "missing translation ...";
-            }
-            i18nCmsFolders.put(cmsFolder.getFolderName(), folderNameI18n);
-        }
-        return i18nCmsFolders;
-    }
-
-    private PortfolioListHelper listPortfolio(Locale locale, Integer currentPage, Integer newsFolderId) {
-        return listPortfolio(locale, currentPage, newsFolderId, DEFAULT_NEWS_PER_PAGE);
-    }
-
-    private PortfolioListHelper listPortfolio(Locale locale, Integer currentPage, Integer newsFolderId, int newsPerPage) {
-        List<Object[]> cmsNewsI18nContentIds;
-        Integer foundedNewsTotal;
-        Language currentPLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
-        if (currentPLang == null) {
-            currentPLang = getDefaultLanguage();
-        }
-        if (newsFolderId != null) {
-            cmsNewsI18nContentIds = cmsNewsDAO.listByFolderLangWithPagingForProjects(newsFolderId, currentPLang.getId(), newsPerPage, currentPage * newsPerPage);
-            foundedNewsTotal = cmsNewsDAO.countListByFolderLangWithPagingForProjects(newsFolderId, currentPLang.getId());
-        } else {
-            cmsNewsI18nContentIds = cmsNewsDAO.listLangWithPagingForProjects(currentPLang.getId(), newsPerPage, currentPage * newsPerPage);
-            foundedNewsTotal = cmsNewsDAO.countListLangWithPagingForProjects(currentPLang.getId());
-        }
-        List<CmsNews> cmsNewsList;
-        List<CmsNewsI18nContent> cmsNewsI18nContents;
-        if (cmsNewsI18nContentIds == null) {
-            cmsNewsList = new ArrayList<>(0);
-            cmsNewsI18nContents = new ArrayList<>(0);
-        } else {
-            cmsNewsList = new ArrayList<>(cmsNewsI18nContentIds.size());
-            cmsNewsI18nContents = new ArrayList<>(cmsNewsI18nContentIds.size());
-            for (Object[] postI18nId : cmsNewsI18nContentIds) {
-                CmsNews cmsNews = cmsNewsDAO.get((Long) postI18nId[0]);
-                cmsNews.setCmsNewsImages(cmsNewsImagesDAO.listImagesForNewsWithoutThumbnails(cmsNews.getId()));
-                cmsNews.setThumbnailImage(cmsNewsImagesDAO.getThumbnailForNews(cmsNews.getId()));
-                CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.get((Long) postI18nId[1]);
-                if (cmsNewsI18nContent != null) {
-                    cmsNewsList.add(cmsNews);
-                    cmsNewsI18nContents.add(cmsNewsI18nContent);
-                }
-            }
-        }
-        PortfolioListHelper portfolioListHelper = new PortfolioListHelper();
-        portfolioListHelper.cmsNewsList = cmsNewsList;
-        portfolioListHelper.cmsNewsI18nContents = cmsNewsI18nContents;
-        portfolioListHelper.newsFolderId = newsFolderId;
-        portfolioListHelper.numberOfPages = (int) (Math.floor(foundedNewsTotal / (double) newsPerPage) + (foundedNewsTotal % newsPerPage > 0 ? 1 : 0));
-        return portfolioListHelper;
     }
 
     @RequestMapping(value = "/portfolio/singleNews/{cmsNewsId}/{cmsNewsI18nContentsId}", method = RequestMethod.GET)
     public String singleNewsView(ModelMap model, Locale locale, @PathVariable("cmsNewsId") Integer cmsNewsId, @PathVariable("cmsNewsI18nContentsId") Integer cmsNewsI18nContentsId) {
-        CmsNews cmsNews = cmsNewsDAO.get(Long.valueOf(cmsNewsId));
-        cmsNews.setCmsNewsImages(cmsNewsImagesDAO.listImagesForNewsWithoutThumbnails(cmsNews.getId()));
-        cmsNews.setThumbnailImage(cmsNewsImagesDAO.getThumbnailForNews(cmsNews.getId()));
-        model.addAttribute("cmsNews", cmsNews);
-        CmsNewsI18nContent cmsNewsI18nContent = cmsNewsI18nContentsDAO.get(Long.valueOf(cmsNewsI18nContentsId));
-        model.addAttribute("cmsNewsI18nContent", cmsNewsI18nContent);
-
-        //bellow there is code for finding news for previous/next links
-        Language currentLang = cmsLanguagesDAO.getByCode(locale.getLanguage());
-        if (currentLang == null) {
-            currentLang = getDefaultLanguage();
-        }
-        List<Object[]> newsAndContents = cmsNewsDAO.listI18nProjects(currentLang.getId());
-        Object[] previousNews = null;
-        Object[] nextNews = null;
-        for (int i = 0; i < newsAndContents.size(); ++i) {
-            Object[] iNews = newsAndContents.get(i);
-            if (iNews[0].equals(cmsNews.getId()) && iNews[1].equals(cmsNewsI18nContent.getId())) {
-                try {
-                    nextNews = newsAndContents.get(i + 1);
-                } catch (IndexOutOfBoundsException e) {
-                    nextNews = null;
-                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
-                }
-                try {
-                    previousNews = newsAndContents.get(i - 1);
-                } catch (IndexOutOfBoundsException e) {
-                    previousNews = null;
-                    LOGGER.error("Poprawic ten blad dla i = " + i + "!", e);
-                }
-                break;
-            }
-        }
-        model.addAttribute("previousNews", previousNews);
-        model.addAttribute("nextNews", nextNews);
-        setPageMetadata(model, locale, " " + cmsNewsI18nContent.getNewsTitle());
+        setPageMetadata(model, locale, "");
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/SinglePortfolioEntry.js");
+        model.addAttribute("cmsNewsId", cmsNewsId);
+        model.addAttribute("cmsNewsI18nContentsId", cmsNewsI18nContentsId);
         return "portfolio/PortfolioSingleView";
-    }
-
-    private Language getDefaultLanguage() {
-        return cmsLanguagesDAO.getByCode("en");
     }
 
 }
