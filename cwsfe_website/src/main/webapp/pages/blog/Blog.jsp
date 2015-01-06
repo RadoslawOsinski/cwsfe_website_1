@@ -8,6 +8,10 @@
     <div id="page-header-title"><spring:message code="Blog"/></div>
 </div>
 
+<input type="hidden" id="localeLanguage" value="${localeLanguage}">
+<%--<input type="hidden" id="currentPage" value="${currentPage}" data-bind="value: currentPage"/>--%>
+<%--<input type="hidden" id="newsFolder" value="${newsFolder}"/>--%>
+
 <div class="fixed">
 
     <div class="col580">
@@ -137,54 +141,9 @@
 
     <div class="col280 last">
 
-        <%--<h5><spring:message code="Search"/></h5><br />--%>
-        <%--<spring:url value="/blog/search/" var="blogPostSearchUrl" htmlEscape="true"/>--%>
-
-        <%--<form id="search" action="${blogPostSearchUrl}" method="post">--%>
-            <%--<fieldset>--%>
-                <%--<input type="text" name="searchText" id="search-input" value="${searchText}" placeholder="<spring:message code="Search"/>">--%>
-                <%--<button type="submit" class="search-submit-btn" name="requestHandler" value="browseBySearch"></button>--%>
-            <%--</fieldset>--%>
-        <%--</form>--%>
-
-        <%--<br />--%>
-
-        <c:if test="${blogKeywords != null && !blogKeywords.isEmpty()}">
-            <h5><spring:message code="Categories"/></h5><br />
-            <ul class="side-nav">
-                <c:forEach var="blogKeyword" items="${blogKeywords}" varStatus="j">
-                <li>
-                    <spring:url value="/blog/category/${blogKeyword.id}" var="categoryUrl" htmlEscape="true"/>
-                    <a href="${categoryUrl}">
-                        <%--$lang.getTranslation($@keyword.getKeywordName(), "blog_keyword")--%>
-                        ${blogKeyword.keywordName}
-                    </a>
-                </li>
-                </c:forEach>
-            </ul>
-        </c:if>
-
-        <c:if test="${postsArchiveStatistics != null && !postsArchiveStatistics.isEmpty()}">
-            <h5><spring:message code="Archives"/></h5><br />
-            <ul class="side-nav">
-                <c:forEach var="archiveStatistic" items="${postsArchiveStatistics}" varStatus="j">
-                    <li>
-                        <spring:url value="/blog/date/${archiveStatistic[1]}/${archiveStatistic[2]}" var="dateUrl" htmlEscape="true"/>
-                        <a href="${dateUrl}">
-                            <c:choose>
-                                <c:when test="${archiveStatistic[2] < 10}">
-                                    <spring:message code="Month0${archiveStatistic[2]}"/>
-                                </c:when>
-                                <c2:otherwise>
-                                    <spring:message code="Month${archiveStatistic[2]}"/>
-                                </c2:otherwise>
-                            </c:choose>
-                            ${archiveStatistic[1]}
-                        </a>
-                    </li>
-                </c:forEach>
-            </ul>
-        </c:if>
+        <h5><spring:message code="Categories"/></h5><br/>
+        <ul id="keywordsList" class="side-nav">
+        </ul>
 
     </div>
 

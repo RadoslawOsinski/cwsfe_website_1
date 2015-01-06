@@ -16,8 +16,6 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -38,12 +36,8 @@ public class BlogController extends GenericController {
     public static final String BLOG_POST_I_18_N_CONTENTS = "blogPostI18nContents";
     public static final String CURRENT_PAGE = "currentPage";
     public static final String CATEGORY_ID = "categoryId";
-    public static final String ARCHIVE_YEAR = "archiveYear";
-    public static final String ARCHIVE_MONTH = "archiveMonth";
     public static final String NUMBER_OF_PAGES = "numberOfPages";
-    public static final String POSTS_ARCHIVE_STATISTICS = "postsArchiveStatistics";
     public static final String ARTICLES_PER_PAGE = "articlesPerPage";
-    public static final String BLOG_KEYWORDS = "blogKeywords";
     public static final String SEARCH_TEXT = "searchText";
     public static final String BLOG_VIEW_PATH = "blog/Blog";
 
@@ -52,10 +46,6 @@ public class BlogController extends GenericController {
     @Autowired
     private BlogPostI18nContentsDAO blogPostI18nContentsDAO;
     @Autowired
-    private BlogKeywordsDAO blogKeywordsDAO;
-    @Autowired
-    private BlogPostKeywordsDAO blogPostKeywordsDAO;
-    @Autowired
     private BlogPostCommentsDAO blogPostCommentsDAO;
     @Autowired
     private BlogPostCodesDAO blogPostCodesDAO;
@@ -63,16 +53,15 @@ public class BlogController extends GenericController {
     private CmsAuthorsDAO cmsAuthorsDAO;
     @Autowired
     private CmsLanguagesDAO languagesDAO;
-    @Autowired
-    private CmsTextI18nDAO cmsTextI18nDAO;
 
     private static final int DEFAULT_CURRENT_PAGE = 0;
 
     @RequestMapping(value = "/blog", method = RequestMethod.GET)
     public String defaultView(ModelMap model, Locale locale) {
         setPageMetadata(model, locale, "");
-        String searchText = "";
-        BlogListHelper blogListHelper = listPosts(locale, DEFAULT_CURRENT_PAGE, null, searchText, null, null);
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Blog.js");
+        model.addAttribute("localeLanguage", locale.getLanguage());
+        BlogListHelper blogListHelper = listPosts(locale, DEFAULT_CURRENT_PAGE, null);
         addBlogSearchResults(model, blogListHelper);
         return BLOG_VIEW_PATH;
     }
@@ -82,12 +71,8 @@ public class BlogController extends GenericController {
         model.addAttribute(BLOG_POST_I_18_N_CONTENTS, blogListHelper.blogPostI18nContents);
         model.addAttribute(CURRENT_PAGE, blogListHelper.currentPage);
         model.addAttribute(CATEGORY_ID, blogListHelper.categoryId);
-        model.addAttribute(ARCHIVE_YEAR, blogListHelper.archiveYear);
-        model.addAttribute(ARCHIVE_MONTH, blogListHelper.archiveMonth);
         model.addAttribute(NUMBER_OF_PAGES, blogListHelper.numberOfPages);
-        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogListHelper.postsArchiveStatistics);
         model.addAttribute(ARTICLES_PER_PAGE, blogListHelper.articlesPerPage);
-        model.addAttribute(BLOG_KEYWORDS, blogListHelper.blogKeywords);
         model.addAttribute(SEARCH_TEXT, blogListHelper.searchText);
     }
 
@@ -95,7 +80,6 @@ public class BlogController extends GenericController {
         model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Blog") + " " + additionalTitle);
         model.addAttribute("keywords", setPageKeywords(locale));
         model.addAttribute("additionalCssCode", setAdditionalCss());
-        model.addAttribute("mainJavaScript", "/resources-cwsfe/js/Blog.js");
     }
 
     List<Keyword> setPageKeywords(Locale locale) {
@@ -118,24 +102,8 @@ public class BlogController extends GenericController {
     @RequestMapping(value = "/blog/category/{categoryId}", method = RequestMethod.GET)
     public String browseWithCategory(ModelMap model, Locale locale, @PathVariable("categoryId") Long categoryId) {
         setPageMetadata(model, locale, "");
-        String searchText = "";
-        BlogListHelper blogListHelper = listPosts(locale, 0, categoryId, searchText, null, null);
-        addBlogSearchResults(model, blogListHelper);
-        return BLOG_VIEW_PATH;
-    }
-
-    @RequestMapping(value = "/blog/date/{archiveYear}/{archiveMonth}", method = RequestMethod.GET)
-    public String browseByDate(ModelMap model, Locale locale, @PathVariable("archiveYear") Long archiveYear, @PathVariable("archiveMonth") Long archiveMonth) {
-        setPageMetadata(model, locale, "");
-        BlogListHelper blogListHelper = listPosts(locale, 0, null, "", archiveYear, archiveMonth);
-        addBlogSearchResults(model, blogListHelper);
-        return BLOG_VIEW_PATH;
-    }
-
-    @RequestMapping(value = "/blog/search/", method = RequestMethod.POST)
-    public String browseBySearch(ModelMap model, Locale locale, @RequestParam(value = "searchText", required = false) String searchText) {
-        setPageMetadata(model, locale, "");
-        BlogListHelper blogListHelper = listPosts(locale, 0, null, searchText, null, null);
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Blog.js");
+        BlogListHelper blogListHelper = listPosts(locale, 0, categoryId);
         addBlogSearchResults(model, blogListHelper);
         return BLOG_VIEW_PATH;
     }
@@ -143,16 +111,13 @@ public class BlogController extends GenericController {
     @RequestMapping(value = "/blog/list/", method = RequestMethod.GET)
     public String listPosts(ModelMap model, Locale locale,
                             @RequestParam(value = "currentPage", required = false) Integer currentPage,
-                            @RequestParam(value = "categoryId", required = false) String categoryString,
-                            @RequestParam(value = "searchText", required = false) String searchText,
-                            @RequestParam(value = "archiveYear", required = false) String archiveYearString,
-                            @RequestParam(value = "archiveMonth", required = false) String archiveMonthString
+                            @RequestParam(value = "categoryId", required = false) String categoryString
     ) {
         setPageMetadata(model, locale, "");
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/Blog.js");
+        model.addAttribute("localeLanguage", locale.getLanguage());
         Long categoryId = parseStringParameter(categoryString);
-        Long archiveYear = parseStringParameter(archiveYearString);
-        Long archiveMonth = parseStringParameter(archiveMonthString);
-        BlogListHelper blogListHelper = listPosts(locale, currentPage, categoryId, searchText, archiveYear, archiveMonth);
+        BlogListHelper blogListHelper = listPosts(locale, currentPage, categoryId);
         addBlogSearchResults(model, blogListHelper);
         return BLOG_VIEW_PATH;
     }
@@ -172,10 +137,7 @@ public class BlogController extends GenericController {
     BlogListHelper listPosts(
             Locale locale,
             Integer currentPage,
-            Long categoryId,
-            String searchText,
-            Long archiveYear,
-            Long archiveMonth
+            Long categoryId
     ) {
         Language currentLang = getCurrentOrDefaultLanguage(locale);
         BlogListHelper blogListHelper = new BlogListHelper();
@@ -185,32 +147,11 @@ public class BlogController extends GenericController {
         } else {
             blogListHelper.currentPage = currentPage;
         }
-        blogListHelper.postsArchiveStatistics = blogPostsDAO.listArchiveStatistics(currentLang.getId());
-        blogListHelper.blogKeywords = i18nBlogKeywords(currentLang, blogKeywordsDAO.list());
         List<Object[]> postI18nIds;
         long foundedArticlesTotal;
         if (categoryId != null) {
             postI18nIds = blogPostsDAO.listForPageWithCategoryAndPaging(categoryId, currentLang.getId(), blogListHelper.articlesPerPage, blogListHelper.currentPage);
             foundedArticlesTotal = blogPostsDAO.listCountForPageWithCategoryAndPaging(categoryId, currentLang.getId());
-        } else if (searchText != null && !searchText.isEmpty()) {
-            postI18nIds = blogPostsDAO.listForPageWithSearchTextAndPaging(searchText, currentLang.getId(), blogListHelper.articlesPerPage, blogListHelper.currentPage);
-            foundedArticlesTotal = blogPostsDAO.listCountForPageWithSearchTextAndPaging(searchText, currentLang.getId());
-        } else if (archiveYear != null && archiveMonth != null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = null;
-            Date endDate = null;
-            String dateString = archiveYear + "-" + ((archiveMonth < 10) ? "0" + archiveMonth : archiveMonth) + "-01";
-            try {
-                startDate = formatter.parse(dateString);
-                Calendar startDateCalendar = Calendar.getInstance();
-                startDateCalendar.setTime(startDate);
-                startDateCalendar.add(Calendar.MONTH, 1);
-                endDate = startDateCalendar.getTime();
-            } catch (ParseException e) {
-                LOGGER.error("Cannot parse date: " + dateString, e);
-            }
-            postI18nIds = blogPostsDAO.listForPageWithArchiveDateAndPaging(startDate, endDate, currentLang.getId(), blogListHelper.articlesPerPage, blogListHelper.currentPage);
-            foundedArticlesTotal = blogPostsDAO.listCountForPageWithArchiveDateAndPaging(startDate, endDate, currentLang.getId());
         } else {
             postI18nIds = blogPostsDAO.listForPageWithPaging(currentLang.getId(), blogListHelper.articlesPerPage, blogListHelper.currentPage);
             foundedArticlesTotal = blogPostsDAO.listCountForPageWithPaging(currentLang.getId());
@@ -227,7 +168,6 @@ public class BlogController extends GenericController {
                 final Long blogPostId = (Long) postI18nId[0];
                 BlogPost blogPost = blogPostsDAO.get(blogPostId);
                 blogPost.setCmsAuthor(cmsAuthorsDAO.get(blogPost.getPostAuthorId()));
-                blogPost.setBlogKeywords(i18nBlogKeywords(currentLang, blogPostKeywordsDAO.listForPost(blogPost.getId())));
                 BlogPostI18nContent blogPostI18nContent = blogPostI18nContentsDAO.get((Long) postI18nId[1]);
                 blogPostI18nContent.setPostShortcut(blogPostI18nContent.getPostShortcut().replaceAll(CURRENT_BLOG_POST_LABEL, Long.toString(blogPostId)));
                 blogPostI18nContent.setPostDescription(blogPostI18nContent.getPostDescription().replaceAll(CURRENT_BLOG_POST_LABEL, Long.toString(blogPostId)));
@@ -240,8 +180,6 @@ public class BlogController extends GenericController {
         blogListHelper.blogPostI18nContents = blogPostI18nContents;
         blogListHelper.currentPage = currentPage;
         blogListHelper.categoryId = categoryId;
-        blogListHelper.archiveYear = archiveYear;
-        blogListHelper.archiveMonth = archiveMonth;
         blogListHelper.numberOfPages = (int)
                 (Math.floor(foundedArticlesTotal / (double) blogListHelper.articlesPerPage) +
                         (foundedArticlesTotal % blogListHelper.articlesPerPage > 0 ? 1 : 0));
@@ -260,24 +198,10 @@ public class BlogController extends GenericController {
         return languagesDAO.getByCode("en");
     }
 
-    private List<BlogKeyword> i18nBlogKeywords(Language currentLang, List<BlogKeyword> blogKeywords) {
-        List<BlogKeyword> i18nBlogKeywords = new ArrayList<>(blogKeywords.size());
-        for (BlogKeyword blogKeyword : blogKeywords) {
-            String keywordI18n = cmsTextI18nDAO.findTranslation(currentLang.getCode(), "BlogKeywords", blogKeyword.getKeywordName());
-            if (keywordI18n == null) {
-                keywordI18n = "missing translation ...";
-            }
-            blogKeyword.setKeywordName(keywordI18n);
-            i18nBlogKeywords.add(blogKeyword);
-        }
-        return i18nBlogKeywords;
-    }
-
     @RequestMapping(value = "/blog/singlePost/{blogPostId}/{blogPostI18nContentId}", method = RequestMethod.GET)
     public String singlePostView(ModelMap model, Locale locale,
                                  @PathVariable("blogPostId") Long blogPostId,
                                  @PathVariable("blogPostI18nContentId") Long blogPostI18nContentId) {
-        Language currentLang = getCurrentOrDefaultLanguage(locale);
         final BlogPost blogPost = blogPostsDAO.get(blogPostId);
         blogPost.setCmsAuthor(cmsAuthorsDAO.get(blogPost.getPostAuthorId()));
         model.addAttribute("blogPost", blogPost);
@@ -290,10 +214,10 @@ public class BlogController extends GenericController {
         }
         blogPostI18nContent.setBlogPostComments(blogPostComments);
         model.addAttribute(BLOG_POST_I_18_N_CONTENT, blogPostI18nContent);
-        model.addAttribute(POSTS_ARCHIVE_STATISTICS, blogPostsDAO.listArchiveStatistics(currentLang.getId()));
-        model.addAttribute(BLOG_KEYWORDS, i18nBlogKeywords(currentLang, blogKeywordsDAO.list()));
         model.addAttribute(SEARCH_TEXT, "");
         setPageMetadata(model, locale, " " + blogPostI18nContent.getPostTitle());
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/SingleBlogPost.js");
+        model.addAttribute("localeLanguage", locale.getLanguage());
         return "blog/SinglePostView";
     }
 

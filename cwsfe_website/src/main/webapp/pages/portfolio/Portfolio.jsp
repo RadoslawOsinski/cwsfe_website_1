@@ -10,7 +10,6 @@
     <div id="page-header-title">Portfolio - <spring:message code="LatestWork"/></div>
 </div>
 
-
 <input type="hidden" id="localeLanguage" value="${localeLanguage}">
 <input type="hidden" id="currentPage" value="${currentPage}" data-bind="value: currentPage"/>
 <input type="hidden" id="newsFolder" value="${newsFolder}"/>
