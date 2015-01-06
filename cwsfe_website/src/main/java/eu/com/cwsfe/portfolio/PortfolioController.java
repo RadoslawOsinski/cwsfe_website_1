@@ -20,17 +20,17 @@ import java.util.ResourceBundle;
 @Controller
 class PortfolioController extends GenericController {
 
-    private void setPageMetadata(ModelMap model, Locale locale, String portfolioTitle) {
-        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Portfolio") + " " + portfolioTitle);
-        model.addAttribute("keywords", setPageKeywords(locale, portfolioTitle));
+    private void setPageMetadata(ModelMap model, Locale locale, String title) {
+        model.addAttribute("headerPageTitle", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("Portfolio") + " " + title);
+        model.addAttribute("keywords", setPageKeywords(locale, title));
         model.addAttribute("additionalCssCode", setAdditionalCss());
     }
 
-    public List<Keyword> setPageKeywords(Locale locale, String portfolioTitle) {
+    public List<Keyword> setPageKeywords(Locale locale, String title) {
         List<Keyword> keywords = new ArrayList<>(5);
         keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEPortfolio")));
         keywords.add(new Keyword(ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("CWSFEProjects")));
-        keywords.add(new Keyword(portfolioTitle));
+        keywords.add(new Keyword(title));
         return keywords;
     }
 
