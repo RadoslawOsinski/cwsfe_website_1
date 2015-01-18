@@ -71,7 +71,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
         if (keywords != null) {
             var liTags = '';
             $.each(keywords, function (index, keyword) {
-                liTags += '<li><a href="' + '/blog/category/' + keyword.id + '">' + keyword.keywordName + '</a></li>';
+                liTags += '<li><a href="' + '/blog_category/' + keyword.id + '">' + keyword.keywordName + '</a></li>';
             });
             $('#keywordsList').append(liTags);
         }

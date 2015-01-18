@@ -133,7 +133,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
         if (blogViewModel.keywords != null) {
             var liTags = '';
             $.each(blogViewModel.keywords, function (index, keyword) {
-                liTags += '<li><a href="' + '/blog/category/' + keyword.id + '">' + keyword.keywordName + '</a></li>';
+                liTags += '<li><a href="' + '/blog_category/' + keyword.id + '">' + keyword.keywordName + '</a></li>';
             });
             $('#keywordsList').append(liTags);
         }
@@ -197,7 +197,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
             var authorId = authorTag.data('author');
             $.ajax({
                 type: 'GET',
-                async: true,
+                async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 url: '../CWSFE_CMS/rest/author/' + authorId,
@@ -221,7 +221,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
             var postKeywordsTag = $(this);
             $.ajax({
                 type: 'GET',
-                async: true,
+                async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 url: '../CWSFE_CMS/rest/postKeywords',
@@ -245,7 +245,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
             var commentsTag = $(this);
             $.ajax({
                 type: 'GET',
-                async: true,
+                async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 url: '../CWSFE_CMS/rest/comments',

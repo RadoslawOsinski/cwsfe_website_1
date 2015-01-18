@@ -37,7 +37,7 @@ public class BlogController extends GenericController {
         return BLOG_VIEW_PATH;
     }
 
-    @RequestMapping(value = "/blog/category/{categoryId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/blog_category/{categoryId}", method = RequestMethod.GET)
     public String browseWithCategory(ModelMap model, Locale locale,
                                      @RequestParam(value = "currentPage", required = false) Integer currentPage,
                                      @PathVariable("categoryId") Long categoryId) {
