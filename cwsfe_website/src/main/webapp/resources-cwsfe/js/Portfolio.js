@@ -6,7 +6,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         self.currentPage = ko.observable($('#currentPage').val());
         self.newsI18nPairs = getNewsI18nPairs(self.DEFAULT_NEWS_PER_PAGE, self.currentPage());
         self.totalPairs = getNewsI18nPairsTotal();
-        self.numberOfPages = (Math.floor(self.totalPairs / self.DEFAULT_NEWS_PER_PAGE) + (self.totalPairs % self.DEFAULT_NEWS_PER_PAGE > 0 ? 1 : 0))
+        self.numberOfPages = (Math.floor(self.totalPairs / self.DEFAULT_NEWS_PER_PAGE) + (self.totalPairs % self.DEFAULT_NEWS_PER_PAGE > 0 ? 1 : 0));
 
         self.isPreviewLinkVisible = ko.computed(function () {
             return parseInt(self.currentPage()) > 0;
@@ -254,4 +254,9 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         });
     }
 
+
+    /**
+     * trick for printing code examples inside of blog posts
+     */
+    //private static final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";
 });
