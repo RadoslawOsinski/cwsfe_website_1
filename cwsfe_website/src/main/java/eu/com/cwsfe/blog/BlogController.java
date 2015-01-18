@@ -76,6 +76,11 @@ public class BlogController extends GenericController {
     public String singlePostView(ModelMap model, Locale locale,
                                  @PathVariable("blogPostId") Long blogPostId,
                                  @PathVariable("blogPostI18nContentId") Long blogPostI18nContentId) {
+        setPageMetadata(model, locale, "");
+        model.addAttribute("additionalJavaScriptCode", "/resources-cwsfe/js/SingleBlogPost.js");
+        model.addAttribute("localeLanguage", locale.getLanguage());
+        model.addAttribute("blogPostId", blogPostId);
+        model.addAttribute("blogPostI18nContentId", blogPostI18nContentId);
         return "blog/SinglePostView";
     }
 

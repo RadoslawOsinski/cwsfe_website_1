@@ -228,7 +228,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
                 data: 'blogPostId=' + postKeywordsTag.data('categories') + '&languageCode=' + localeLanguage,
                 success: function (response) {
                     var postKeywords = response;
-                    var postKeywordsContent = '';
+                    var postKeywordsContent = '&nbsp;';
                     $.each(postKeywords, function (index, keyword) {
                         postKeywordsContent += ((index > 0) ? ', ' : '') + keyword.keywordName;
                     });
@@ -251,7 +251,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
                 url: '../CWSFE_CMS/rest/comments',
                 data: 'blogPostI18nContentId=' + commentsTag.data('comments'),
                 success: function (response) {
-                    commentsTag.html(response.count);
+                    commentsTag.html('&nbsp;' + response.count);
                 }
             });
         });
