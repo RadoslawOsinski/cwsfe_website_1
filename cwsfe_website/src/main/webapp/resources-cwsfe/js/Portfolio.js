@@ -149,7 +149,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         var images = getNewsImages(newsI18nPair.cmsNews.id);
         var thumbnailImageTag = '';
         if (images.thumbnailImage != null) {
-            thumbnailImageTag = '<img src="/newsImages/?imageId=' + images.thumbnailImage.id + '"' +
+            thumbnailImageTag = '<img src="../CWSFE_CMS/newsImages/?imageId=' + images.thumbnailImage.id + '"' +
             ' height="' + images.thumbnailImage.height + '"' +
             ' width="' + images.thumbnailImage.width + '"' +
             ' alt="' + images.thumbnailImage.title + ' image"/>';
@@ -157,7 +157,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         var previewOptionsTag = '';
         if (images.newsImages != null) {
             previewOptionsTag += '<div class="preview-options">';
-            previewOptionsTag += '<a href="/newsImages/?imageId=' + images.thumbnailImage.id + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
+            previewOptionsTag += '<a href="../CWSFE_CMS/newsImages/?imageId=' + images.thumbnailImage.id + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
             previewOptionsTag += '<div style="display: none;">';
             $.each(images.newsImages, function (index, largeImageInfo) {
                 previewOptionsTag += '<a href="newsImages/' + largeImageInfo.id + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
