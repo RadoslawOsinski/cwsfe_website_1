@@ -27,7 +27,7 @@
 
     <filter>
         <filter-name>gzipFilter</filter-name>
-        <filter-class>eu.com.cwsfe.cms.compression.GZipServletFilter</filter-class>
+        <filter-class>eu.com.cwsfe.compression.GZipServletFilter</filter-class>
     </filter>
 
     <filter>
@@ -118,26 +118,6 @@
         <!--<filter-name>SimplePageCachingFilter</filter-name>-->
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
-
-    <servlet>
-        <servlet-name>blogPostImageServlet</servlet-name>
-        <servlet-class>eu.com.cwsfe.cms.images.BlogPostImageServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>newsImageServlet</servlet-name>
-        <servlet-class>eu.com.cwsfe.cms.images.NewsImageServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>blogPostImageServlet</servlet-name>
-        <url-pattern>/blogPostImages/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>newsImageServlet</servlet-name>
-        <url-pattern>/newsImages/*</url-pattern>
-    </servlet-mapping>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
