@@ -32,7 +32,7 @@ require(['jquery', 'shared_scripts', 'tipsy', 'cycle_all', 'jqueryAccordion'], f
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
-            url: '../CWSFE_CMS/rest/newsI18nContentByNews',
+            url: '/../../CWSFE_CMS/rest/newsI18nContentByNews',
             data: 'languageCode=' + localeLanguage + '&newsType=Services&folderName=Services&newsCode=ServiceStages',
             success: function (response) {
                 $('#newsTitle').html(response.newsTitle);

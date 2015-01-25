@@ -74,10 +74,13 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '../CWSFE_CMS/rest/blogI18nPairs',
+            url: '/../../CWSFE_CMS/rest/blogI18nPairs',
             data: 'limit=' + blogPerPage + '&offset=' + (currentPage * blogPerPage) + '&categoryId=' + categoryId + '&languageCode=' + localeLanguage,
             success: function (response) {
                 blogI18nPairs = response;
+                $.each(blogI18nPairs, function (index, blogI18nPair) {
+                    blogI18nPair.blogPostI18nContent.postShortcut = blogI18nPair.blogPostI18nContent.postShortcut.replace('#!CURRENT_BLOG_POST_ID!#', blogI18nPair.blogPost.id);
+                });
             },
             error: function (xhr) {
             }
@@ -94,7 +97,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '../CWSFE_CMS/rest/blogI18nPairsTotal',
+            url: '/../../CWSFE_CMS/rest/blogI18nPairsTotal',
             data: 'categoryId=' + categoryId + '&languageCode=' + localeLanguage,
             success: function (response) {
                 blogI18nPairsTotal = parseInt(response.total);
@@ -118,7 +121,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '../CWSFE_CMS/rest/blogKeywordsList',
+            url: '/../../CWSFE_CMS/rest/blogKeywordsList',
             data: 'languageCode=' + localeLanguage,
             success: function (response) {
                 keywords = response;
@@ -198,7 +201,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
                 async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
-                url: '../CWSFE_CMS/rest/author/' + authorId,
+                url: '/../../CWSFE_CMS/rest/author/' + authorId,
                 success: function (response) {
                     var author = response;
                     if (author.googlePlusAuthorLink != null && author.googlePlusAuthorLink !== '') {
@@ -222,7 +225,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
                 async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
-                url: '../CWSFE_CMS/rest/postKeywords',
+                url: '/../../CWSFE_CMS/rest/postKeywords',
                 data: 'blogPostId=' + postKeywordsTag.data('categories') + '&languageCode=' + localeLanguage,
                 success: function (response) {
                     var postKeywords = response;
@@ -246,7 +249,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
                 async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
-                url: '../CWSFE_CMS/rest/comments',
+                url: '/../../CWSFE_CMS/rest/comments',
                 data: 'blogPostI18nContentId=' + commentsTag.data('comments'),
                 success: function (response) {
                     commentsTag.html('&nbsp;' + response.count);

@@ -35,7 +35,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '../../../CWSFE_CMS/rest/singleNewsI18nContent',
+            url: '/../../CWSFE_CMS/rest/singleNewsI18nContent',
             data: 'id=' + cmsNewsI18nContentsId,
             success: function (response) {
                 newsI18n = response;
