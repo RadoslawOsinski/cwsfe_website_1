@@ -58,7 +58,6 @@
                 tipsy: '/resources-cwsfe/js/tipsy/tipsy',
                 cycle_all: '/resources-cwsfe/js/jquery/cycle.all.min',
                 prettyPhoto: '/resources-cwsfe/js/prettyPhoto/prettyPhoto',
-                ajaxCodeFetcher: '/resources-cwsfe/js/AjaxCodeFetcher',
                 knockout: '/resources-cwsfe/js/knockout/knockout-3.2.0'
             },
             shim: {

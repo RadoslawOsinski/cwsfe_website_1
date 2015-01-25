@@ -9,7 +9,6 @@
         <spring:url value="${pageContext.request.contextPath}/services/serviceStages" var="serviceStagesUrl" htmlEscape="true"/>
         <spring:url value="${pageContext.request.contextPath}/products" var="productsUrl" htmlEscape="true"/>
         <spring:url value="${pageContext.request.contextPath}/portfolio" var="portfolioUrl" htmlEscape="true"/>
-        <spring:url value="${pageContext.request.contextPath}/blog" var="blogUrl" htmlEscape="true"/>
         <spring:url value="${pageContext.request.contextPath}/contact" var="contactUrl" htmlEscape="true"/>
         <li <c2:if test="${fn:endsWith(pageContext.request.requestURL, 'Main.jsp')}">class="current"</c2:if>>
             <a href="${mainUrl}"><spring:message code="Home"/></a>
@@ -31,9 +30,6 @@
         </li>
         <li <c2:if test="${fn:endsWith(pageContext.request.requestURL, 'Portfolio.jsp')}">class="current"</c2:if>>
             <a href="${portfolioUrl}"><spring:message code="Portfolio"/></a>
-        </li>
-        <li <c2:if test="${fn:endsWith(pageContext.request.requestURL, 'Blog.jsp')}">class="current"</c2:if>>
-            <a href="${blogUrl}"><spring:message code="Blog"/></a>
         </li>
         <li <c2:if test="${fn:endsWith(pageContext.request.requestURL, 'Contact.jsp')}">class="current"</c2:if>>
             <a href="${contactUrl}"><spring:message code="Contact"/></a>

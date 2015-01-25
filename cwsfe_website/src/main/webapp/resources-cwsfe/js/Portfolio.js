@@ -254,9 +254,4 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         });
     }
 
-
-    /**
-     * trick for printing code examples inside of blog posts
-     */
-    //private static final String CURRENT_BLOG_POST_LABEL = "#!CURRENT_BLOG_POST_ID!#";
 });

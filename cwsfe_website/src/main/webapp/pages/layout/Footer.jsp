@@ -28,12 +28,10 @@
             <ul class="footer-nav">
                 <spring:url value="${pageContext.request.contextPath}/services" var="servicesUrl" htmlEscape="true"/>
                 <spring:url value="${pageContext.request.contextPath}/portfolio" var="portfolioUrl" htmlEscape="true"/>
-                <spring:url value="${pageContext.request.contextPath}/blog" var="blogUrl" htmlEscape="true"/>
                 <spring:url value="${pageContext.request.contextPath}/contact" var="contactUrl" htmlEscape="true"/>
 
                 <li class="first"><a href="${servicesUrl}"><spring:message code="Services"/></a></li>
                 <li><a href="${portfolioUrl}"><spring:message code="Portfolio"/></a></li>
-                <li><a href="${blogUrl}"><spring:message code="Blog"/></a></li>
                 <li class="last"><a href="${contactUrl}"><spring:message code="Contact"/></a></li>
             </ul>
         </div>
