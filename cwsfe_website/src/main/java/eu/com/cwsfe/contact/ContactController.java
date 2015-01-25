@@ -2,8 +2,8 @@ package eu.com.cwsfe.contact;
 
 import eu.com.cwsfe.GenericController;
 import eu.com.cwsfe.model.Keyword;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 @Controller
 public class ContactController extends GenericController {
 
-    private static final Logger LOGGER = LogManager.getLogger(ContactController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
     private MailSender mailSender;

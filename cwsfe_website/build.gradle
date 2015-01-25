@@ -1,7 +1,6 @@
 apply plugin: 'maven'
 apply plugin: 'war'
 apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'base'
 apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
@@ -9,19 +8,6 @@ apply plugin: 'jacoco'
 version = '2.0'
 group = "eu.com.cwsfe"
 compileJava.options.encoding = 'UTF-8'
-
-idea {
-    module {
-        sourceDirs += file('src/main/java')
-        sourceDirs += file('src/main/resources')
-        testSourceDirs += file('src/test/java')
-        testSourceDirs += file('src/test/resources')
-        excludeDirs += file('target')
-        excludeDirs += file('build')
-        excludeDirs += file('out')
-        excludeDirs += file('.gradle')
-    }
-}
 
 repositories {
     mavenLocal()
@@ -58,9 +44,7 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-jms', version: '4.0.6.RELEASE'
     compile group: 'javax.ejb', name: 'ejb-api', version: '3.0'
     compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.0.2'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.0.2'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-web', version: '2.0.2'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.2'
     compile group: 'javax.servlet.jsp.jstl', name: 'jstl-api', version: '1.2'
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
     compile group: 'javax.transaction', name: 'javax.transaction-api', version: '1.2'
