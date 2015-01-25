@@ -60,7 +60,7 @@ public class ContactController extends GenericController {
         ValidationUtils.rejectIfEmpty(result, "message", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MessageIsRequired"));
         if (!EmailValidator.isValidEmailAddress(contactMail.getEmail())) {
             result.rejectValue("email", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("EmailIsInvalid"));
-            LOGGER.warn("Email " + contactMail.getEmail() + " is invalid");
+            LOGGER.warn("Email {} is invalid", contactMail.getEmail());
         }
         if (!result.hasErrors()) {
             SimpleMailMessage message = new SimpleMailMessage();
