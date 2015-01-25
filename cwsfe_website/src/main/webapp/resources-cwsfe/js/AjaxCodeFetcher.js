@@ -9,7 +9,7 @@ define(['ajaxCodeFetcher', 'jquery'], function () {
             var codeId = codeContentForReplace.substring(indexOfComma + 1);
             var codeToReplace = '...';
             $.ajax({
-                url: '/blogPostCode/' + postId + '/' + codeId,
+                url: '../CWSFE_CMS/rest/blogPostCode/' + postId + '/' + codeId,
                 dataType: 'json',
                 success: function (data) {
                     codeToReplace = data.code.trim();

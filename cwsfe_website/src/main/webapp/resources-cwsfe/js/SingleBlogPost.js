@@ -11,6 +11,12 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
 
         showBlogKeywords();
         showPost();
+
+        $('#addCommentButton').click(function () {
+            addComment();
+        });
+
+        ajaxCodeFetcher.fetchCode();
     });
 
     function getBlogI18nPair() {
@@ -137,6 +143,26 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
                 var commentsCount = response.count;
                 $('#commentsCount1').html(commentsCount);
                 $('#commentsCount2').html(commentsCount);
+            }
+        });
+    }
+
+    function addComment() {
+        $.ajax({
+            type: 'POST',
+            async: true,
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            url: '../../../CWSFE_CMS/rest/comments',
+            data: $('#addCommentForm').serialize(),
+            success: function (response) {
+                $('#addCommentInfoMessage').show();
+                $('#addCommentErrorMessage').hide();
+                $('#addCommentForm').reset();
+            },
+            error: function (xhr) {
+                $('#addCommentInfoMessage').hide();
+                $('#addCommentErrorMessage').show();
             }
         });
     }

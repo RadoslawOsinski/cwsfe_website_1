@@ -49,6 +49,7 @@
             type="application/javascript" charset="utf-8"></script>
     <script type="application/javascript" charset="utf-8">
         require.config({
+//            baseUrl: '/',
             paths: {
                 shared_scripts: '/resources-cwsfe/js/shared_scripts',
                 jquery: '/resources-cwsfe/js/jquery/jquery-2.1.1.min',

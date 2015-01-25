@@ -1,10 +1,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/pages/layout/Header.jsp" %>
 
 <div id="page-header">
-    <img src="${pageContext.request.contextPath}/resources-cwsfe/img/services/photodune-1402059-fiber-optics-s_880x200.JPG" width="880" height="200" alt="services image"/>
+    <img src="${pageContext.request.contextPath}/resources-cwsfe/img/services/photodune-1402059-fiber-optics-s_880x200.JPG"
+         width="880" height="200" alt="services image"/>
+
     <div id="page-header-title"><spring:message code="Blog"/></div>
 </div>
 
@@ -75,41 +77,42 @@
         <%--</c:forEach>--%>
         <%--<br>--%>
 
-        <%--<h5><spring:message code="LeaveAComment"/>&nbsp;(<spring:message code="CommentsAreModerated"/>):</h5>--%>
-        <%--<br>--%>
-        <%--<c:if test="${addCommentInfoMessage != null}">--%>
-        <%--<div class="infomsg" id="addCommentInfoMessage">${addCommentInfoMessage}</div>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${addCommentErrorMessage != null}">--%>
-        <%--<div class="errormsg" id="addCommentErrorMessage">${addCommentErrorMessage}</div>--%>
-        <%--</c:if>--%>
-        <%--<spring:url value="/blog/addBlogPostComment" var="addCommentUrl" htmlEscape="true"/>--%>
-        <%--<form id="comment-form" class="fixed" method="post" action="${addCommentUrl}">--%>
-        <%--<input type="hidden" name="blogPostId" value="${blogPost.id}"/>--%>
-        <%--<input type="hidden" name="blogPostI18nContentId" value="${blogPostI18nContent.id}"/>--%>
-            <%--<fieldset>--%>
-        <%--<p>--%>
-        <%--<label for="userName"><spring:message code="YourName"/>: <span class="required">*</span></label>--%>
-        <%--<br>--%>
-        <%--<input class="text" type="text" id="userName" name="userName" value="">--%>
-        <%--</p>--%>
-        <%--<p>--%>
-        <%--<label for="email"><spring:message code="YourEmailAdress"/>: <span class="required">*</span></label>--%>
-        <%--<br>--%>
-        <%--<input type="email" class="text" id="email" name="email" value="">--%>
-        <%--</p>--%>
-        <%--<p>--%>
-        <%--<label for="comment"><spring:message code="Message"/>: </label>--%>
-        <%--<br>--%>
-        <%--<textarea id="comment" name="comment" rows="3" cols="25"></textarea>--%>
-        <%--</p>--%>
-        <%--<p class="last">--%>
-        <%--<button type="submit" name="requestHandler" value="addComment">--%>
-        <%--<spring:message code="Send"/>!--%>
-        <%--</button>--%>
-        <%--</p>--%>
-            <%--</fieldset>--%>
-        <%--</form>--%>
+        <h5><spring:message code="LeaveAComment"/>&nbsp;(<spring:message code="CommentsAreModerated"/>):</h5>
+        <br>
+
+        <div class="infomsg" id="addCommentInfoMessage" style="display: none"><spring:message
+                code="AddedSuccessfullyWaitForModeratorPublication"/></div>
+        <div class="errormsg" id="addCommentErrorMessage" style="display: none"><spring:message
+                code="ValidationError"/></div>
+        <spring:url value="/CWSFE_CMS/rest/comments" var="addCommentUrl" htmlEscape="true"/>
+        <form id="addCommentForm" class="fixed" method="post" action="${addCommentUrl}">
+            <input type="hidden" name="blogPostI18nContentId" value="${blogPostI18nContentId}"/>
+            <fieldset>
+                <p>
+                    <label for="userName"><spring:message code="YourName"/>: <span class="required">*</span></label>
+                    <br>
+                    <input class="text" type="text" id="userName" name="userName" value="">
+                </p>
+
+                <p>
+                    <label for="email"><spring:message code="YourEmailAdress"/>: <span class="required">*</span></label>
+                    <br>
+                    <input type="email" class="text" id="email" name="email" value="">
+                </p>
+
+                <p>
+                    <label for="comment"><spring:message code="Message"/>: </label>
+                    <br>
+                    <textarea id="comment" name="comment" rows="3" cols="25"></textarea>
+                </p>
+
+                <p class="last">
+                    <button type="button" id="addCommentButton">
+                        <spring:message code="Send"/>!
+                    </button>
+                </p>
+            </fieldset>
+        </form>
 
     </div>
 

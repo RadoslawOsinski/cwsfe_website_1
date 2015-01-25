@@ -20,10 +20,6 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
 
     var blogViewModel = new BlogViewModel();
 
-    $(function () {
-        //ajaxCodeFetcher.fetchCode();
-    });
-
     $(document).ready(function () {
         ko.applyBindings(blogViewModel);
 
@@ -41,6 +37,8 @@ require(['jquery', 'knockout', 'shared_scripts', 'ajaxCodeFetcher'], function ($
         showPostAuthors();
         showPostKeywords();
         showPostComments();
+
+        ajaxCodeFetcher.fetchCode();
     });
 
     function goToPreviousLink(currentPage) {
