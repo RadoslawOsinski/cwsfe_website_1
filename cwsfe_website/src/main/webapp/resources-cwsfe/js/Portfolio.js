@@ -149,7 +149,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         var images = getNewsImages(newsI18nPair.cmsNews.id);
         var thumbnailImageTag = '';
         if (images.thumbnailImage != null) {
-            thumbnailImageTag = '<img src="../CWSFE_CMS/newsImages/?imageId=' + images.thumbnailImage.id + '"' +
+            thumbnailImageTag = '<img src="../CWSFE_CMS/newsImages/' + o.aData.fileName + '"' +
             ' height="' + images.thumbnailImage.height + '"' +
             ' width="' + images.thumbnailImage.width + '"' +
             ' alt="' + images.thumbnailImage.title + ' image"/>';
