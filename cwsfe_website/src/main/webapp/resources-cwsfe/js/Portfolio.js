@@ -106,7 +106,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '/../../CWSFE_CMS/rest/newsI18nPairs',
+            url: CMS_ADDRESS + '/rest/newsI18nPairs',
             data: 'newsPerPage=' + newsPerPage + '&offset=' + (currentPage * newsPerPage) + '&folderName=' + folderName + '&languageCode=' + localeLanguage + '&newsType=Projects',
             success: function (response) {
                 newsI18nPairs = response;
@@ -129,7 +129,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '/../../CWSFE_CMS/rest/newsI18nPairsTotal',
+            url: CMS_ADDRESS + '/rest/newsI18nPairsTotal',
             data: 'folderName=' + folderName + '&languageCode=' + localeLanguage + '&newsType=Projects',
             success: function (response) {
                 newsI18nPairsTotal = parseInt(response.total);
@@ -176,7 +176,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
             async: false,
             contentType: 'application/json;charset=utf-8',
             dataType: 'json',
-            url: '/../../CWSFE_CMS/rest/newsImages',
+            url: CMS_ADDRESS + '/rest/newsImages',
             data: 'newsId=' + newsId,
             success: function (response) {
                 images = response;
@@ -242,7 +242,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
                 async: false,
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'text',
-                url: '/../../CWSFE_CMS/rest/getTranslation',
+                url: CMS_ADDRESS + '/rest/getTranslation',
                 data: 'languageCode=' + localeLanguage + '&category=Folders&key=' + value,
                 success: function (response) {
                     folderNameI18n = response;

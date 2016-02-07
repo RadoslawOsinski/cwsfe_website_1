@@ -18,7 +18,7 @@
             <p class="last">
                 <%--<a href="http://cwsfe.pl">CWSFE</a>--%>
                 <%--<br/>--%>
-                &copy; 2014. <spring:message code="AllRightsAreReserved"/>.<br/>
+                &copy; 2016. <spring:message code="AllRightsAreReserved"/>.<br/>
                 <%--<a href="#"><spring:message code="TermsOfService")</a> | <a href="#"><spring:message code="Privacy Policy")</a>--%>
             </p>
         </div>

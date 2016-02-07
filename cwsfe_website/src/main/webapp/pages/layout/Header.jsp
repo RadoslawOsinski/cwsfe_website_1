@@ -48,6 +48,7 @@
             src="${pageContext.request.contextPath}/resources-cwsfe/js/requirejs/require.js"
             type="application/javascript" charset="utf-8"></script>
     <script type="application/javascript" charset="utf-8">
+        CMS_ADDRESS = '${cwsfeConfiguration.getRequiredProperty("CMS_ADDRESS")}';
         require.config({
             baseUrl: '/resources-cwsfe/js/',
             paths: {
