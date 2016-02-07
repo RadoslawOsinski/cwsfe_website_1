@@ -5,8 +5,9 @@ import eu.com.cwsfe.model.Keyword;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.core.env.Environment;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,12 +15,11 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * @author Radoslaw Osinski
@@ -30,7 +30,7 @@ public class ContactController extends GenericController {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContactController.class);
 
     @Autowired
-    private MailSender mailSender;
+    Environment environment;
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String showPage(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
@@ -63,12 +63,7 @@ public class ContactController extends GenericController {
             LOGGER.warn("Email {} is invalid", contactMail.getEmail());
         }
         if (!result.hasErrors()) {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo("Radoslaw.Osinski@cwsfe.pl");
-            message.setSubject("[CWSFE] - contact mail from " + contactMail.getName());
-            message.setText(contactMail.getMessage());
-            message.setReplyTo(contactMail.getEmail());
-            mailSender.send(message);
+            sendMailViaCms(contactMail.getEmail(), contactMail.getMessage());
             model.addAttribute("mailSended", ResourceBundle.getBundle(CWSFE_RESOURCE_BUNDLE, locale).getString("MessageHasBeenSent"));
         } else {
             StringBuilder errors = new StringBuilder();
@@ -78,6 +73,22 @@ public class ContactController extends GenericController {
             model.addAttribute("mailSendOperationErrors", errors);
         }
         return showPage(model, locale, httpServletRequest);
+    }
+
+    private void sendMailViaCms(String replayToEmail, String emailText) {
+        RestTemplate restTemplate = new RestTemplate();
+        List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
+        messageConverters.add(new MappingJackson2HttpMessageConverter());
+        restTemplate.setMessageConverters(messageConverters);
+        String cmsAddress = environment.getRequiredProperty("CMS_ADDRESS");
+        Map<String, String> map = new HashMap<>();
+        map.put("replayToEmail", replayToEmail);
+        map.put("emailText", emailText);
+        try {
+            restTemplate.postForObject(cmsAddress + "/rest/sendEmail", map, String.class);
+        } catch (RestClientException e) {
+            LOGGER.error("Problem with sending email via CMS. Replay to email: " + replayToEmail + ". Email text: " + emailText, e);
+        }
     }
 
     List<Keyword> setPageKeywords(Locale locale) {
