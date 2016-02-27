@@ -6,7 +6,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         self.currentPage = ko.observable($('#currentPage').val());
         self.newsI18nPairs = getNewsI18nPairs(self.DEFAULT_NEWS_PER_PAGE, self.currentPage());
         self.totalPairs = getNewsI18nPairsTotal();
-        self.numberOfPages = (Math.floor(self.totalPairs / self.DEFAULT_NEWS_PER_PAGE) + (self.totalPairs % self.DEFAULT_NEWS_PER_PAGE > 0 ? 1 : 0))
+        self.numberOfPages = (Math.floor(self.totalPairs / self.DEFAULT_NEWS_PER_PAGE) + (self.totalPairs % self.DEFAULT_NEWS_PER_PAGE > 0 ? 1 : 0));
 
         self.isPreviewLinkVisible = ko.computed(function () {
             return parseInt(self.currentPage()) > 0;
@@ -149,7 +149,7 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         var images = getNewsImages(newsI18nPair.cmsNews.id);
         var thumbnailImageTag = '';
         if (images.thumbnailImage != null) {
-            thumbnailImageTag = '<img src="/CWSFE_CMS/newsImages/' + images.thumbnailImage.fileName + '"' +
+            thumbnailImageTag = '<img src="' + images.thumbnailImage.url + '"' +
             ' height="' + images.thumbnailImage.height + '"' +
             ' width="' + images.thumbnailImage.width + '"' +
             ' alt="' + images.thumbnailImage.title + ' image"/>';
@@ -157,10 +157,10 @@ require(['jquery', 'knockout', 'shared_scripts', 'tipsy', 'cycle_all', 'prettyPh
         var previewOptionsTag = '';
         if (images.newsImages != null) {
             previewOptionsTag += '<div class="preview-options">';
-            previewOptionsTag += '<a href="/newsImages/' + images.thumbnailImage.fileName + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
+            previewOptionsTag += '<a href="' + images.thumbnailImage.url + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
             previewOptionsTag += '<div style="display: none;">';
             $.each(images.newsImages, function (index, largeImageInfo) {
-                previewOptionsTag += '<a href="/CWSFE_CMS/newsImages/' + largeImageInfo.fileName + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
+                previewOptionsTag += '<a href="' + largeImageInfo.url + '" class="lightbox tip2" title="" data-gal="prettyPhoto[gallery_' + newsI18nPair.cmsNews.id + ']"><spring:message code="ViewLargeVersion"/></a>';
             });
             previewOptionsTag += '</div>';
             previewOptionsTag += '<a href="' + getSingleNewsUrl(newsI18nPair.cmsNews.id, newsI18nPair.cmsNewsI18nContent.id) + '" class="view">&#8212; ' + newsI18nPair.cmsNewsI18nContent.newsTitle + '</a>';
