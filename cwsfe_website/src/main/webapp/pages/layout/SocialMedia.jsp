@@ -13,24 +13,6 @@
             </a>
         </li>
         <li>
-            <c3:if test="${pageContext.response.locale != null && pageContext.response.locale == 'pl'}">
-                <spring:url value="/rssFeed" htmlEscape="true" var="rssFeedPL">
-                    <spring:param name="language" value="pl"/>
-                </spring:url>
-                <a type="application/rss+xml" href="${rssFeedPL}">
-                    <img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/social/rss.png" width="16" height="16" alt="rss icon"/>
-                </a>
-            </c3:if>
-            <c3:if test="${pageContext.response.locale != null && pageContext.response.locale == 'en'}">
-                <spring:url value="/rssFeed" htmlEscape="true" var="rssFeedEN">
-                    <spring:param name="language" value="en"/>
-                </spring:url>
-                <a type="application/rss+xml" href="${rssFeedEN}">
-                    <img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/social/rss.png" width="16" height="16" alt="rss icon"/>
-                </a>
-            </c3:if>
-        </li>
-        <li>
             <a href="https://twitter.com/cwsfe" target="_blank">
                 <img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/social/twitter.png" width="16" height="16" alt="CompanyWebsiteOnTwitter"/>
             </a>
@@ -47,8 +29,7 @@
             <%--</a>--%>
         <%--</li>--%>
         <li>
-            <spring:url value="/CWSFE_CMS" var="cmsLoginUrl" htmlEscape="true"/>
-            <a href="${cmsLoginUrl}" rel="nofollow">
+            <a href="${cwsfeConfiguration.getRequiredProperty("CMS_ADDRESS")}" rel="nofollow">
                 <img src="${pageContext.request.contextPath}/resources-cwsfe/img/layout/images/bg-author.png" width="16" height="16" alt="administration icon"/>
             </a>
         </li>
