@@ -86,10 +86,11 @@ public class ContactController extends GenericController {
         String cmsAddress = environment.getRequiredProperty("CMS_ADDRESS");
         Map<String, String> map = new HashMap<>();
         map.put("requestJWT", jwtDecorator.getJws(replayToEmail, emailText));
+        String cmsSendEmailUrl = cmsAddress + "/rest/sendEmail";
         try {
-            restTemplate.postForObject(cmsAddress + "/rest/sendEmail", map, String.class);
+            restTemplate.postForObject(cmsSendEmailUrl, map, String.class);
         } catch (RestClientException e) {
-            LOGGER.error("Problem with sending email via CMS. Replay to email: " + replayToEmail + ". Email text: " + emailText, e);
+            LOGGER.error("Problem with sending email via CMS: {}. Replay to email: {}. Email text: {}", cmsSendEmailUrl, replayToEmail, emailText, e);
         }
     }
 
