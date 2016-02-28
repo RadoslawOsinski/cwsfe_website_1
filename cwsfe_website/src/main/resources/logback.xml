@@ -3,8 +3,7 @@
 
     <jmxConfigurator/>
 
-    <property name="log-path" value="/var/log/wildfly/logs"/>
-    <!--<property name="log-path" value="./"/>-->
+    <property name="log-path" value="${logbackLogsDir}"/>
 
     <appender name="CWSFE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log-path}/cwsfe.log</file>
