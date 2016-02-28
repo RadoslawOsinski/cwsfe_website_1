@@ -32,6 +32,9 @@ public class ContactController extends GenericController {
     @Autowired
     Environment environment;
 
+    @Autowired
+    JWTDecorator jwtDecorator;
+
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String showPage(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {
         setPageMetadata(model, locale, httpServletRequest);
@@ -82,8 +85,7 @@ public class ContactController extends GenericController {
         restTemplate.setMessageConverters(messageConverters);
         String cmsAddress = environment.getRequiredProperty("CMS_ADDRESS");
         Map<String, String> map = new HashMap<>();
-        map.put("replayToEmail", replayToEmail);
-        map.put("emailText", emailText);
+        map.put("requestJWT", jwtDecorator.getJws(replayToEmail, emailText));
         try {
             restTemplate.postForObject(cmsAddress + "/rest/sendEmail", map, String.class);
         } catch (RestClientException e) {

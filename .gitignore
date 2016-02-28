@@ -1,5 +1,6 @@
 #don't commit
 sensitive_data.properties
+**/*.jks
 
 ### Java ###
 *.class
