@@ -85,8 +85,7 @@ public class ContactController extends GenericController {
         restTemplate.setMessageConverters(messageConverters);
         String cmsAddress = environment.getRequiredProperty("CMS_ADDRESS");
         Map<String, String> map = new HashMap<>();
-        map.put("requestJWT", jwtDecorator.getJws(replayToEmail, emailText));
-        String cmsSendEmailUrl = cmsAddress + "/rest/sendEmail";
+        String cmsSendEmailUrl = cmsAddress + "/rest/sendEmail?requestJWT=" + jwtDecorator.getJws(replayToEmail, emailText);
         try {
             restTemplate.postForObject(cmsSendEmailUrl, map, String.class);
         } catch (RestClientException e) {
