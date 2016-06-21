@@ -29,11 +29,15 @@ public class ContactController extends GenericController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ContactController.class);
 
-    @Autowired
-    Environment environment;
+    final Environment environment;
+
+    final JWTDecorator jwtDecorator;
 
     @Autowired
-    JWTDecorator jwtDecorator;
+    public ContactController(JWTDecorator jwtDecorator, Environment environment) {
+        this.jwtDecorator = jwtDecorator;
+        this.environment = environment;
+    }
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String showPage(ModelMap model, Locale locale, HttpServletRequest httpServletRequest) {

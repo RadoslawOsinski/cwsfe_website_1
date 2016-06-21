@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "CWSFE",
+  "short_name": "CWSFE",
+  "version": "3.0",
+
+  "default_locale": "en",
+  "description": "CWSFE - Complete Working Solution For Everyone",
+  "icons": [{
+    "src": "/resources-cwsfe/img/layout/images/CWSFE_logo_64x64.png",
+    "sizes": "64x64"
+  }, {
+    "src": "/resources-cwsfe/img/layout/images/CWSFE_logo_150x150.png",
+    "sizes": "150x150"
+  }]
+
+}

@@ -31,6 +31,7 @@
     <%--}, {--%>
     <%--<link rel="alternate" type="application/rss+xml" href="$page.url("cwsfe.rss.CWSFERSS_EN")" title="CWSFE RSS">--%>
     <%--})--%>
+    <link rel="manifest" href="${pageContext.request.contextPath}/resources-cwsfe/manifest.json"/>
     <link href="${pageContext.request.contextPath}/resources-cwsfe/img/layout/favicon.png" rel="shortcut icon" type="image/x-icon"/>
 
     <link href="${pageContext.request.contextPath}/resources-cwsfe/img/layout/css/style-min.css" rel="stylesheet" type="text/css" media="all"/>
