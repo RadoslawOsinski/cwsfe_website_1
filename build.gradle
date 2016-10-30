@@ -1,0 +1,17 @@
+//in root project configuration
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+    }
+}
+
+subprojects {
+    apply plugin: 'com.github.ben-manes.versions'
+}
